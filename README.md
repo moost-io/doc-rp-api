@@ -1,1 +1,1 @@
-#MOOST Recommender Platform API Documentation
+# MOOST Recommender Platform API Documentation
