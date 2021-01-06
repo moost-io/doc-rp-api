@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  description: |
+    This is the API Docuementation of the Fulfillment Microservice for the Recommender Platform.
+    If defines how fulfillment preferences have to be structured and how they can be inserted into the platform.
+    In this documentation you will aso find the Schema of a Recommendation which will be delivered to your Cloud.
+  version: "1.0.0"
+  title: MOOST Recommender Platform - Fulfillment
+  termsOfService: 'https://www.moost.io/terms/'
+  contact:
+    email: info@moost.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+servers:
+  - url: 'https://api.dev.moost.io/'
+
+security:
+  - ApiKeyAuth: [ ]
+
+paths:
+  /fulfillment/{customerId}/preferences/v1:
+    post:
+      tags:
+        - Fulfillment
+      summary: Push new preferences for fulfillment for a single customer
+      operationId: addPreferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FulfillmentPreferences'
+      responses:
+        '201':
+          description: Created - FulfillmentPreferences received
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  responses:
+    Unauthorized:
+      description: Unauthorized - Authorization information is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTP401Unauthorized'
+    InternalServerError:
+      description: Internal Server Error - something happened
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTP500Error'
+    BadRequest:
+      description: Bad Request - The Request was malformed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTP400BadRequest'
+
+  schemas:
+    FulfillmentPreferences:
+      type: object
+      description: 'An object representing the fulfillment preferences for a certain customer'
+      properties:
+        customerId:
+          type: integer
+          format: int64
+          description: 'ID of the customer for which we will set the preferences'
+          example: 1
+        type:
+          type: string
+          enum:
+            - 'REST'
+          description: 'Defines what kind of fulfillment type the customer requests'
+        token:
+          type: string
+          example: 'xw4tHQPORJddQbelJfka4uhZqN7rKZoE'
+      required:
+        - customerId
+        - type
+        - token
+
+    HTTP400BadRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '400'
+          description: 'HTTP Error Code that occurred'
+        message:
+          type: string
+          example: 'Bad Request - the request was malformed.'
+          description: 'HTTP Error Message in a human readable way'
+      required:
+        - code
+        - message
+    HTTP401Unauthorized:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '401'
+          description: 'HTTP Error Code that occurred'
+        message:
+          type: string
+          example: 'Unauthorized - please provide a valid API token.'
+          description: 'HTTP Error Message in a human readable way'
+      required:
+        - code
+        - message
+    HTTP500Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '500'
+          description: 'HTTP Error Code that occurred'
+        message:
+          type: string
+          example: 'Internal Server Error'
+          description: 'HTTP Error Message in a human readable way'
+      required:
+        - code
+        - message

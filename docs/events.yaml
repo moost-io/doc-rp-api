@@ -1,0 +1,299 @@
+openapi: 3.0.0
+info:
+  description: |
+    This is the API Docuementation of the Events Microservice for the Recommender Platform.
+    It defines how an event has to be structured and which values are valid that are sent to the Recommender
+    Platform,
+  version: "1.0.0"
+  title: MOOST Recommender Platform - Events
+  termsOfService: 'https://www.moost.io/terms/'
+  contact:
+    email: info@moost.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+servers:
+  - url: 'https://api.dev.moost.io/'
+
+security:
+  - ApiKeyAuth: [ ]
+
+paths:
+  /events/v1:
+    post:
+      tags:
+        - Events
+      summary: Push a new Event
+      operationId: addEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '201':
+          description: Created - Event received
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  responses:
+    Unauthorized:
+      description: Unauthorized - Authorization information is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTP401Unauthorized'
+    InternalServerError:
+      description: Internal Server Error - something happened
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTP500Error'
+    BadRequest:
+      description: Bad Request - The Request was malformed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTP400BadRequest'
+
+  schemas:
+    Event:
+      type: object
+      description: 'An event that is sent to the recommender platform'
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+          description: 'Timestamp when the event is triggered'
+          example: 1589636439
+        customerId:
+          type: string
+          description: 'Unique identifier which is handed to each new customer'
+          example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
+        type:
+          type: string
+          enum:
+            - 'DEVICE_INTERACTED'
+            - 'DEVICE_EVENT_EMITTED'
+            - 'DEVICE_SETTING_CHANGED'
+            - 'USER_EVENT_EMITTED'
+          example: 'DEVICE_EVENT_EMITTED'
+          description: 'Defines what kind of type that occurred'
+        user:
+          $ref: '#/components/schemas/User'
+        device:
+          $ref: '#/components/schemas/Device'
+        state:
+          $ref: '#/components/schemas/State'
+        raw:
+          type: object
+          description: 'The raw event that happened in the customers system'
+      required:
+        - timestamp
+        - type
+        - device
+        - state
+    State:
+      type: object
+      description: ''
+      properties:
+        type:
+          type: string
+          enum:
+            - 'BRIGHTNESS'
+            - 'SIGNAL_STRENGTH'
+            - 'LOW_BATTERY'
+            - 'BATTERY_LEVEL'
+            - 'POWER'
+            - 'COLOR'
+            - 'COLOR_TEMPERATURE'
+            - 'LOCATION'
+            - 'MOTION'
+            - 'MUTE'
+            - 'MEDIA_CONTROL'
+            - 'MEDIA_TITLE'
+            - 'OUTDOOR_TEMPERATURE'
+            - 'WIND_DIRECTION'
+            - 'WIND_SPEED'
+            - 'TEMPERATURE'
+            - 'ATMOSPHERIC_HUMIDITY'
+            - 'BAROMETRIC_PRESSURE'
+            - 'OTHER'
+        value_after:
+          type: string
+          enum:
+            - 'PRESSED'
+            - 'LONG_PRESSED'
+            - 'DOUBLE_PRESSED'
+            - 'TOUCHED'
+            - 'MAX_TEMPERATURE'
+            - 'MIN_TEMPERATURE'
+            - 'DEFAULT_PLAYLIST'
+            - 'DEFAULT_SOUND_DEVICE'
+            - 'LEAVES_HOME'
+            - 'RETURNS_HOME'
+            - 'WENT_SLEEPING'
+            - 'GET_UP'
+            - 'ON'
+            - 'OFF'
+            - 'STARTED'
+            - 'PAUSED'
+            - 'STOPPED'
+            - 'NONE'
+          example: '80'
+          description: 'The value after the state has changed'
+        value_before:
+          type: string
+          enum:
+            - 'PRESSED'
+            - 'LONG_PRESSED'
+            - 'DOUBLE_PRESSED'
+            - 'TOUCHED'
+            - 'MAX_TEMPERATURE'
+            - 'MIN_TEMPERATURE'
+            - 'DEFAULT_PLAYLIST'
+            - 'DEFAULT_SOUND_DEVICE'
+            - 'LEAVES_HOME'
+            - 'RETURNS_HOME'
+            - 'WENT_SLEEPING'
+            - 'GET_UP'
+            - 'ON'
+            - 'OFF'
+            - 'STARTED'
+            - 'PAUSED'
+            - 'STOPPED'
+          example: '100'
+          description: 'The value before the state has changed'
+        value_max:
+          type: string
+          example: '100'
+          description: 'The value which indicates what is 100%'
+        value_min:
+          type: string
+          example: '0'
+          description: 'The value which inidcates what is 0%'
+        additional_information:
+          type: string
+          enum:
+            - 'FAHRENHEIT'
+            - 'CELSIUS'
+          example: ''
+      required:
+        - type
+        - value_after
+    Device:
+      type: object
+      description: ''
+      properties:
+        id:
+          type: string
+          example: 'cb16399f-af20-428e-ad2f-69380f9f07a2'
+          description: 'Identifier to uniquely identify the physical device'
+        location:
+          type: string
+          enum:
+            - 'LIVING_ROOM'
+            - 'KITCHEN'
+            - 'MASTER_BEDROOM'
+            - 'BEDROOM'
+            - 'TOILETTE'
+            - 'SHOWER'
+            - 'BATH'
+            - 'OFFICE'
+            - 'OTHER'
+          example: 'LIVING_ROOM'
+          description: 'The Location (Room) where the device is placed'
+        type:
+          type: string
+          enum:
+            - 'LOUDSPEAKER'
+            - 'LIGHT_BULB'
+            - 'PRINTER'
+            - 'WASHING_MACHINE'
+            - 'THERMOSTAT'
+            - 'COMPUTER'
+            - 'HEATER'
+            - 'SMART_BUTTON'
+          example: 'LIGHT_BULB'
+          description: 'Which type of device produced the occurred event'
+        vendor_name:
+          type: string
+          example: 'LIFX'
+        product_name:
+          type: string
+          example: 'LIFX Mini White'
+      required:
+        - id
+        - location
+        - type
+    User:
+      type: object
+      description: 'The end-user for whom this event is generated'
+      properties:
+        id:
+          type: string
+          example: '2c6d3036-4dad-4de3-84fe-fafa1971b16f'
+          description: 'Identifier to uniquely identify a end-user'
+        zip:
+          type: string
+          example: '8646'
+          description: 'ZIP where this event was generated'
+        country_code:
+          type: string
+          example: 'CH'
+          description: 'Code of the current users country'
+    HTTP400BadRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '400'
+          description: 'HTTP Error Code that occurred'
+        message:
+          type: string
+          example: 'Bad Request - the request was malformed.'
+          description: 'HTTP Error Message in a human readable way'
+      required:
+        - code
+        - message
+    HTTP401Unauthorized:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '401'
+          description: 'HTTP Error Code that occurred'
+        message:
+          type: string
+          example: 'Unauthorized - please provide a valid API token.'
+          description: 'HTTP Error Message in a human readable way'
+      required:
+        - code
+        - message
+    HTTP500Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '500'
+          description: 'HTTP Error Code that occurred'
+        message:
+          type: string
+          example: 'Internal Server Error'
+          description: 'HTTP Error Message in a human readable way'
+      required:
+        - code
+        - message
