@@ -125,6 +125,7 @@ components:
         - timestamp
         - customerId
         - type
+        - user
         - device
         - state
     State:
