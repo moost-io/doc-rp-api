@@ -1,11 +1,10 @@
 openapi: 3.0.0
 info:
   description: |
-    This is the API Documentation of the Events Microservice for the Recommender Platform.
-    It defines how an event has to be structured and which values are valid that are sent to the Recommender
-    Platform.
+    This is the API Documentation of the MOOST Recommender System.
+    It defines how customers can interact with the System.
   version: "1.0.0"
-  title: MOOST Recommender Platform - Events
+  title: MOOST Recommender System
   termsOfService: 'https://www.moost.io/terms/agb'
   contact:
     email: info@moost.io
@@ -35,6 +34,34 @@ paths:
       responses:
         '201':
           description: Created - Event received
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+
+  /fulfillment/{customerId}/preferences/v1:
+    post:
+      tags:
+        - Fulfillment
+      summary: Push new preferences for fulfillment for a single customer
+      operationId: addPreferences
+      parameters:
+        - name: customerId
+          in: path
+          description: 'The id which is used to identify the sending customer. (Is provided by MOOST during on-boarding)'
+          example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FulfillmentPreferences'
+      responses:
+        '201':
+          description: Created - FulfillmentPreferences received
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -246,6 +273,71 @@ components:
           type: string
           example: 'CH'
           description: 'Code of the current users country'
+    Recommendation:
+      type: object
+      description: 'The Recommendation Object which is sent to the cloud endpoint of a customer'
+      properties:
+        customerId:
+          type: string
+          description: 'ID of the customer of the customer to whom we send the recommendation'
+          example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+        userId:
+          type: string
+          description: 'ID of the end-user which we received from the customers system'
+          example: 'ba503607-d49b-4042-adee-ae14b3559262'
+        title:
+          type: object
+          description: 'Object containing the texts which should be used as title of the recommendation.'
+          properties:
+            de:
+              type: string
+              description: 'The title in german language'
+              example: 'Vergiss deinen Schirm nicht!'
+            en:
+              type: string
+              description: 'The title in english language'
+              example: 'Do not forget your umbrella!'
+        message:
+          type: object
+          description: 'Object containing the texts which should be used as message text of the recommendation.'
+          properties:
+            de:
+              type: string
+              description: 'The message in german language'
+              example: 'Der Wetterbericht besagt es beginnt in einer Stunde zu regnen. Nimm besser deinen Schirm mit!'
+            en:
+              type: string
+              description: 'The title in english language'
+              example: 'The weather forecast says it will start to rain in an hour. Do not forget your umbrella!'
+        priority:
+          type: string
+          description: 'The priority with which this recommendation should be delivered'
+          example: 'High'
+        createdAt:
+          type: integer
+          format: int64
+          description: 'Timestamp when the recommendation was initially created by the recommender system.'
+          example: 1608299956
+    FulfillmentPreferences:
+      type: object
+      description: 'An object representing the fulfillment preferences for a certain customer'
+      properties:
+        customerId:
+          type: string
+          description: 'ID of the customer for which we will set the preferences'
+          example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+        type:
+          type: string
+          enum:
+            - 'REST'
+          description: 'Defines what kind of fulfillment type the customer requests'
+        token:
+          type: string
+          example: 'xw4tHQPORJddQbelJfka4uhZqN7rKZoE'
+      required:
+        - customerId
+        - type
+        - token
     HTTP400BadRequest:
       type: object
       properties:
