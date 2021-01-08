@@ -51,8 +51,10 @@ paths:
         - name: customerId
           in: path
           description: 'The id which is used to identify the sending customer. (Is provided by MOOST during on-boarding)'
-          example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
           required: true
+          schema:
+            type: string
+            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
       requestBody:
         required: true
         content:
