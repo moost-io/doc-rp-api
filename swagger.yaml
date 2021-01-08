@@ -123,6 +123,7 @@ components:
           description: 'The raw event that happened in the customers system'
       required:
         - timestamp
+        - customerId
         - type
         - device
         - state
@@ -132,6 +133,7 @@ components:
       properties:
         type:
           type: string
+          example: 'BRIGHTNESS'
           enum:
             - 'BRIGHTNESS'
             - 'SIGNAL_STRENGTH'
@@ -154,47 +156,49 @@ components:
             - 'OTHER'
         value_after:
           type: string
-          enum:
-            - 'PRESSED'
-            - 'LONG_PRESSED'
-            - 'DOUBLE_PRESSED'
-            - 'TOUCHED'
-            - 'MAX_TEMPERATURE'
-            - 'MIN_TEMPERATURE'
-            - 'DEFAULT_PLAYLIST'
-            - 'DEFAULT_SOUND_DEVICE'
-            - 'LEAVES_HOME'
-            - 'RETURNS_HOME'
-            - 'WENT_SLEEPING'
-            - 'GET_UP'
-            - 'ON'
-            - 'OFF'
-            - 'STARTED'
-            - 'PAUSED'
-            - 'STOPPED'
-            - 'NONE'
+#          enum:
+#            - 'PRESSED'
+#            - 'LONG_PRESSED'
+#            - 'DOUBLE_PRESSED'
+#            - 'TOUCHED'
+#            - 'MAX_TEMPERATURE'
+#            - 'MIN_TEMPERATURE'
+#            - 'DEFAULT_PLAYLIST'
+#            - 'DEFAULT_SOUND_DEVICE'
+#            - 'LEAVES_HOME'
+#            - 'RETURNS_HOME'
+#            - 'WENT_SLEEPING'
+#            - 'GET_UP'
+#            - 'ON'
+#            - 'OFF'
+#            - 'STARTED'
+#            - 'PAUSED'
+#            - 'STOPPED'
+#            - 'NONE'
           example: '80'
           description: 'The value after the state has changed'
         value_before:
           type: string
-          enum:
-            - 'PRESSED'
-            - 'LONG_PRESSED'
-            - 'DOUBLE_PRESSED'
-            - 'TOUCHED'
-            - 'MAX_TEMPERATURE'
-            - 'MIN_TEMPERATURE'
-            - 'DEFAULT_PLAYLIST'
-            - 'DEFAULT_SOUND_DEVICE'
-            - 'LEAVES_HOME'
-            - 'RETURNS_HOME'
-            - 'WENT_SLEEPING'
-            - 'GET_UP'
-            - 'ON'
-            - 'OFF'
-            - 'STARTED'
-            - 'PAUSED'
-            - 'STOPPED'
+#          enum:
+#            - 'PRESSED'
+#            - 'LONG_PRESSED'
+#            - 'DOUBLE_PRESSED'
+#            - 'DOUBLE_PRESSED'
+#            - 'DOUBLE_PRESSED'
+#            - 'TOUCHED'
+#            - 'MAX_TEMPERATURE'
+#            - 'MIN_TEMPERATURE'
+#            - 'DEFAULT_PLAYLIST'
+#            - 'DEFAULT_SOUND_DEVICE'
+#            - 'LEAVES_HOME'
+#            - 'RETURNS_HOME'
+#            - 'WENT_SLEEPING'
+#            - 'GET_UP'
+#            - 'ON'
+#            - 'OFF'
+#            - 'STARTED'
+#            - 'PAUSED'
+#            - 'STOPPED'
           example: '100'
           description: 'The value before the state has changed'
         value_max:
@@ -210,6 +214,8 @@ components:
           enum:
             - 'FAHRENHEIT'
             - 'CELSIUS'
+            - 'PERCENTAGE'
+            - 'ABSOLUTE'
           example: ''
       required:
         - type
@@ -275,6 +281,8 @@ components:
           type: string
           example: 'CH'
           description: 'Code of the current users country'
+      required:
+        - id
     Recommendation:
       type: object
       description: 'The Recommendation Object which is sent to the cloud endpoint of a customer'
