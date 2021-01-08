@@ -205,11 +205,11 @@ components:
         value_max:
           type: string
           example: '100'
-          description: 'The value which indicates what is 100%'
+          description: 'The value which indicates what is 100%. Needed when set additional_information to ABSOLUTE.'
         value_min:
           type: string
           example: '0'
-          description: 'The value which inidcates what is 0%'
+          description: 'The value which inidcates what is 0%. Needed when set additional_information to ABSOLUTE.'
         additional_information:
           type: string
           enum:
