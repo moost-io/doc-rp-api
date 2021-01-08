@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
   description: |
-    This is the API Docuementation of the Fulfillment Microservice for the Recommender Platform.
+    This is the API Documentation of the Fulfillment Microservice for the Recommender Platform.
     If defines how fulfillment preferences have to be structured and how they can be inserted into the platform.
-    In this documentation you will aso find the Schema of a Recommendation which will be delivered to your Cloud.
+    In this documentation you will also find the Schema of a Recommendation which will be delivered to your Cloud.
   version: "1.0.0"
   title: MOOST Recommender Platform - Fulfillment
-  termsOfService: 'https://www.moost.io/terms/'
+  termsOfService: 'https://www.moost.io/terms/agb'
   contact:
     email: info@moost.io
   license:

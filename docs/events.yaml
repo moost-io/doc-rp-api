@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
   description: |
-    This is the API Docuementation of the Events Microservice for the Recommender Platform.
+    This is the API Documentation of the Events Microservice for the Recommender Platform.
     It defines how an event has to be structured and which values are valid that are sent to the Recommender
-    Platform,
+    Platform.
   version: "1.0.0"
   title: MOOST Recommender Platform - Events
-  termsOfService: 'https://www.moost.io/terms/'
+  termsOfService: 'https://www.moost.io/terms/agb'
   contact:
     email: info@moost.io
   license:
@@ -83,15 +83,6 @@ components:
           type: string
           description: 'Unique identifier which is handed to each new customer'
           example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
-        type:
-          type: string
-          enum:
-            - 'DEVICE_INTERACTED'
-            - 'DEVICE_EVENT_EMITTED'
-            - 'DEVICE_SETTING_CHANGED'
-            - 'USER_EVENT_EMITTED'
-          example: 'DEVICE_EVENT_EMITTED'
-          description: 'Defines what kind of type that occurred'
         user:
           $ref: '#/components/schemas/User'
         device:
