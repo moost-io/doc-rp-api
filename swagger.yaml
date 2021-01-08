@@ -281,7 +281,7 @@ components:
       properties:
         customerId:
           type: string
-          description: 'ID of the customer of the customer to whom we send the recommendation'
+          description: 'ID of the customer to whom we send the recommendation'
           example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
         userId:
           type: string
