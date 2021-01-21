@@ -16,7 +16,7 @@ servers:
   - url: 'https://api.dev.moost.io/'
 
 security:
-  - ApiKeyAuth: [ ]
+  - bearerAuth: []
 
 paths:
   /events/v1:
@@ -71,12 +71,33 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
+  /login/v1:
+    post:
+      tags:
+        - API
+      summary: Authenticate the given user and return a new Java Web Token (JWT)
+      operationId: apiLogin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+
+
 components:
   securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: X-API-Key
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   responses:
     Unauthorized:
@@ -99,6 +120,19 @@ components:
             $ref: '#/components/schemas/HTTP400BadRequest'
 
   schemas:
+    Credentials:
+      type: object
+      description: 'Login credentials to obtain a JWT'
+      properties:
+        username:
+          type: string
+          description: 'The username you have received from MOOST.'
+          example: moost
+        password:
+          type: string
+          format: password
+          description: 'The password for the user you have provided in the username field.'
+          example: T234asd$iqeöü
     Event:
       type: object
       description: 'An event that is sent to the recommender platform'
