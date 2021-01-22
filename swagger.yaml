@@ -381,12 +381,34 @@ components:
           enum:
             - 'REST'
           description: 'Defines what kind of fulfillment type the customer requests'
-        token:
+        auth_strategy:
           type: string
-          example: 'xw4tHQPORJddQbelJfka4uhZqN7rKZoE'
+          enum:
+            - 'BASIC'
+            - 'TOKEN'
+            - 'BEARER'
+        auth_token:
+          type: string
+          example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+        auth_token_header:
+          type: string
+          example: 'X-API-TOKEN'
+        auth_user:
+          type: string
+          example: 'testuser'
+        auth_password:
+          type: string
+          example: 'testpassword'
+        rest_hostname:
+          type: string
+          example: 'api.moost.io'
+        rest_path:
+          type: string
+          example: '/recommendations/v1'
       required:
         - customerId
         - type
+        - auth_strategy
         - token
     HTTP400BadRequest:
       type: object
