@@ -198,6 +198,7 @@ paths:
     get:
       tags:
         - Gateway
+      security: []
       summary: Status Route which returns a status code 200 if the gateway is up and running.
       operationId: getStatus
       responses:
