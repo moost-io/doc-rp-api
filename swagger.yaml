@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
   description: |
-    This is the API Documentation of the MOOST Recommender System.
-    It defines how customers can interact with the System.
+    This is the API Documentation of the MOOST Recommender Platform.
+    The API defines methods to interact with the Recommender Platform.
   version: "1.0.0"
   title: MOOST Recommender System
   termsOfService: 'https://www.moost.io/terms/agb'
@@ -173,8 +173,7 @@ paths:
         - Authentication
       summary: Authenticate the given user and return a new Java Web Token (JWT)
       operationId: login
-      security:
-        - []
+      security: []
       requestBody:
         required: true
         content:
