@@ -19,7 +19,25 @@ security:
   - bearerAuth: []
 
 paths:
-  /events/v1:
+  /events:
+    get:
+      tags:
+        - Events
+      summary: Get all events of the customerId which is stored within the JWT.
+      operationId: getEvents
+      responses:
+        '200':
+          description: The list of Events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfEvents'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags:
         - Events
@@ -41,16 +59,38 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /fulfillment/{customerId}/preferences/v1:
+  /recommendations:
+    get:
+      tags:
+        - Recommendations
+      summary: Get all recommendations of the customerId which is stored within the JWT.
+      operationId: getRecommendations
+      responses:
+        '200':
+          description: The list of recommendations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfRecommendations'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+
+  /recommendations/{recommendationId}/interactions:
     post:
       tags:
-        - Fulfillment
-      summary: Push new preferences for fulfillment for a single customer
-      operationId: addPreferences
+        - Recommendations
+      summary: Push new interaciton with a recommendation to the Platform.
+      security:
+        - bearerAuth: []
+      operationId: addInteraction
       parameters:
-        - name: customerId
+        - name: recommendationId
           in: path
-          description: 'The id which is used to identify the sending customer. (Is provided by MOOST during on-boarding)'
+          description: 'The ID of the recommendation with which the end-user has interacted'
           required: true
           schema:
             type: string
@@ -60,10 +100,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FulfillmentPreferences'
+              $ref: '#/components/schemas/RecommendationInteraction'
       responses:
-        '201':
-          description: Created - FulfillmentPreferences received
+        '200':
+          description: Interaction Added to the Platform
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -71,12 +111,70 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /login/v1:
+  /context/geocode:
+    get:
+      tags:
+        - Context
+      summary: Converts the given ZIP and CountryCode to lat and long coordinates which can be used for services which need these information.
+      security:
+        - bearerAuth: []
+      operationId: getGeocode
+      parameters:
+        - in: query
+          name: zip
+          schema:
+            type: string
+          description: The ZIP with CountryCode, seperated by comma, which should be converted to lat and long coordinates
+          example: '9000,CH'
+      responses:
+        '200':
+          description: The GeoCoordinates of the given zip and country
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoCoordinate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+
+  /context/weather/current:
+    get:
+      tags:
+        - Context
+      summary: Gets the current weather forecast for the given GeoCoordinates
+      security:
+        - bearerAuth: []
+      operationId: getCurrentWeatherForecast
+      parameters:
+        - in: query
+          name: lat
+          schema:
+            type: string
+          description: The latitude of the town for which we want to receive the current weather forecast
+          example: 47.4236
+        - in: query
+          name: lon
+          schema:
+            type: string
+          description: The longitude of the town for which we want to receive the current weather forecast
+          example: 9.3622
+      responses:
+        '200':
+          description: The Weatherforecast information
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+
+  /auth/login:
     post:
       tags:
-        - API
+        - Authentication
       summary: Authenticate the given user and return a new Java Web Token (JWT)
-      operationId: apiLogin
+      operationId: login
+      security:
+        - []
       requestBody:
         required: true
         content:
@@ -96,6 +194,15 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
+  /:
+    get:
+      tags:
+        - Gateway
+      summary: Status Route which returns a status code 200 if the gateway is up and running.
+      operationId: getStatus
+      responses:
+        '200':
+          description: Gateway is up and running
 
 components:
   securitySchemes:
@@ -323,6 +430,14 @@ components:
           description: 'Code of the current users country'
       required:
         - id
+    ArrayOfEvents:
+      type: array
+      items:
+        $ref: '#/components/schemas/Event'
+    ArrayOfRecommendations:
+      type: array
+      items:
+        $ref: '#/components/schemas/Recommendation'
     Recommendation:
       type: object
       description: 'The Recommendation Object which is sent to the cloud endpoint of a customer'
@@ -368,6 +483,37 @@ components:
           format: int64
           description: 'Timestamp when the recommendation was initially created by the recommender system.'
           example: 1608299956
+    RecommendationInteraction:
+      type: object
+      description: 'An object representing the interaction with the recommendation'
+      properties:
+        actionQualifier:
+          type: string
+          description: 'The action which was performed on the Notificaiton'
+          example: 'Dismiss'
+    GeoCoordinate:
+      type: object
+      description: 'An object representing the GeoCoordinate to the given ZIP Code'
+      properties:
+        zip:
+          type: string
+          description: 'The ZIP which was used to query for GeoCoordinates'
+          example: '9000'
+        name:
+          type: string
+          description: 'The name of the town which is represented by the given ZIP'
+          example: 'St. GAllen'
+        lat:
+          type: number
+          description: 'The latitude value of the given town'
+          example: 47.4236
+        lon:
+          type: number
+          description: 'The longitude value of the given town'
+          example: 9.3622
+        country:
+          type: string
+          description: 'The Country Code which was used to query for GeoCoordinates'
     FulfillmentPreferences:
       type: object
       description: 'An object representing the fulfillment preferences for a certain customer'
