@@ -1,8 +1,9 @@
 openapi: 3.0.0
 info:
   description: |
-    This is the API Documentation of the MOOST Recommender Platform.
-    The API defines methods to interact with the Recommender Platform.
+    This is the API Documentation of the MOOST Recommender Platform. The API defines methods to interact with the Recommender
+    Platform. To perform any action against the API the consumer needs to first call the /auth/login endpoint with valid
+    Credentials to retrieve a JWT Token which has to be handed to each call as Bearer Token.
   version: "1.0.0"
   title: MOOST Recommender System
   termsOfService: 'https://www.moost.io/terms/agb'
