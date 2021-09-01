@@ -112,6 +112,67 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
+  /devices:
+    get:
+      tags:
+        - Devices
+      summary: Gets all devices to all users of ther customerId which stored within the JWT
+      responses:
+        '200':
+          description: The list of devices of the given User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfDevicesPerUser'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Devices
+      summary: Adds or Updates the given Device to the User and Customer that is given
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Device added to the platform
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+
+  /devices/{userId}:
+    get:
+      tags:
+        - Devices
+      summary: Gets all devices to the given userId
+      parameters:
+        - name: userId
+          in: path
+          description: 'The ID of the user for whom we want to receive the devices'
+          required: true
+          schema:
+            type: string
+            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+      responses:
+        '200':
+          description: The list of devices of the given User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfDevices'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+
   /context/geocode:
     get:
       tags:
@@ -409,9 +470,21 @@ components:
         product_name:
           type: string
           example: 'LIFX Mini White'
+        metadata:
+          type: object
+          description: 'Additional information that could be specific for some customers'
+        createdAt:
+          type: integer
+          format: int64
+          description: 'Timestamp when the device was initially added to the customers cloud'
+          example: 1608299956
+        updatedAt:
+          type: integer
+          format: int64
+          description: 'Timestamp when the device configuration was last changed'
+          example: 1608299956
       required:
         - id
-        - location
         - type
     User:
       type: object
@@ -431,6 +504,16 @@ components:
           description: 'Code of the current users country'
       required:
         - id
+    ArrayOfDevices:
+      type: array
+      items:
+        $ref: '#/components/schemas/Device'
+    ArrayOfDevicesPerUser:
+      type: array
+      items:
+        type: array
+        items:
+          $ref: '#/components/schemas/Device'
     ArrayOfEvents:
       type: array
       items:
