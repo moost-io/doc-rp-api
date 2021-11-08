@@ -80,18 +80,18 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /recommendations/{recommendationId}/interactions:
+  /notifications/{notificationId}/interactions:
     post:
       tags:
-        - Recommendations
-      summary: Push new interaciton with a recommendation to the Platform.
+        - Notifications
+      summary: Push new interaciton with a notification to the Platform.
       security:
         - bearerAuth: []
       operationId: addInteraction
       parameters:
-        - name: recommendationId
+        - name: notificationId
           in: path
-          description: 'The ID of the recommendation with which the end-user has interacted'
+          description: 'The ID of the notification with which the end-user has interacted'
           required: true
           schema:
             type: string
@@ -101,7 +101,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RecommendationInteraction'
+              $ref: '#/components/schemas/NotificationInteraction'
       responses:
         '200':
           description: Interaction Added to the Platform
@@ -521,14 +521,18 @@ components:
     ArrayOfRecommendations:
       type: array
       items:
-        $ref: '#/components/schemas/Recommendation'
-    Recommendation:
+        $ref: '#/components/schemas/Notification'
+    ArrayOfNotificationActions:
+      type: array
+      items:
+        $ref: '#/components/schemas/NotificationAction'
+    Notification:
       type: object
-      description: 'The Recommendation Object which is sent to the cloud endpoint of a customer'
+      description: 'The Notification Object which is sent to the cloud endpoint of a customer'
       properties:
         customerId:
           type: string
-          description: 'ID of the customer to whom we send the recommendation'
+          description: 'ID of the customer to whom we send the notification'
           example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
         userId:
           type: string
@@ -536,45 +540,78 @@ components:
           example: 'ba503607-d49b-4042-adee-ae14b3559262'
         title:
           type: object
-          description: 'Object containing the texts which should be used as title of the recommendation.'
+          description: 'Object containing the texts which should be used as title of the notification.'
           properties:
             de:
               type: string
-              description: 'The title in german language'
+              description: 'The title in german'
               example: 'Vergiss deinen Schirm nicht!'
             en:
               type: string
-              description: 'The title in english language'
+              description: 'The title in english'
               example: 'Do not forget your umbrella!'
+            fr:
+              type: string
+              description: 'The title in french'
+              example: ''
         message:
           type: object
-          description: 'Object containing the texts which should be used as message text of the recommendation.'
+          description: 'Object containing the texts which should be used as message text of the notification.'
           properties:
             de:
               type: string
-              description: 'The message in german language'
+              description: 'The message in german'
               example: 'Der Wetterbericht besagt es beginnt in einer Stunde zu regnen. Nimm besser deinen Schirm mit!'
             en:
               type: string
-              description: 'The title in english language'
+              description: 'The message in english'
               example: 'The weather forecast says it will start to rain in an hour. Do not forget your umbrella!'
+            fr:
+              type: string
+              description: 'The message in french'
+              example: ''
+        actions:
+          type: array
+          description: 'Object containing the actions which should be presented to the user'
+          items:
+            $ref: '#/components/schemas/NotificationAction'
         priority:
           type: string
-          description: 'The priority with which this recommendation should be delivered'
+          description: 'The priority with which this notification should be delivered'
           example: 'High'
         createdAt:
           type: integer
           format: int64
-          description: 'Timestamp when the recommendation was initially created by the recommender system.'
+          description: 'Timestamp when the notification was initially created by the recommender system.'
           example: 1608299956
-    RecommendationInteraction:
+    NotificationInteraction:
       type: object
-      description: 'An object representing the interaction with the recommendation'
+      description: 'An object representing the interaction with the notification'
       properties:
         actionQualifier:
           type: string
           description: 'The action which was performed on the Notificaiton'
-          example: 'Dismiss'
+          enum:
+            - 'DISMISS'
+            - 'OPENRULECREATOR'
+            - 'OPENAPP'
+          example: 'DISMISS'
+    NotificationAction:
+      type: object
+      description: 'An object representing an action that should be presented to the user of a notification'
+      properties:
+        text:
+          type: string
+          description: 'Text that should be presented to the user as action'
+          example: 'Set me up now'
+        actionQualifier:
+          type: string
+          description: 'The type of action that should be executed when the user presses on the button'
+          enum:
+            - 'DISMISS'
+            - 'OPENRULECREATOR'
+            - 'OPENAPP'
+          example: 'OPENRULECREATOR'
     GeoCoordinate:
       type: object
       description: 'An object representing the GeoCoordinate to the given ZIP Code'
