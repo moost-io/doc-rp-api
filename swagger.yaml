@@ -596,6 +596,7 @@ components:
             - 'OPENWEBSITE'
             - 'OPENRULECREATOR'
             - 'OPENAPP'
+            - 'STOPDELIVERY'
           example: 'DISMISS'
     NotificationAction:
       type: object
@@ -613,6 +614,7 @@ components:
             - 'OPENWEBSITE'
             - 'OPENRULECREATOR'
             - 'OPENAPP'
+            - 'STOPDELIVERY'
           example: 'OPENRULECREATOR'
         additionalInformation:
           type: string
