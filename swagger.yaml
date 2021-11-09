@@ -60,19 +60,19 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /recommendations:
+  /notifications:
     get:
       tags:
-        - Recommendations
-      summary: Get all recommendations of the customerId which is stored within the JWT.
-      operationId: getRecommendations
+        - Notifications
+      summary: Get all notifications of the given customerId.
+      operationId: getNotifications
       responses:
         '200':
-          description: The list of recommendations
+          description: The list of notifications
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ArrayOfRecommendations'
+                $ref: '#/components/schemas/ArrayOfNotificaitons'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -518,7 +518,7 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Event'
-    ArrayOfRecommendations:
+    ArrayOfNotificaitons:
       type: array
       items:
         $ref: '#/components/schemas/Notification'
