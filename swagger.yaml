@@ -593,6 +593,7 @@ components:
           description: 'The action which was performed on the Notificaiton'
           enum:
             - 'DISMISS'
+            - 'OPENWEBSITE'
             - 'OPENRULECREATOR'
             - 'OPENAPP'
           example: 'DISMISS'
@@ -609,9 +610,14 @@ components:
           description: 'The type of action that should be executed when the user presses on the button'
           enum:
             - 'DISMISS'
+            - 'OPENWEBSITE'
             - 'OPENRULECREATOR'
             - 'OPENAPP'
           example: 'OPENRULECREATOR'
+        additionalInformation:
+          type: string
+          description: 'For example the URL of the website that should be opened'
+          example: 'https://www.moost.io/about'
     GeoCoordinate:
       type: object
       description: 'An object representing the GeoCoordinate to the given ZIP Code'
