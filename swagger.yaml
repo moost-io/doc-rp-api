@@ -554,6 +554,10 @@ components:
               type: string
               description: 'The title in french'
               example: ''
+            it:
+              type: string
+              description: 'The message in italian'
+              example: ''
         message:
           type: object
           description: 'Object containing the texts which should be used as message text of the notification.'
@@ -569,6 +573,10 @@ components:
             fr:
               type: string
               description: 'The message in french'
+              example: ''
+            it:
+              type: string
+              description: 'The message in italian'
               example: ''
         actions:
           type: array
@@ -603,9 +611,25 @@ components:
       description: 'An object representing an action that should be presented to the user of a notification'
       properties:
         text:
-          type: string
+          type: object
           description: 'Text that should be presented to the user as action'
-          example: 'Set me up now'
+          properties:
+            de:
+              type: string
+              description: 'The action in german'
+              example: 'Set me up now'
+            en:
+              type: string
+              description: 'The action in english'
+              example: 'Set me up now'
+            fr:
+              type: string
+              description: 'The action in french'
+              example: ''
+            it:
+              type: string
+              description: 'The action in italian'
+              example: ''
         actionQualifier:
           type: string
           description: 'The type of action that should be executed when the user presses on the button'
