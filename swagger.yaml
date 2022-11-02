@@ -530,14 +530,22 @@ components:
       type: object
       description: 'The Notification Object which is sent to the cloud endpoint of a customer'
       properties:
+        id:
+          type: string
+          description: 'ID of the notification'
+          example: '63623283dd4275516616e490'
         customerId:
           type: string
           description: 'ID of the customer to whom we send the notification'
-          example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+          example: '61dd869fb8191238a4310f5b'
         userId:
           type: string
           description: 'ID of the end-user which we received from the customers system'
-          example: 'ba503607-d49b-4042-adee-ae14b3559262'
+          example: '00000000ECA31C6E'
+        ruleId:
+          type: string
+          description: 'ID of the rule which generated the notification.'
+          example: '633edbe81335bfccc4e53668'
         title:
           type: object
           description: 'Object containing the texts which should be used as title of the notification.'
@@ -626,24 +634,24 @@ components:
               type: string
               description: 'The action in french'
               example: ''
-            it:
-              type: string
-              description: 'The action in italian'
-              example: ''
         actionQualifier:
           type: string
           description: 'The type of action that should be executed when the user presses on the button'
           enum:
             - 'DISMISS'
-            - 'OPENWEBSITE'
+            - 'OPENWEB'
             - 'OPENRULECREATOR'
+            - 'OPENDEVICECONTROL'
             - 'OPENAPP'
             - 'STOPDELIVERY'
           example: 'OPENRULECREATOR'
-        additionalInformation:
+        url:
           type: string
-          description: 'For example the URL of the website that should be opened'
+          description: 'The URL of the website that should be opened. Only on OPENWEB.'
           example: 'https://www.moost.io/about'
+        deviceId:
+          type: string
+          description: 'The ID of the device for which the action should be scoped. Only on OPENDEVICECONTROL'
     GeoCoordinate:
       type: object
       description: 'An object representing the GeoCoordinate to the given ZIP Code'
