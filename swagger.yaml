@@ -15,6 +15,7 @@ info:
 
 servers:
   - url: 'https://api.dev.moost.io/'
+  - url: 'https://api.moost.io/'
 
 security:
   - bearerAuth: []
