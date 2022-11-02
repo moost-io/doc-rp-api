@@ -535,18 +535,6 @@ components:
           type: string
           description: 'ID of the notification'
           example: '63623283dd4275516616e490'
-        customerId:
-          type: string
-          description: 'ID of the customer to whom we send the notification'
-          example: '61dd869fb8191238a4310f5b'
-        userId:
-          type: string
-          description: 'ID of the end-user which we received from the customers system'
-          example: '00000000ECA31C6E'
-        ruleId:
-          type: string
-          description: 'ID of the rule which generated the notification.'
-          example: '633edbe81335bfccc4e53668'
         title:
           type: object
           description: 'Object containing the texts which should be used as title of the notification.'
@@ -592,15 +580,27 @@ components:
           description: 'Object containing the actions which should be presented to the user'
           items:
             $ref: '#/components/schemas/NotificationAction'
-        priority:
-          type: string
-          description: 'The priority with which this notification should be delivered'
-          example: 'High'
-        createdAt:
+        createdAtTimeMillis:
           type: integer
           format: int64
           description: 'Timestamp when the notification was initially created by the recommender system.'
           example: 1608299956
+        customerId:
+          type: string
+          description: 'ID of the customer to whom we send the notification'
+          example: '61dd869fb8191238a4310f5b'
+        ruleId:
+          type: string
+          description: 'ID of the rule which generated the notification.'
+          example: '633edbe81335bfccc4e53668'
+        userId:
+          type: string
+          description: 'ID of the end-user which we received from the customers system'
+          example: '00000000ECA31C6E'
+        priority:
+          type: string
+          description: 'The priority with which this notification should be delivered'
+          example: 'High'
     NotificationInteraction:
       type: object
       description: 'An object representing the interaction with the notification'
