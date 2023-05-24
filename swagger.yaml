@@ -345,10 +345,6 @@ components:
           type: string
           description: 'Unique identifier of the building in the customer system'
           example: '12345'
-        name:
-          type: string
-          description: 'Name of the building'
-          example: 'My Building'
         zip:
           type: string
           description: 'Zip code of the building'
