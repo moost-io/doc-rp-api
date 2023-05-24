@@ -4,7 +4,7 @@ info:
     This is the API Documentation of the MOOST Recommender Platform. The API defines methods to interact with the Recommender
     Platform. To perform any action against the API the consumer needs to first call the /auth/login endpoint with valid
     Credentials to retrieve a JWT Token which has to be handed to each call as Bearer Token.
-  version: "2.1.1"
+  version: "2.1.2"
   title: MOOST Recommender System
   termsOfService: 'https://www.moost.io/terms/agb'
   contact:
@@ -24,7 +24,7 @@ paths:
     get:
       tags:
         - Events
-      summary: Get all events of the customerId which is stored within the JWT.
+      summary: Get all events of the currently authenticated customer
       operationId: getEvents
       responses:
         '200':
