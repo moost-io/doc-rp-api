@@ -113,18 +113,19 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /devices:
+  /buildings:
     get:
       tags:
-        - Devices
-      summary: Gets all devices to all users of ther customerId which stored within the JWT
+        - Buildings
+      summary: Get all buildings of the given customerId.
+      operationId: getBuildings
       responses:
         '200':
-          description: The list of devices of the given User
+          description: The list of buildings
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ArrayOfDevicesPerUser'
+                $ref: '#/components/schemas/ArrayOfBuildings'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -133,12 +134,101 @@ paths:
           $ref: '#/components/responses/InternalServerError'
     post:
       tags:
-        - Devices
-      summary: Adds or Updates the given Device to the User and Customer that is given
-      security:
-        - bearerAuth: []
+          - Buildings
+      summary: Adds a new building to the given customerId.
+      operationId: addBuilding
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
       responses:
-        '200':
+        '201':
+          description: Building added to the platform
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
+
+  /buildings/{buildingId}:
+    get:
+        tags:
+            - Buildings
+        summary: Get the building with the given buildingId.
+        operationId: getBuilding
+        parameters:
+          - name: buildingId
+            in: path
+            description: 'The ID of the building which should be retrieved'
+            required: true
+            schema:
+                type: string
+                example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+        responses:
+          '200':
+            description: The building
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/Building'
+          '400':
+            $ref: '#/components/responses/BadRequest'
+          '401':
+            $ref: '#/components/responses/Unauthorized'
+          '5XX':
+            $ref: '#/components/responses/InternalServerError'
+
+  /buildings/{buildingId}/devices:
+    get:
+        tags:
+            - Buildings
+        summary: Get all devices of the given buildingId.
+        operationId: getDevices
+        parameters:
+          - name: buildingId
+            in: path
+            description: 'The ID of the building for which the devices should be retrieved'
+            required: true
+            schema:
+                type: string
+                example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+        responses:
+            '200':
+              description: The list of devices
+              content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ArrayOfDevices'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '5XX':
+              $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Buildings
+      summary: Adds a new device to the given buildingId.
+      operationId: addDeviceToBuilding
+      parameters:
+        - name: buildingId
+          in: path
+          description: 'The ID of the building to which the device should be added'
+          required: true
+          schema:
+            type: string
+            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Device'
+      responses:
+        '201':
           description: Device added to the platform
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -147,86 +237,33 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /devices/{userId}:
-    get:
+  /buildings/{buildingId}/settings/lowTariffHours:
+    put:
       tags:
-        - Devices
-      summary: Gets all devices to the given userId
+        - Buildings
+      summary: Adds a new low tariff hour to the given buildingId.
+      operationId: addLowTariffHour
       parameters:
-        - name: userId
+        - name: buildingId
           in: path
-          description: 'The ID of the user for whom we want to receive the devices'
+          description: 'The ID of the building to which the low tariff hour should be added'
           required: true
           schema:
             type: string
             example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LowTariffHourSettings'
       responses:
-        '200':
-          description: The list of devices of the given User
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ArrayOfDevices'
+        '201':
+          description: Low tariff hour added to the platform
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '5XX':
-          $ref: '#/components/responses/InternalServerError'
-
-  /context/geocode:
-    get:
-      tags:
-        - Context
-      summary: Converts the given ZIP and CountryCode to lat and long coordinates which can be used for services which need these information.
-      security:
-        - bearerAuth: []
-      operationId: getGeocode
-      parameters:
-        - in: query
-          name: zip
-          schema:
-            type: string
-          description: The ZIP with CountryCode, seperated by comma, which should be converted to lat and long coordinates
-          example: '9000,CH'
-      responses:
-        '200':
-          description: The GeoCoordinates of the given zip and country
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeoCoordinate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '5XX':
-          $ref: '#/components/responses/InternalServerError'
-
-  /context/weather/current:
-    get:
-      tags:
-        - Context
-      summary: Gets the current weather forecast for the given GeoCoordinates
-      security:
-        - bearerAuth: []
-      operationId: getCurrentWeatherForecast
-      parameters:
-        - in: query
-          name: lat
-          schema:
-            type: string
-          description: The latitude of the town for which we want to receive the current weather forecast
-          example: 47.4236
-        - in: query
-          name: lon
-          schema:
-            type: string
-          description: The longitude of the town for which we want to receive the current weather forecast
-          example: 9.3622
-      responses:
-        '200':
-          description: The Weatherforecast information
-        '400':
-          $ref: '#/components/responses/BadRequest'
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
@@ -255,17 +292,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '5XX':
           $ref: '#/components/responses/InternalServerError'
-
-  /:
-    get:
-      tags:
-        - Gateway
-      security: []
-      summary: Status Route which returns a status code 200 if the gateway is up and running.
-      operationId: getStatus
-      responses:
-        '200':
-          description: Gateway is up and running
 
 components:
   securitySchemes:
@@ -308,6 +334,45 @@ components:
           format: password
           description: 'The password for the user you have provided in the username field.'
           example: T234asd$iqeöü
+    Building:
+      type: object
+      description: 'A building that is stored in the recommender platform'
+      properties:
+        id:
+          type: string
+          description: 'Unique identifier of the building'
+          example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
+        name:
+          type: string
+          description: 'Name of the building'
+          example: 'My Building'
+        zip:
+          type: string
+          description: 'Zip code of the building'
+          example: '12345'
+        countryCode:
+          type: string
+          description: 'Country code of the building'
+          example: 'DE'
+        city:
+          type: string
+          description: 'City of the building'
+          example: 'Zürich'
+        settings:
+          type: object
+          description: 'Settings of the building'
+          example: {}
+        devices:
+          type: array
+          description: 'Devices of the building'
+          items:
+            $ref: '#/components/schemas/Device'
+      required:
+          - id
+          - name
+          - zip
+          - countryCode
+          - city
     Event:
       type: object
       description: 'An event that is sent to the recommender platform'
@@ -321,21 +386,21 @@ components:
           type: string
           description: 'Unique identifier which is handed to each new customer'
           example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
-        user:
-          $ref: '#/components/schemas/User'
-        device:
-          $ref: '#/components/schemas/Device'
+        buildingId:
+          type: string
+          description: 'Unique identifier of the building'
+          example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
+        deviceId:
+          type: string
+          description: 'Unique identifier of the device'
+          example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
         state:
           $ref: '#/components/schemas/State'
-        raw:
-          type: object
-          description: 'The raw event that happened in the customers system'
       required:
         - timestamp
         - customerId
-        - type
-        - user
-        - device
+        - buildingId
+        - deviceId
         - state
     State:
       type: object
@@ -345,91 +410,46 @@ components:
           type: string
           example: 'BRIGHTNESS'
           enum:
-            - 'BRIGHTNESS'
-            - 'SIGNAL_STRENGTH'
-            - 'LOW_BATTERY'
-            - 'BATTERY_LEVEL'
-            - 'POWER'
-            - 'COLOR'
-            - 'COLOR_TEMPERATURE'
-            - 'LOCATION'
-            - 'MOTION'
-            - 'MUTE'
-            - 'MEDIA_CONTROL'
-            - 'MEDIA_TITLE'
-            - 'OUTDOOR_TEMPERATURE'
-            - 'WIND_DIRECTION'
-            - 'WIND_SPEED'
-            - 'TEMPERATURE'
-            - 'ATMOSPHERIC_HUMIDITY'
-            - 'BAROMETRIC_PRESSURE'
-            - 'OTHER'
-        value_after:
+            - CAR_CHARGING_MODE
+            - GRID_POWER_CONSUMPTION
+            - POWERCONSUMPTION
+            - POWERCONSUMPTION_LAST_24H
+            - POWERCONSUMPTION_YESTERDAY
+            - POWER_GENERATION
+            - POWER_GENERATION_LAST_24H
+            - POWER_GENERATION_YESTERDAY
+            - SELF_CONSUMPTION_RATE_YESTERDAY
+            - SELF_SUFFICIENCY_RATE_YESTERDAY
+            - WATER_TEMPERATURE
+        value:
           type: string
-#          enum:
-#            - 'PRESSED'
-#            - 'LONG_PRESSED'
-#            - 'DOUBLE_PRESSED'
-#            - 'TOUCHED'
-#            - 'MAX_TEMPERATURE'
-#            - 'MIN_TEMPERATURE'
-#            - 'DEFAULT_PLAYLIST'
-#            - 'DEFAULT_SOUND_DEVICE'
-#            - 'LEAVES_HOME'
-#            - 'RETURNS_HOME'
-#            - 'WENT_SLEEPING'
-#            - 'GET_UP'
-#            - 'ON'
-#            - 'OFF'
-#            - 'STARTED'
-#            - 'PAUSED'
-#            - 'STOPPED'
-#            - 'NONE'
           example: '80'
           description: 'The value after the state has changed'
-        value_before:
-          type: string
-#          enum:
-#            - 'PRESSED'
-#            - 'LONG_PRESSED'
-#            - 'DOUBLE_PRESSED'
-#            - 'DOUBLE_PRESSED'
-#            - 'DOUBLE_PRESSED'
-#            - 'TOUCHED'
-#            - 'MAX_TEMPERATURE'
-#            - 'MIN_TEMPERATURE'
-#            - 'DEFAULT_PLAYLIST'
-#            - 'DEFAULT_SOUND_DEVICE'
-#            - 'LEAVES_HOME'
-#            - 'RETURNS_HOME'
-#            - 'WENT_SLEEPING'
-#            - 'GET_UP'
-#            - 'ON'
-#            - 'OFF'
-#            - 'STARTED'
-#            - 'PAUSED'
-#            - 'STOPPED'
-          example: '100'
-          description: 'The value before the state has changed'
-        value_max:
-          type: string
-          example: '100'
-          description: 'The value which indicates what is 100%. Needed when set additional_information to ABSOLUTE.'
-        value_min:
-          type: string
-          example: '0'
-          description: 'The value which inidcates what is 0%. Needed when set additional_information to ABSOLUTE.'
         additional_information:
-          type: string
-          enum:
-            - 'FAHRENHEIT'
-            - 'CELSIUS'
-            - 'PERCENTAGE'
-            - 'ABSOLUTE'
-          example: ''
+          type: object
+          description: 'Additional information about the state'
+          properties:
+            unit:
+              type: string
+              example: 'PERCENTAGE'
+              enum:
+                  - 'FAHRENHEIT'
+                  - 'CELSIUS'
+                  - 'PERCENTAGE'
+                  - 'ABSOLUTE'
+              description: 'The unit of the value'
+            isForecast:
+              type: boolean
+              example: false
+              description: 'Whether the value is a forecast or not'
+            forecastTimestamp:
+              type: integer
+              format: int64
+              example: 1589636439
+              description: 'Timestamp when the forecast is valid'
       required:
         - type
-        - value_after
+        - value
     Device:
       type: object
       description: ''
@@ -487,34 +507,89 @@ components:
       required:
         - id
         - type
-    User:
-      type: object
-      description: 'The end-user for whom this event is generated'
-      properties:
-        id:
-          type: string
-          example: '2c6d3036-4dad-4de3-84fe-fafa1971b16f'
-          description: 'Identifier to uniquely identify a end-user'
-        zip:
-          type: string
-          example: '8646'
-          description: 'ZIP where this event was generated'
-        country_code:
-          type: string
-          example: 'CH'
-          description: 'Code of the current users country'
-      required:
-        - id
+    LowTariffHourSettings:
+        type: object
+        description: 'The LowTariffHourSettings Object which is sent to the cloud endpoint of a customer'
+        properties:
+          MondayStartTime:
+            type: string
+            format: time
+            description: 'Start of the low tariff hours on mondays'
+          MondayEndTime:
+            type: string
+            format: time
+            description: 'End of the low tariff hours on mondays'
+          TuesdayStartTime:
+            type: string
+            format: time
+            description: 'Start of the low tariff hours on tuesdays'
+          TuesdayEndTime:
+            type: string
+            format: time
+            description: 'End of the low tariff hours on tuesdays'
+          WednesdayStartTime:
+            type: string
+            format: time
+            description: 'Start of the low tariff hours on wednesdays'
+          WednesdayEndTime:
+            type: string
+            format: time
+            description: 'End of the low tariff hours on wednesdays'
+          ThursdayStartTime:
+            type: string
+            format: time
+            description: 'Start of the low tariff hours on thursdays'
+          ThursdayEndTime:
+            type: string
+            format: time
+            description: 'End of the low tariff hours on thursdays'
+          FridayStartTime:
+            type: string
+            format: time
+            description: 'Start of the low tariff hours on fridays'
+          FridayEndTime:
+            type: string
+            format: time
+            description: 'End of the low tariff hours on fridays'
+          SaturdayStartTime:
+            type: string
+            format: time
+            description: 'Start of the low tariff hours on saturdays'
+          SaturdayEndTime:
+            type: string
+            format: time
+            description: 'End of the low tariff hours on saturdays'
+          SundayStartTime:
+            type: string
+            format: time
+            description: 'Start of the low tariff hours on sundays'
+          SundayEndTime:
+              type: string
+              format: time
+              description: 'End of the low tariff hours on sundays'
+        required:
+          - MondayStartTime
+          - MondayEndTime
+          - TuesdayStartTime
+          - TuesdayEndTime
+          - WednesdayStartTime
+          - WednesdayEndTime
+          - ThursdayStartTime
+          - ThursdayEndTime
+          - FridayStartTime
+          - FridayEndTime
+          - SaturdayStartTime
+          - SaturdayEndTime
+          - SundayStartTime
+          - SundayEndTime
+    ArrayOfBuildings:
+      type: array
+      items:
+        $ref: '#/components/schemas/Building'
     ArrayOfDevices:
       type: array
       items:
         $ref: '#/components/schemas/Device'
-    ArrayOfDevicesPerUser:
-      type: array
-      items:
-        type: array
-        items:
-          $ref: '#/components/schemas/Device'
     ArrayOfEvents:
       type: array
       items:
@@ -523,10 +598,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Notification'
-    ArrayOfNotificationActions:
-      type: array
-      items:
-        $ref: '#/components/schemas/NotificationAction'
     Notification:
       type: object
       description: 'The Notification Object which is sent to the cloud endpoint of a customer'
@@ -593,10 +664,10 @@ components:
           type: string
           description: 'ID of the rule which generated the notification.'
           example: '633edbe81335bfccc4e53668'
-        userId:
+        buildingId:
           type: string
-          description: 'ID of the end-user which we received from the customers system'
-          example: '00000000ECA31C6E'
+          description: 'Unique identifier of the building'
+          example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
         priority:
           type: string
           description: 'The priority with which this notification should be delivered'
@@ -607,7 +678,7 @@ components:
       properties:
         actionQualifier:
           type: string
-          description: 'The action which was performed on the Notificaiton'
+          description: 'The action which was performed on the Notification'
           enum:
             - 'DISMISS'
             - 'OPENWEBSITE'
@@ -653,71 +724,6 @@ components:
         deviceId:
           type: string
           description: 'The ID of the device for which the action should be scoped. Only on OPENDEVICECONTROL'
-    GeoCoordinate:
-      type: object
-      description: 'An object representing the GeoCoordinate to the given ZIP Code'
-      properties:
-        zip:
-          type: string
-          description: 'The ZIP which was used to query for GeoCoordinates'
-          example: '9000'
-        name:
-          type: string
-          description: 'The name of the town which is represented by the given ZIP'
-          example: 'St. GAllen'
-        lat:
-          type: number
-          description: 'The latitude value of the given town'
-          example: 47.4236
-        lon:
-          type: number
-          description: 'The longitude value of the given town'
-          example: 9.3622
-        country:
-          type: string
-          description: 'The Country Code which was used to query for GeoCoordinates'
-    FulfillmentPreferences:
-      type: object
-      description: 'An object representing the fulfillment preferences for a certain customer'
-      properties:
-        customerId:
-          type: string
-          description: 'ID of the customer for which we will set the preferences'
-          example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
-        type:
-          type: string
-          enum:
-            - 'REST'
-          description: 'Defines what kind of fulfillment type the customer requests'
-        auth_strategy:
-          type: string
-          enum:
-            - 'BASIC'
-            - 'TOKEN'
-            - 'BEARER'
-        auth_token:
-          type: string
-          example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
-        auth_token_header:
-          type: string
-          example: 'X-API-TOKEN'
-        auth_user:
-          type: string
-          example: 'testuser'
-        auth_password:
-          type: string
-          example: 'testpassword'
-        rest_hostname:
-          type: string
-          example: 'api.moost.io'
-        rest_path:
-          type: string
-          example: '/recommendations/v1'
-      required:
-        - customerId
-        - type
-        - auth_strategy
-        - token
     HTTP400BadRequest:
       type: object
       properties:
