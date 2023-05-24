@@ -4,7 +4,7 @@ info:
     This is the API Documentation of the MOOST Recommender Platform. The API defines methods to interact with the Recommender
     Platform. To perform any action against the API the consumer needs to first call the /auth/login endpoint with valid
     Credentials to retrieve a JWT Token which has to be handed to each call as Bearer Token.
-  version: "2.2.0"
+  version: "2.3.0"
   title: MOOST Recommender System
   termsOfService: 'https://www.moost.io/terms/agb'
   contact:
@@ -173,6 +173,28 @@ paths:
               application/json:
                 schema:
                     $ref: '#/components/schemas/Building'
+          '400':
+            $ref: '#/components/responses/BadRequest'
+          '401':
+            $ref: '#/components/responses/Unauthorized'
+          '5XX':
+            $ref: '#/components/responses/InternalServerError'
+    delete:
+        tags:
+            - Buildings
+        summary: Delete the building with the given buildingId.
+        operationId: deleteBuilding
+        parameters:
+          - name: buildingId
+            in: path
+            description: 'The ID of the building which should be deleted'
+            required: true
+            schema:
+                type: string
+                example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+        responses:
+          '200':
+            description: Building deleted
           '400':
             $ref: '#/components/responses/BadRequest'
           '401':
