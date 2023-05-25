@@ -1,8 +1,6 @@
 openapi: 3.0.0
 info:
   description: |
-    ### Welcome to the API documentation for the MOOST Recommender Platform! 
-    
     This comprehensive guide will walk you through the various endpoints and functionalities of our powerful recommendation system.
     This documentation provides detailed information about each endpoint, including the request parameters, response formats, and 
     example requests and responses. We've also included helpful descriptions and explanations to ensure you can make the most of 
