@@ -7,7 +7,7 @@ info:
     our recommendation system and harness its full potential.
     
     Let's get started and explore the capabilities of the MOOST Recommender Platform API!
-  version: "2.3.4"
+  version: "2.3.5"
   title: MOOST Recommender Platform API
   termsOfService: 'https://www.moost.io/terms/agb'
   contact:
@@ -403,7 +403,7 @@ components:
           items:
             $ref: '#/components/schemas/Device'
       required:
-        - id
+        - customerId
         - name
         - zip
         - countryCode
