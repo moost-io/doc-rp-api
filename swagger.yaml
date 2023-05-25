@@ -191,7 +191,7 @@ paths:
     delete:
       tags:
         - Buildings
-      summary: Delete the building with the given buildingId.
+      summary: Delete the building and all corresponding events to the given buildingId.
       operationId: deleteBuilding
       parameters:
         - name: buildingId
