@@ -363,6 +363,7 @@ components:
           type: string
           description: 'Unique identifier of the building'
           example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
+          readOnly: true
         customerBuildingId:
           type: string
           description: 'Unique identifier of the building in the customer system'
@@ -479,6 +480,7 @@ components:
           type: string
           example: 'cb16399f-af20-428e-ad2f-69380f9f07a2'
           description: 'Identifier to uniquely identify the physical device'
+          readOnly: true
         location:
           type: string
           enum:
