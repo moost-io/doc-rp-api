@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   description: |
-    Welcome to the API documentation for the MOOST Recommender Platform! 
+    ### Welcome to the API documentation for the MOOST Recommender Platform! 
     
     This comprehensive guide will walk you through the various endpoints and functionalities of our powerful recommendation system.
     This documentation provides detailed information about each endpoint, including the request parameters, response formats, and 
@@ -9,7 +9,7 @@ info:
     our recommendation system and harness its full potential.
     
     Let's get started and explore the capabilities of the MOOST Recommender Platform API!
-  version: "2.3.3"
+  version: "2.3.4"
   title: MOOST Recommender Platform API
   termsOfService: 'https://www.moost.io/terms/agb'
   contact:
@@ -37,7 +37,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ArrayOfEvents'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -77,7 +79,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ArrayOfNotifications'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -129,7 +133,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ArrayOfBuildings'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Building'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -138,15 +144,15 @@ paths:
           $ref: '#/components/responses/InternalServerError'
     post:
       tags:
-          - Buildings
+        - Buildings
       summary: Adds a new building to the given customerId.
       operationId: addBuilding
       requestBody:
         required: true
         content:
           application/json:
-              schema:
-                $ref: '#/components/schemas/Building'
+            schema:
+              $ref: '#/components/schemas/Building'
       responses:
         '201':
           description: Building added to the platform
@@ -159,81 +165,83 @@ paths:
 
   /buildings/{buildingId}:
     get:
-        tags:
-            - Buildings
-        summary: Get the building with the given buildingId.
-        operationId: getBuilding
-        parameters:
-          - name: buildingId
-            in: path
-            description: 'The ID of the building which should be retrieved'
-            required: true
-            schema:
-                type: string
-                example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
-        responses:
-          '200':
-            description: The building
-            content:
-              application/json:
-                schema:
-                    $ref: '#/components/schemas/Building'
-          '400':
-            $ref: '#/components/responses/BadRequest'
-          '401':
-            $ref: '#/components/responses/Unauthorized'
-          '5XX':
-            $ref: '#/components/responses/InternalServerError'
+      tags:
+        - Buildings
+      summary: Get the building with the given buildingId.
+      operationId: getBuilding
+      parameters:
+        - name: buildingId
+          in: path
+          description: 'The ID of the building which should be retrieved'
+          required: true
+          schema:
+            type: string
+            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+      responses:
+        '200':
+          description: The building
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
     delete:
-        tags:
-            - Buildings
-        summary: Delete the building with the given buildingId.
-        operationId: deleteBuilding
-        parameters:
-          - name: buildingId
-            in: path
-            description: 'The ID of the building which should be deleted'
-            required: true
-            schema:
-                type: string
-                example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
-        responses:
-          '200':
-            description: Building deleted
-          '400':
-            $ref: '#/components/responses/BadRequest'
-          '401':
-            $ref: '#/components/responses/Unauthorized'
-          '5XX':
-            $ref: '#/components/responses/InternalServerError'
+      tags:
+        - Buildings
+      summary: Delete the building with the given buildingId.
+      operationId: deleteBuilding
+      parameters:
+        - name: buildingId
+          in: path
+          description: 'The ID of the building which should be deleted'
+          required: true
+          schema:
+            type: string
+            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+      responses:
+        '200':
+          description: Building deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
 
   /buildings/{buildingId}/devices:
     get:
-        tags:
-            - Buildings
-        summary: Get all devices of the given buildingId.
-        operationId: getDevices
-        parameters:
-          - name: buildingId
-            in: path
-            description: 'The ID of the building for which the devices should be retrieved'
-            required: true
-            schema:
-                type: string
-                example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
-        responses:
-            '200':
-              description: The list of devices
-              content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/ArrayOfDevices'
-            '400':
-              $ref: '#/components/responses/BadRequest'
-            '401':
-              $ref: '#/components/responses/Unauthorized'
-            '5XX':
-              $ref: '#/components/responses/InternalServerError'
+      tags:
+        - Buildings
+      summary: Get all devices of the given buildingId.
+      operationId: getDevices
+      parameters:
+        - name: buildingId
+          in: path
+          description: 'The ID of the building for which the devices should be retrieved'
+          required: true
+          schema:
+            type: string
+            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+      responses:
+        '200':
+          description: The list of devices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags:
         - Buildings
@@ -282,7 +290,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LowTariffHourSettings'
+              type: array
+              items:
+                $ref: '#/components/schemas/Building'
       responses:
         '201':
           description: Low tariff hour added to the platform
@@ -395,11 +405,11 @@ components:
           items:
             $ref: '#/components/schemas/Device'
       required:
-          - id
-          - name
-          - zip
-          - countryCode
-          - city
+        - id
+        - name
+        - zip
+        - countryCode
+        - city
     Event:
       type: object
       description: 'An event that is sent to the recommender platform'
@@ -460,10 +470,10 @@ components:
               type: string
               example: 'PERCENTAGE'
               enum:
-                  - 'FAHRENHEIT'
-                  - 'CELSIUS'
-                  - 'PERCENTAGE'
-                  - 'ABSOLUTE'
+                - 'FAHRENHEIT'
+                - 'CELSIUS'
+                - 'PERCENTAGE'
+                - 'ABSOLUTE'
               description: 'The unit of the value'
             isForecast:
               type: boolean
@@ -536,96 +546,80 @@ components:
         - id
         - type
     LowTariffHourSettings:
-        type: object
-        description: 'The LowTariffHourSettings Object which is sent to the cloud endpoint of a customer'
-        properties:
-          MondayStartTime:
-            type: string
-            format: time
-            description: 'Start of the low tariff hours on mondays'
-          MondayEndTime:
-            type: string
-            format: time
-            description: 'End of the low tariff hours on mondays'
-          TuesdayStartTime:
-            type: string
-            format: time
-            description: 'Start of the low tariff hours on tuesdays'
-          TuesdayEndTime:
-            type: string
-            format: time
-            description: 'End of the low tariff hours on tuesdays'
-          WednesdayStartTime:
-            type: string
-            format: time
-            description: 'Start of the low tariff hours on wednesdays'
-          WednesdayEndTime:
-            type: string
-            format: time
-            description: 'End of the low tariff hours on wednesdays'
-          ThursdayStartTime:
-            type: string
-            format: time
-            description: 'Start of the low tariff hours on thursdays'
-          ThursdayEndTime:
-            type: string
-            format: time
-            description: 'End of the low tariff hours on thursdays'
-          FridayStartTime:
-            type: string
-            format: time
-            description: 'Start of the low tariff hours on fridays'
-          FridayEndTime:
-            type: string
-            format: time
-            description: 'End of the low tariff hours on fridays'
-          SaturdayStartTime:
-            type: string
-            format: time
-            description: 'Start of the low tariff hours on saturdays'
-          SaturdayEndTime:
-            type: string
-            format: time
-            description: 'End of the low tariff hours on saturdays'
-          SundayStartTime:
-            type: string
-            format: time
-            description: 'Start of the low tariff hours on sundays'
-          SundayEndTime:
-              type: string
-              format: time
-              description: 'End of the low tariff hours on sundays'
-        required:
-          - MondayStartTime
-          - MondayEndTime
-          - TuesdayStartTime
-          - TuesdayEndTime
-          - WednesdayStartTime
-          - WednesdayEndTime
-          - ThursdayStartTime
-          - ThursdayEndTime
-          - FridayStartTime
-          - FridayEndTime
-          - SaturdayStartTime
-          - SaturdayEndTime
-          - SundayStartTime
-          - SundayEndTime
-    ArrayOfBuildings:
-      type: array
-      items:
-        $ref: '#/components/schemas/Building'
-    ArrayOfDevices:
-      type: array
-      items:
-        $ref: '#/components/schemas/Device'
-    ArrayOfEvents:
-      type: array
-      items:
-        $ref: '#/components/schemas/Event'
-    ArrayOfNotifications:
-      type: array
-      items:
-        $ref: '#/components/schemas/Notification'
+      type: object
+      description: 'The LowTariffHourSettings Object which is sent to the cloud endpoint of a customer'
+      properties:
+        MondayStartTime:
+          type: string
+          format: time
+          description: 'Start of the low tariff hours on mondays'
+        MondayEndTime:
+          type: string
+          format: time
+          description: 'End of the low tariff hours on mondays'
+        TuesdayStartTime:
+          type: string
+          format: time
+          description: 'Start of the low tariff hours on tuesdays'
+        TuesdayEndTime:
+          type: string
+          format: time
+          description: 'End of the low tariff hours on tuesdays'
+        WednesdayStartTime:
+          type: string
+          format: time
+          description: 'Start of the low tariff hours on wednesdays'
+        WednesdayEndTime:
+          type: string
+          format: time
+          description: 'End of the low tariff hours on wednesdays'
+        ThursdayStartTime:
+          type: string
+          format: time
+          description: 'Start of the low tariff hours on thursdays'
+        ThursdayEndTime:
+          type: string
+          format: time
+          description: 'End of the low tariff hours on thursdays'
+        FridayStartTime:
+          type: string
+          format: time
+          description: 'Start of the low tariff hours on fridays'
+        FridayEndTime:
+          type: string
+          format: time
+          description: 'End of the low tariff hours on fridays'
+        SaturdayStartTime:
+          type: string
+          format: time
+          description: 'Start of the low tariff hours on saturdays'
+        SaturdayEndTime:
+          type: string
+          format: time
+          description: 'End of the low tariff hours on saturdays'
+        SundayStartTime:
+          type: string
+          format: time
+          description: 'Start of the low tariff hours on sundays'
+        SundayEndTime:
+          type: string
+          format: time
+          description: 'End of the low tariff hours on sundays'
+      required:
+        - MondayStartTime
+        - MondayEndTime
+        - TuesdayStartTime
+        - TuesdayEndTime
+        - WednesdayStartTime
+        - WednesdayEndTime
+        - ThursdayStartTime
+        - ThursdayEndTime
+        - FridayStartTime
+        - FridayEndTime
+        - SaturdayStartTime
+        - SaturdayEndTime
+        - SundayStartTime
+        - SundayEndTime
     Notification:
       type: object
       description: 'The Notification Object which is sent to the cloud endpoint of a customer'
