@@ -188,6 +188,34 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '5XX':
           $ref: '#/components/responses/InternalServerError'
+    put:
+        tags:
+            - Buildings
+        summary: Update the building with the given buildingId.
+        operationId: updateBuilding
+        parameters:
+          - name: buildingId
+            in: path
+            description: 'The ID of the building which should be updated'
+            required: true
+            schema:
+                type: string
+                example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+        requestBody:
+            required: true
+            content:
+              application/json:
+                  schema:
+                    $ref: '#/components/schemas/Building'
+        responses:
+            '200':
+              description: Building updated
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '5XX':
+              $ref: '#/components/responses/InternalServerError'
     delete:
       tags:
         - Buildings
