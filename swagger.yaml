@@ -23,7 +23,7 @@ security:
   - bearerAuth: []
 
 paths:
-  /events:
+  /events/v2:
     get:
       tags:
         - Events
@@ -65,7 +65,7 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /notifications:
+  /notifications/v1:
     get:
       tags:
         - Notifications
@@ -87,7 +87,7 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /notifications/{notificationId}/interactions:
+  /notifications/{notificationId}/interactions/v1:
     post:
       tags:
         - Notifications
@@ -119,7 +119,7 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /buildings:
+  /buildings/v1:
     get:
       tags:
         - Buildings
@@ -161,7 +161,7 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /buildings/{buildingId}:
+  /buildings/{buildingId}/v1:
     get:
       tags:
         - Buildings
@@ -239,7 +239,7 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /buildings/{buildingId}/devices:
+  /buildings/{buildingId}/devices/v1:
     get:
       tags:
         - Buildings
@@ -297,7 +297,7 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /buildings/{buildingId}/settings/lowTariffHours:
+  /buildings/{buildingId}/settings/lowTariffHours/v1:
     put:
       tags:
         - Buildings
@@ -318,7 +318,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Building'
+                $ref: '#/components/schemas/LowTariffHourSettings'
       responses:
         '201':
           description: Low tariff hour added to the platform
@@ -329,7 +329,7 @@ paths:
         '5XX':
           $ref: '#/components/responses/InternalServerError'
 
-  /auth/login:
+  /auth/login/v1:
     post:
       tags:
         - Authentication
