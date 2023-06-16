@@ -6,4 +6,3 @@ which copies the "openapi.json" to Git repository https://github.com/moost-io/do
 ## Access Swagger UI
 Go to https://doc.api.moost.io/index.html
 In header input field enter "api/ms-gp-rules/openapi.json" and click "Explore".
-
