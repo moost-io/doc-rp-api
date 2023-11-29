@@ -26,6 +26,8 @@ security:
 paths:
   /events/v1:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - Events
       operationId: addEventV1
@@ -435,6 +437,7 @@ paths:
           required: true
           schema:
             type: string
+            example: 000000009C54AEDC
       responses:
         '200':
           description: OK
@@ -698,40 +701,32 @@ components:
         timestamp:
           type: integer
           format: int64
+          example: 1643151600
         customerId:
           type: string
+          example: "656730be2bc9719e6e5ed51d"
         customerBuildingId:
           type: string
+          example: "000000009C54AEDC"
         deviceId:
           type: string
+          example: "64dfc677d499779fae0e1911"
         deviceName:
           type: string
+          example: "Device Link Car"
         value:
           type: number
           format: float
+          example: 1345.4
         type:
           type: string
+          example: POWER_GENERATION
         source:
           type: string
+          example: "GATEWAY"
         forecastTimestamp:
           type: integer
           format: int64
-        ingestionTimestamp:
-          type: integer
-          format: int64
-        unit:
-          type: string
-          enum:
-            - WATT
-            - WATT_HOUR
-            - AMPERE
-            - VOLT
-            - PERCENT
-            - CELSIUS
-            - FAHRENHEIT
-            - BOOLEAN
-            - PPM
-            - NONE
     Device:
       type: object
       properties:
@@ -813,15 +808,6 @@ components:
         totalEvents:
           type: integer
           format: int32
-    ConditionTerm:
-      required:
-        - _class
-      type: object
-      properties:
-        _class:
-          type: string
-      discriminator:
-        propertyName: _class
     Dataset:
       type: object
       properties:
@@ -887,8 +873,6 @@ components:
     Rule:
       type: object
       properties:
-        conditionTerm:
-          $ref: '#/components/schemas/ConditionTerm'
         id:
           $ref: '#/components/schemas/ObjectId'
         createdAt:
