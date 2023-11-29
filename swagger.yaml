@@ -461,7 +461,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
-  /rules/{ruleId}/v1:
+  /rules/{ruleId}:
     get:
       tags:
         - Rules
@@ -514,7 +514,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
-  /rules/v1:
+  /rules:
     get:
       tags:
         - Rules
@@ -557,7 +557,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
-  /rules/simulation/v1:
+  /rules/simulation:
     post:
       tags:
         - Rules
