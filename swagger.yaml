@@ -1,261 +1,68 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  description: |
-    This comprehensive guide will walk you through the various endpoints and functionalities of our powerful recommendation system.
-    This documentation provides detailed information about each endpoint, including the request parameters, response formats, and 
-    example requests and responses. We've also included helpful descriptions and explanations to ensure you can make the most of 
-    our recommendation system and harness its full potential.
-    
-    Let's get started and explore the capabilities of the MOOST Recommender Platform API!
-  version: "2.4.0"
   title: MOOST Recommender Platform API
-  termsOfService: 'https://www.moost.io/terms/agb'
+  description: >
+    This comprehensive guide will walk you through the various endpoints and
+    functionalities of our powerful recommendation system.
+
+    This documentation provides detailed information about each endpoint,
+    including the request parameters, response formats, and 
+
+    example requests and responses. We've also included helpful descriptions and
+    explanations to ensure you can make the most of 
+
+    our recommendation system and harness its full potential.
+
+
+    Let's get started and explore the capabilities of the MOOST Recommender
+    Platform API!
   contact:
-    email: hello@moost.io
-  license:
-    name: Apache 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
-
+    email: support@moost.io
+  version: 2.4.0
 servers:
-  - url: 'https://api.moost.io/'
-
+  - url: https://api.moost.io
 security:
   - bearerAuth: []
-
 paths:
-  /events/v2:
-    get:
-      tags:
-        - Events
-      summary: Get all events of the currently authenticated customer
-      operationId: getEvents
-      responses:
-        '200':
-          description: The list of Events
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Event'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '5XX':
-          $ref: '#/components/responses/InternalServerError'
+  /events/v1:
     post:
       tags:
         - Events
-      summary: Post a new event to the platform
-      operationId: addEvent
+      operationId: addEventV1
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Event'
+        required: true
       responses:
         '201':
-          description: Created - Event received
+          description: Created
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '5XX':
+        5XX:
           $ref: '#/components/responses/InternalServerError'
-
-  /notifications/v1:
-    get:
-      tags:
-        - Notifications
-      summary: Get all notifications of the given customerId.
-      operationId: getNotifications
-      responses:
-        '200':
-          description: The list of notifications
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Notification'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '5XX':
-          $ref: '#/components/responses/InternalServerError'
-
-  /notifications/{notificationId}/interactions/v1:
-    post:
-      tags:
-        - Notifications
-      summary: Push new interaciton with a notification to the Platform.
-      security:
-        - bearerAuth: []
-      operationId: addInteraction
-      parameters:
-        - name: notificationId
-          in: path
-          description: 'The ID of the notification with which the end-user has interacted'
-          required: true
-          schema:
-            type: string
-            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NotificationInteraction'
-      responses:
-        '200':
-          description: Interaction Added to the Platform
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '5XX':
-          $ref: '#/components/responses/InternalServerError'
-
-  /buildings/v1:
+  /buildings/{customerBuildingId}/devices/v1:
     get:
       tags:
         - Buildings
-      summary: Get all buildings of the given customerId.
-      operationId: getBuildings
-      responses:
-        '200':
-          description: The list of buildings
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Building'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '5XX':
-          $ref: '#/components/responses/InternalServerError'
-    post:
-      tags:
-        - Buildings
-      summary: Adds a new building to the given customerId.
-      operationId: addBuilding
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Building'
-      responses:
-        '201':
-          description: Building added to the platform
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '5XX':
-          $ref: '#/components/responses/InternalServerError'
-
-  /buildings/{buildingId}/v1:
-    get:
-      tags:
-        - Buildings
-      summary: Get the building with the given buildingId.
-      operationId: getBuilding
-      parameters:
-        - name: buildingId
-          in: path
-          description: 'The ID of the building which should be retrieved'
-          required: true
-          schema:
-            type: string
-            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
-      responses:
-        '200':
-          description: The building
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Building'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '5XX':
-          $ref: '#/components/responses/InternalServerError'
-    put:
-        tags:
-            - Buildings
-        summary: Update the building with the given buildingId.
-        operationId: updateBuilding
-        parameters:
-          - name: buildingId
-            in: path
-            description: 'The ID of the building which should be updated'
-            required: true
-            schema:
-                type: string
-                example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
-        requestBody:
-            required: true
-            content:
-              application/json:
-                  schema:
-                    $ref: '#/components/schemas/Building'
-        responses:
-            '200':
-              description: Building updated
-            '400':
-              $ref: '#/components/responses/BadRequest'
-            '401':
-              $ref: '#/components/responses/Unauthorized'
-            '5XX':
-              $ref: '#/components/responses/InternalServerError'
-    delete:
-      tags:
-        - Buildings
-      summary: Delete the building and all corresponding events to the given buildingId.
-      operationId: deleteBuilding
-      parameters:
-        - name: buildingId
-          in: path
-          description: 'The ID of the building which should be deleted'
-          required: true
-          schema:
-            type: string
-            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
-      responses:
-        '200':
-          description: Building deleted
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '5XX':
-          $ref: '#/components/responses/InternalServerError'
-
-  /buildings/{buildingId}/devices/v1:
-    get:
-      tags:
-        - Buildings
-      summary: Get all devices of the given buildingId.
       operationId: getDevices
       parameters:
-        - name: buildingId
-          in: path
-          description: 'The ID of the building for which the devices should be retrieved'
+        - name: customerId
+          in: header
           required: true
           schema:
             type: string
-            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
+        - name: customerBuildingId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         '200':
-          description: The list of devices
+          description: OK
           content:
             application/json:
               schema:
@@ -266,102 +73,997 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '5XX':
+        5XX:
           $ref: '#/components/responses/InternalServerError'
     post:
       tags:
         - Buildings
-      summary: Adds a new device to the given buildingId.
-      operationId: addDeviceToBuilding
+      operationId: addDevices
       parameters:
-        - name: buildingId
-          in: path
-          description: 'The ID of the building to which the device should be added'
+        - name: customerId
+          in: header
           required: true
           schema:
             type: string
-            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Device'
-      responses:
-        '201':
-          description: Device added to the platform
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '5XX':
-          $ref: '#/components/responses/InternalServerError'
-
-  /buildings/{buildingId}/settings/lowTariffHours/v1:
-    put:
-      tags:
-        - Buildings
-      summary: Adds a new low tariff hour to the given buildingId.
-      operationId: addLowTariffHour
-      parameters:
-        - name: buildingId
+        - name: customerBuildingId
           in: path
-          description: 'The ID of the building to which the low tariff hour should be added'
           required: true
           schema:
             type: string
-            example: 'eec0425c-2697-4fa2-b143-5e942378a06f'
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/LowTariffHourSettings'
+                $ref: '#/components/schemas/Device'
+        required: true
       responses:
         '201':
-          description: Low tariff hour added to the platform
+          description: Created
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '5XX':
+        5XX:
           $ref: '#/components/responses/InternalServerError'
-
-  /auth/login/v1:
-    post:
+  /buildings/v1:
+    get:
       tags:
-        - Authentication
-      summary: Authenticate the given user and return a new Java Web Token (JWT)
-      operationId: login
-      security: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Credentials'
+        - Buildings
+      operationId: getBuildings
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: OK
-          headers:
-            Authorization:
+          content:
+            application/json:
               schema:
-                type: string
-              description: The newly created JWT which can be used to authenticate against other ressources.
+                type: array
+                items:
+                  $ref: '#/components/schemas/Building'
+    post:
+      tags:
+        - Buildings
+      operationId: createOrUpdateBuilding
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Building'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '5XX':
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
           $ref: '#/components/responses/InternalServerError'
-
+  /events/{customerBuildingId}/v1:
+    get:
+      tags:
+        - Events
+      operationId: getEventsForCustomerBuilding
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: customerBuildingId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: source
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: type
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /events/v2:
+    get:
+      tags:
+        - Events
+      operationId: getEventsByCustomerIdV2
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: filter
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ''
+        - name: startTimestamp
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: endTimestamp
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 15
+        - name: sortDirection
+          in: query
+          required: false
+          schema:
+            type: string
+            default: asc
+        - name: sortProperties
+          in: query
+          required: false
+          schema:
+            type: string
+            default: timestamp
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /pushnotifications/{pushNotificationId}/interactions/v1:
+    post:
+      tags:
+        - Notifications
+      operationId: postPushNotificationInteraction
+      parameters:
+        - name: pushNotificationId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PushNotificationInteraction'
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /pushnotifications/v2:
+    get:
+      tags:
+        - Notifications
+      operationId: getPushNotifications
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: buildingId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: ruleId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: startTimestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: endTimestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PushNotification'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /pushnotifications/v1:
+    get:
+      tags:
+        - Notifications
+      operationId: getPushNotificationsByCustomerIDV1
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: filter
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ''
+        - name: startTimestamp
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 0
+        - name: endTimestamp
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 15
+        - name: sortDirection
+          in: query
+          required: false
+          schema:
+            type: string
+            default: asc
+        - name: sortProperties
+          in: query
+          required: false
+          schema:
+            type: string
+            default: createdAtTimeMillis
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PushNotificationsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /events/types/v1:
+    get:
+      tags:
+        - Events
+      operationId: getEventTypesV1
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /events/sources/v1:
+    get:
+      tags:
+        - Events
+      operationId: getEventSourcesV1
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /buildings/{buildingId}/v1:
+    get:
+      tags:
+        - Buildings
+      operationId: getBuilding
+      parameters:
+        - name: buildingId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ObjectId'
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
+    delete:
+      tags:
+        - Buildings
+      operationId: deleteBuilding
+      parameters:
+        - name: buildingId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ObjectId'
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /rules/{ruleId}/v1:
+    get:
+      tags:
+        - Rules
+      operationId: getRuleByIdV1
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: ruleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Rules
+      operationId: updateRuleV1
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: ruleId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rule'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /rules/v1:
+    get:
+      tags:
+        - Rules
+      operationId: getAllRulesV1
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Rules
+      operationId: addRuleV1
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rule'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Rule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /rules/simulation/v1:
+    post:
+      tags:
+        - Rules
+      operationId: getNotificationsFromSimulation
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: customerBuildingId
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PushNotification'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
+  schemas:
+    Event:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+        customerId:
+          type: string
+        customerBuildingId:
+          type: string
+        deviceId:
+          type: string
+        deviceName:
+          type: string
+        value:
+          type: number
+          format: float
+        type:
+          type: string
+        source:
+          type: string
+        forecastTimestamp:
+          type: integer
+          format: int64
+        ingestionTimestamp:
+          type: integer
+          format: int64
+        unit:
+          type: string
+          enum:
+            - WATT
+            - WATT_HOUR
+            - AMPERE
+            - VOLT
+            - PERCENT
+            - CELSIUS
+            - FAHRENHEIT
+            - BOOLEAN
+            - PPM
+            - NONE
+    Device:
+      type: object
+      properties:
+        id:
+          type: string
+        location:
+          type: string
+          enum:
+            - LIVING_ROOM
+            - KITCHEN
+            - BEDROOM
+            - MASTER_BEDROOM
+            - TOILETTE
+            - SHOWER
+            - BATH
+            - OFFICE
+            - OTHER
+        type:
+          type: string
+        vendor_name:
+          type: string
+        product_name:
+          type: string
+        metadata:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+        updatedAt:
+          type: integer
+          format: int64
+    Building:
+      type: object
+      properties:
+        eventCount:
+          type: integer
+          format: int64
+        id:
+          $ref: '#/components/schemas/ObjectId'
+        customerBuildingId:
+          type: string
+        customerId:
+          type: string
+        zip:
+          type: string
+        city:
+          type: string
+        countryCode:
+          type: string
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
+        settings:
+          $ref: '#/components/schemas/Settings'
+        geolocation:
+          $ref: '#/components/schemas/Geolocation'
+    Geolocation:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+    Settings:
+      type: object
+      properties:
+        lowTariffHourSetting:
+          $ref: '#/components/schemas/LowTariffHourSetting'
+    EventResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        totalEvents:
+          type: integer
+          format: int32
+    ConditionTerm:
+      required:
+        - _class
+      type: object
+      properties:
+        _class:
+          type: string
+      discriminator:
+        propertyName: _class
+    Dataset:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+            - SINGLEVALUE
+            - TIMESERIES
+        source_types:
+          type: array
+          items:
+            type: string
+        event_types:
+          type: array
+          items:
+            type: string
+        timeframe:
+          type: integer
+          format: int64
+    MessageQueueSetting:
+      type: object
+      properties:
+        isOverflowProtectionActive:
+          type: boolean
+    Notification:
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/Translatable'
+        title:
+          $ref: '#/components/schemas/Translatable'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationAction'
+    NotificationAction:
+      type: object
+      properties:
+        text:
+          $ref: '#/components/schemas/Translatable'
+        actionQualifier:
+          type: string
+          enum:
+            - DISMISS
+            - OPENRULECREATOR
+            - OPENDEVICECONTROL
+            - OPENAPP
+            - STOPDELIVERY
+            - OPENWEB
+    ObjectId:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int32
+        date:
+          type: string
+          format: date-time
+    Rule:
+      type: object
+      properties:
+        conditionTerm:
+          $ref: '#/components/schemas/ConditionTerm'
+        id:
+          $ref: '#/components/schemas/ObjectId'
+        createdAt:
+          type: integer
+          format: int64
+        customerId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        ruleState:
+          type: string
+          enum:
+            - ACTIVE
+            - PAUSE
+            - DELETE
+            - CONTROL
+        notification:
+          $ref: '#/components/schemas/Notification'
+        match_threshold:
+          type: integer
+          format: int32
+        time_between_triggers_seconds:
+          type: integer
+          format: int64
+        resetStateWhenMatched:
+          type: boolean
+        condition:
+          type: string
+        messageQueueSetting:
+          $ref: '#/components/schemas/MessageQueueSetting'
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+    Translatable:
+      type: object
+      properties:
+        de:
+          type: string
+        en:
+          type: string
+        fr:
+          type: string
+    PushNotification:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ObjectId'
+        customerId:
+          type: string
+        userId:
+          type: string
+        ruleId:
+          type: string
+        priority:
+          type: string
+        createdAtTimeMillis:
+          type: integer
+          format: int64
+        interaction:
+          $ref: '#/components/schemas/PushNotificationInteraction'
+        ingestionTimestamp:
+          type: integer
+          format: int64
+        message:
+          $ref: '#/components/schemas/Translatable'
+        title:
+          $ref: '#/components/schemas/Translatable'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationAction'
+        delivery_status:
+          $ref: '#/components/schemas/PushNotificationDeliveryStatus'
+    PushNotificationsResponse:
+      type: object
+      properties:
+        pushNotifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/PushNotification'
+        totalPushNotifications:
+          type: integer
+          format: int32
+    PushNotificationDeliveryStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - DELIVERED
+            - DROPPED
+        reason:
+          type: string
+    PushNotificationInteraction:
+      type: object
+      properties:
+        actionQualifier:
+          type: string
+    LowTariffHourSetting:
+      type: object
+      properties:
+        mondayStartTime:
+          type: string
+        mondayEndTime:
+          type: string
+        tuesdayStartTime:
+          type: string
+        tuesdayEndTime:
+          type: string
+        wednesdayStartTime:
+          type: string
+        wednesdayEndTime:
+          type: string
+        thursdayStartTime:
+          type: string
+        thursdayEndTime:
+          type: string
+        fridayStartTime:
+          type: string
+        fridayEndTime:
+          type: string
+        saturdayStartTime:
+          type: string
+        saturdayEndTime:
+          type: string
+        sundayStartTime:
+          type: string
+        sundayEndTime:
+          type: string
+    HTTP400BadRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '400'
+          description: HTTP Error Code that occurred
+        message:
+          type: string
+          example: Bad Request - the request was malformed.
+          description: HTTP Error Message in a human readable way
+      required:
+        - code
+        - message
+    HTTP401Unauthorized:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '401'
+          description: HTTP Error Code that occurred
+        message:
+          type: string
+          example: Unauthorized - please provide a valid API token.
+          description: HTTP Error Message in a human readable way
+      required:
+        - code
+        - message
+    HTTP500Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '500'
+          description: HTTP Error Code that occurred
+        message:
+          type: string
+          example: Internal Server Error
+          description: HTTP Error Message in a human readable way
+      required:
+        - code
+        - message
+        - null
   responses:
     Unauthorized:
       description: Unauthorized - Authorization information is missing or invalid
@@ -381,436 +1083,3 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTP400BadRequest'
-
-  schemas:
-    Credentials:
-      type: object
-      description: 'Login credentials to obtain a JWT'
-      properties:
-        username:
-          type: string
-          description: 'The username you have received from MOOST.'
-          example: moost
-        password:
-          type: string
-          format: password
-          description: 'The password for the user you have provided in the username field.'
-          example: T234asd$iqeöü
-    Building:
-      type: object
-      description: 'A building that is stored in the recommender platform'
-      properties:
-        id:
-          type: string
-          description: 'Unique identifier of the building'
-          example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
-          readOnly: true
-        customerBuildingId:
-          type: string
-          description: 'Unique identifier of the building in the customer system'
-          example: '12345'
-        zip:
-          type: string
-          description: 'Zip code of the building'
-          example: '12345'
-        countryCode:
-          type: string
-          description: 'Country code of the building'
-          example: 'DE'
-        city:
-          type: string
-          description: 'City of the building'
-          example: 'Zürich'
-        settings:
-          type: object
-          description: 'Settings of the building'
-          example: {}
-        devices:
-          type: array
-          description: 'Devices of the building'
-          items:
-            $ref: '#/components/schemas/Device'
-      required:
-        - customerId
-        - name
-        - zip
-        - countryCode
-        - city
-    Event:
-      type: object
-      description: 'An event that is sent to the recommender platform'
-      properties:
-        timestamp:
-          type: integer
-          format: int64
-          description: 'Timestamp when the event is triggered'
-          example: 1589636439
-        customerId:
-          type: string
-          description: 'Unique identifier which is handed to each new customer'
-          example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
-        buildingId:
-          type: string
-          description: 'Unique identifier of the building'
-          example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
-        deviceId:
-          type: string
-          description: 'Unique identifier of the device'
-          example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
-        state:
-          $ref: '#/components/schemas/State'
-      required:
-        - timestamp
-        - customerId
-        - buildingId
-        - deviceId
-        - state
-    State:
-      type: object
-      description: ''
-      properties:
-        type:
-          type: string
-          example: 'BRIGHTNESS'
-          enum:
-            - CAR_CHARGING_MODE
-            - GRID_POWER_CONSUMPTION
-            - POWERCONSUMPTION
-            - POWERCONSUMPTION_LAST_24H
-            - POWERCONSUMPTION_YESTERDAY
-            - POWER_GENERATION
-            - POWER_GENERATION_LAST_24H
-            - POWER_GENERATION_YESTERDAY
-            - SELF_CONSUMPTION_RATE_YESTERDAY
-            - SELF_SUFFICIENCY_RATE_YESTERDAY
-            - WATER_TEMPERATURE
-        value:
-          type: string
-          example: '80'
-          description: 'The value after the state has changed'
-        additional_information:
-          type: object
-          description: 'Additional information about the state'
-          properties:
-            unit:
-              type: string
-              example: 'PERCENTAGE'
-              enum:
-                - 'FAHRENHEIT'
-                - 'CELSIUS'
-                - 'PERCENTAGE'
-                - 'ABSOLUTE'
-              description: 'The unit of the value'
-            isForecast:
-              type: boolean
-              example: false
-              description: 'Whether the value is a forecast or not'
-            forecastTimestamp:
-              type: integer
-              format: int64
-              example: 1589636439
-              description: 'Timestamp when the forecast is valid'
-      required:
-        - type
-        - value
-    Device:
-      type: object
-      description: ''
-      properties:
-        id:
-          type: string
-          example: 'cb16399f-af20-428e-ad2f-69380f9f07a2'
-          description: 'Identifier to uniquely identify the physical device'
-          readOnly: true
-        location:
-          type: string
-          enum:
-            - 'LIVING_ROOM'
-            - 'KITCHEN'
-            - 'MASTER_BEDROOM'
-            - 'BEDROOM'
-            - 'TOILETTE'
-            - 'SHOWER'
-            - 'BATH'
-            - 'OFFICE'
-            - 'OTHER'
-          example: 'LIVING_ROOM'
-          description: 'The Location (Room) where the device is placed'
-        type:
-          type: string
-          enum:
-            - 'LOUDSPEAKER'
-            - 'LIGHT_BULB'
-            - 'PRINTER'
-            - 'WASHING_MACHINE'
-            - 'THERMOSTAT'
-            - 'COMPUTER'
-            - 'HEATER'
-            - 'SMART_BUTTON'
-          example: 'LIGHT_BULB'
-          description: 'Which type of device produced the occurred event'
-        vendor_name:
-          type: string
-          example: 'LIFX'
-        product_name:
-          type: string
-          example: 'LIFX Mini White'
-        metadata:
-          type: object
-          description: 'Additional information that could be specific for some customers'
-        createdAt:
-          type: integer
-          format: int64
-          description: 'Timestamp when the device was initially added to the customers cloud'
-          example: 1608299956
-        updatedAt:
-          type: integer
-          format: int64
-          description: 'Timestamp when the device configuration was last changed'
-          example: 1608299956
-      required:
-        - id
-        - type
-    LowTariffHourSettings:
-      type: object
-      description: 'The LowTariffHourSettings Object which is sent to the cloud endpoint of a customer'
-      properties:
-        MondayStartTime:
-          type: string
-          format: time
-          description: 'Start of the low tariff hours on mondays'
-        MondayEndTime:
-          type: string
-          format: time
-          description: 'End of the low tariff hours on mondays'
-        TuesdayStartTime:
-          type: string
-          format: time
-          description: 'Start of the low tariff hours on tuesdays'
-        TuesdayEndTime:
-          type: string
-          format: time
-          description: 'End of the low tariff hours on tuesdays'
-        WednesdayStartTime:
-          type: string
-          format: time
-          description: 'Start of the low tariff hours on wednesdays'
-        WednesdayEndTime:
-          type: string
-          format: time
-          description: 'End of the low tariff hours on wednesdays'
-        ThursdayStartTime:
-          type: string
-          format: time
-          description: 'Start of the low tariff hours on thursdays'
-        ThursdayEndTime:
-          type: string
-          format: time
-          description: 'End of the low tariff hours on thursdays'
-        FridayStartTime:
-          type: string
-          format: time
-          description: 'Start of the low tariff hours on fridays'
-        FridayEndTime:
-          type: string
-          format: time
-          description: 'End of the low tariff hours on fridays'
-        SaturdayStartTime:
-          type: string
-          format: time
-          description: 'Start of the low tariff hours on saturdays'
-        SaturdayEndTime:
-          type: string
-          format: time
-          description: 'End of the low tariff hours on saturdays'
-        SundayStartTime:
-          type: string
-          format: time
-          description: 'Start of the low tariff hours on sundays'
-        SundayEndTime:
-          type: string
-          format: time
-          description: 'End of the low tariff hours on sundays'
-      required:
-        - MondayStartTime
-        - MondayEndTime
-        - TuesdayStartTime
-        - TuesdayEndTime
-        - WednesdayStartTime
-        - WednesdayEndTime
-        - ThursdayStartTime
-        - ThursdayEndTime
-        - FridayStartTime
-        - FridayEndTime
-        - SaturdayStartTime
-        - SaturdayEndTime
-        - SundayStartTime
-        - SundayEndTime
-    Notification:
-      type: object
-      description: 'The Notification Object which is sent to the cloud endpoint of a customer'
-      properties:
-        id:
-          type: string
-          description: 'ID of the notification'
-          example: '63623283dd4275516616e490'
-        title:
-          type: object
-          description: 'Object containing the texts which should be used as title of the notification.'
-          properties:
-            de:
-              type: string
-              description: 'The title in german'
-              example: 'Vergiss deinen Schirm nicht!'
-            en:
-              type: string
-              description: 'The title in english'
-              example: 'Do not forget your umbrella!'
-            fr:
-              type: string
-              description: 'The title in french'
-              example: ''
-            it:
-              type: string
-              description: 'The message in italian'
-              example: ''
-        message:
-          type: object
-          description: 'Object containing the texts which should be used as message text of the notification.'
-          properties:
-            de:
-              type: string
-              description: 'The message in german'
-              example: 'Der Wetterbericht besagt es beginnt in einer Stunde zu regnen. Nimm besser deinen Schirm mit!'
-            en:
-              type: string
-              description: 'The message in english'
-              example: 'The weather forecast says it will start to rain in an hour. Do not forget your umbrella!'
-            fr:
-              type: string
-              description: 'The message in french'
-              example: ''
-            it:
-              type: string
-              description: 'The message in italian'
-              example: ''
-        actions:
-          type: array
-          description: 'Object containing the actions which should be presented to the user'
-          items:
-            $ref: '#/components/schemas/NotificationAction'
-        createdAtTimeMillis:
-          type: integer
-          format: int64
-          description: 'Timestamp when the notification was initially created by the recommender system.'
-          example: 1608299956
-        customerId:
-          type: string
-          description: 'ID of the customer to whom we send the notification'
-          example: '61dd869fb8191238a4310f5b'
-        ruleId:
-          type: string
-          description: 'ID of the rule which generated the notification.'
-          example: '633edbe81335bfccc4e53668'
-        buildingId:
-          type: string
-          description: 'Unique identifier of the building'
-          example: 'e75ff537-fee4-4153-bc5d-be4bc5726dd8'
-        priority:
-          type: string
-          description: 'The priority with which this notification should be delivered'
-          example: 'High'
-    NotificationInteraction:
-      type: object
-      description: 'An object representing the interaction with the notification'
-      properties:
-        actionQualifier:
-          type: string
-          description: 'The action which was performed on the Notification'
-          enum:
-            - 'DISMISS'
-            - 'OPENWEBSITE'
-            - 'OPENRULECREATOR'
-            - 'OPENAPP'
-            - 'STOPDELIVERY'
-          example: 'DISMISS'
-    NotificationAction:
-      type: object
-      description: 'An object representing an action that should be presented to the user of a notification'
-      properties:
-        text:
-          type: object
-          description: 'Text that should be presented to the user as action'
-          properties:
-            de:
-              type: string
-              description: 'The action in german'
-              example: 'Set me up now'
-            en:
-              type: string
-              description: 'The action in english'
-              example: 'Set me up now'
-            fr:
-              type: string
-              description: 'The action in french'
-              example: ''
-        actionQualifier:
-          type: string
-          description: 'The type of action that should be executed when the user presses on the button'
-          enum:
-            - 'DISMISS'
-            - 'OPENWEB'
-            - 'OPENRULECREATOR'
-            - 'OPENDEVICECONTROL'
-            - 'OPENAPP'
-            - 'STOPDELIVERY'
-          example: 'OPENRULECREATOR'
-        url:
-          type: string
-          description: 'The URL of the website that should be opened. Only on OPENWEB.'
-          example: 'https://www.moost.io/about'
-        deviceId:
-          type: string
-          description: 'The ID of the device for which the action should be scoped. Only on OPENDEVICECONTROL'
-    HTTP400BadRequest:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '400'
-          description: 'HTTP Error Code that occurred'
-        message:
-          type: string
-          example: 'Bad Request - the request was malformed.'
-          description: 'HTTP Error Message in a human readable way'
-      required:
-        - code
-        - message
-    HTTP401Unauthorized:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '401'
-          description: 'HTTP Error Code that occurred'
-        message:
-          type: string
-          example: 'Unauthorized - please provide a valid API token.'
-          description: 'HTTP Error Message in a human readable way'
-      required:
-        - code
-        - message
-    HTTP500Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '500'
-          description: 'HTTP Error Code that occurred'
-        message:
-          type: string
-          example: 'Internal Server Error'
-          description: 'HTTP Error Message in a human readable way'
-      required:
-        - code
-        - message
