@@ -601,6 +601,31 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Authenticate the given user and return a new Java Web Token (JWT)
+      operationId: login
+      security: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Authorization:
+              schema:
+                type: string
+              description: The newly created JWT which can be used to authenticate against other ressources.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '5XX':
+          $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
     Event:
@@ -882,6 +907,19 @@ components:
       properties:
         actionQualifier:
           type: string
+    Credentials:
+      type: object
+      description: 'Login credentials to obtain a JWT'
+      properties:
+        username:
+          type: string
+          description: 'The username you have received from MOOST.'
+          example: moost
+        password:
+          type: string
+          format: password
+          description: 'The password for the user you have provided in the username field.'
+          example: T234asd$iqeöü
     LowTariffHourSetting:
       type: object
       properties:
