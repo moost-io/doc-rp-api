@@ -52,11 +52,6 @@ paths:
         - Buildings
       operationId: getDevices
       parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
         - name: customerBuildingId
           in: path
           required: true
@@ -82,11 +77,6 @@ paths:
         - Buildings
       operationId: addDevices
       parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
         - name: customerBuildingId
           in: path
           required: true
@@ -114,12 +104,6 @@ paths:
       tags:
         - Buildings
       operationId: getBuildings
-      parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -133,12 +117,6 @@ paths:
       tags:
         - Buildings
       operationId: createOrUpdateBuilding
-      parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
       requestBody:
         content:
           application/json:
@@ -164,11 +142,6 @@ paths:
         - Events
       operationId: getEventsForCustomerBuilding
       parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
         - name: customerBuildingId
           in: path
           required: true
@@ -221,11 +194,6 @@ paths:
         - Events
       operationId: getEventsByCustomerIdV2
       parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
         - name: filter
           in: query
           required: false
@@ -315,11 +283,6 @@ paths:
         - Notifications
       operationId: getPushNotifications
       parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
         - name: buildingId
           in: query
           required: false
@@ -363,11 +326,6 @@ paths:
         - Notifications
       operationId: getPushNotificationsByCustomerIDV1
       parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
         - name: filter
           in: query
           required: false
@@ -431,13 +389,6 @@ paths:
       tags:
         - Events
       operationId: getEventTypesV1
-      parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
-            example: 000000009C54AEDC
       responses:
         '200':
           description: OK
@@ -458,12 +409,6 @@ paths:
       tags:
         - Events
       operationId: getEventSourcesV1
-      parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -490,11 +435,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/ObjectId'
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -512,11 +452,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/ObjectId'
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -532,11 +467,6 @@ paths:
         - Rules
       operationId: getRuleByIdV1
       parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
         - name: ruleId
           in: path
           required: true
@@ -560,11 +490,6 @@ paths:
         - Rules
       operationId: updateRuleV1
       parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
         - name: ruleId
           in: path
           required: true
@@ -594,12 +519,6 @@ paths:
       tags:
         - Rules
       operationId: getAllRulesV1
-      parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -619,12 +538,6 @@ paths:
       tags:
         - Rules
       operationId: addRuleV1
-      parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
       requestBody:
         content:
           application/json:
@@ -650,11 +563,6 @@ paths:
         - Rules
       operationId: getNotificationsFromSimulation
       parameters:
-        - name: customerId
-          in: header
-          required: true
-          schema:
-            type: string
         - name: from
           in: query
           required: true
