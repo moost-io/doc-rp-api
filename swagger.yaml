@@ -46,6 +46,161 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
+  /events/v2:
+    get:
+      tags:
+        - Events
+      operationId: getEventsByCustomerIdV2
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ''
+        - name: startTimestamp
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: endTimestamp
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 15
+        - name: sortDirection
+          in: query
+          required: false
+          schema:
+            type: string
+            default: asc
+        - name: sortProperties
+          in: query
+          required: false
+          schema:
+            type: string
+            default: timestamp
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /events/{customerBuildingId}/v1:
+    get:
+      tags:
+        - Events
+      operationId: getEventsForCustomerBuilding
+      parameters:
+        - name: customerBuildingId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: source
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: type
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /events/types/v1:
+    get:
+      tags:
+        - Events
+      operationId: getEventTypesV1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /events/sources/v1:
+    get:
+      tags:
+        - Events
+      operationId: getEventSourcesV1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
   /buildings/v1:
     get:
       tags:
@@ -233,190 +388,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
-  /events/{customerBuildingId}/v1:
-    get:
-      tags:
-        - Events
-      operationId: getEventsForCustomerBuilding
-      parameters:
-        - name: customerBuildingId
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: source
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - name: type
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-        - name: from
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: to
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Event'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        5XX:
-          $ref: '#/components/responses/InternalServerError'
-  /events/v2:
-    get:
-      tags:
-        - Events
-      operationId: getEventsByCustomerIdV2
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          schema:
-            type: string
-            default: ''
-        - name: startTimestamp
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int64
-        - name: endTimestamp
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int64
-        - name: page
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 0
-        - name: size
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 15
-        - name: sortDirection
-          in: query
-          required: false
-          schema:
-            type: string
-            default: asc
-        - name: sortProperties
-          in: query
-          required: false
-          schema:
-            type: string
-            default: timestamp
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EventResponse'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        5XX:
-          $ref: '#/components/responses/InternalServerError'
-  /pushnotifications/{pushNotificationId}/interactions/v1:
-    post:
-      tags:
-        - Notifications
-      operationId: postPushNotificationInteraction
-      parameters:
-        - name: pushNotificationId
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PushNotificationInteraction'
-        required: true
-      responses:
-        '200':
-          description: OK
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        5XX:
-          $ref: '#/components/responses/InternalServerError'
-  /pushnotifications/v2:
-    get:
-      tags:
-        - Notifications
-      operationId: getPushNotifications
-      parameters:
-        - name: buildingId
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: ruleId
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: startTimestamp
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: endTimestamp
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PushNotification'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        5XX:
-          $ref: '#/components/responses/InternalServerError'
   /pushnotifications/v1:
     get:
       tags:
@@ -481,11 +452,34 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
-  /events/types/v1:
+  /pushnotifications/v2:
     get:
       tags:
-        - Events
-      operationId: getEventTypesV1
+        - Notifications
+      operationId: getPushNotifications
+      parameters:
+        - name: buildingId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: ruleId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: startTimestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: endTimestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: OK
@@ -494,27 +488,33 @@ paths:
               schema:
                 type: array
                 items:
-                  type: string
+                  $ref: '#/components/schemas/PushNotification'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
-  /events/sources/v1:
-    get:
+  /pushnotifications/{pushNotificationId}/interactions/v1:
+    post:
       tags:
-        - Events
-      operationId: getEventSourcesV1
+        - Notifications
+      operationId: postPushNotificationInteraction
+      parameters:
+        - name: pushNotificationId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PushNotificationInteraction'
+        required: true
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
