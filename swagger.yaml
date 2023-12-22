@@ -46,6 +46,81 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
+  /buildings/v1:
+    get:
+      tags:
+        - Buildings
+      operationId: getBuildings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Building'
+    post:
+      tags:
+        - Buildings
+      operationId: createOrUpdateBuilding
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Building'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+  /buildings/{buildingId}/v1:
+    get:
+      tags:
+        - Buildings
+      operationId: getBuilding
+      parameters:
+        - name: buildingId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ObjectId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
+    delete:
+      tags:
+        - Buildings
+      operationId: deleteBuilding
+      parameters:
+        - name: buildingId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ObjectId'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+
   /buildings/{customerBuildingId}/rules/v1:
     get:
       tags:
@@ -105,8 +180,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
-
-
   /buildings/{customerBuildingId}/devices/v1:
     get:
       tags:
@@ -154,43 +227,6 @@ paths:
       responses:
         '201':
           description: Created
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        5XX:
-          $ref: '#/components/responses/InternalServerError'
-  /buildings/v1:
-    get:
-      tags:
-        - Buildings
-      operationId: getBuildings
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Building'
-    post:
-      tags:
-        - Buildings
-      operationId: createOrUpdateBuilding
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Building'
-        required: true
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Building'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -485,37 +521,43 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
-  /buildings/{buildingId}/v1:
+  /rules:
     get:
       tags:
-        - Buildings
-      operationId: getBuilding
-      parameters:
-        - name: buildingId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/ObjectId'
+        - Rules
+      operationId: getAllRulesV1
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Building'
-    delete:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/InternalServerError'
+    post:
       tags:
-        - Buildings
-      operationId: deleteBuilding
-      parameters:
-        - name: buildingId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/ObjectId'
+        - Rules
+      operationId: addRuleV1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rule'
+        required: true
       responses:
         '200':
           description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Rule'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -569,49 +611,6 @@ paths:
             application/json:
               schema:
                 type: object
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        5XX:
-          $ref: '#/components/responses/InternalServerError'
-  /rules:
-    get:
-      tags:
-        - Rules
-      operationId: getAllRulesV1
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Rule'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        5XX:
-          $ref: '#/components/responses/InternalServerError'
-    post:
-      tags:
-        - Rules
-      operationId: addRuleV1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Rule'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Rule'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
