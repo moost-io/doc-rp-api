@@ -276,13 +276,13 @@ paths:
         5XX:
           $ref: '#/components/responses/InternalServerError'
 
-  /buildings/{customerBuildingId}/rules/v1:
+  /buildings/{buildingId}/rules/v1:
     get:
       tags:
         - Buildings
       operationId: getBuildingRules
       parameters:
-        - name: customerBuildingId
+        - name: buildingId
           in: path
           required: true
           schema:
@@ -300,15 +300,17 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/Notfound'
         5XX:
           $ref: '#/components/responses/InternalServerError'
-  /buildings/{customerBuildingId}/rules/{ruleId}/v1:
+  /buildings/{buildingId}/rules/{ruleId}/v1:
     put:
       tags:
         - Buildings
       operationId: setBuildingRuleState
       parameters:
-        - name: customerBuildingId
+        - name: buildingId
           in: path
           required: true
           schema:
@@ -333,7 +335,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        5XX:
+        '404':
+          $ref: '#/components/responses/Notfound'
+        '500':
           $ref: '#/components/responses/InternalServerError'
   /buildings/{customerBuildingId}/devices/v1:
     get:
@@ -1053,6 +1057,20 @@ components:
       required:
         - code
         - message
+    HTTP404Notfound:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '404'
+          description: HTTP Error Code that occurred
+        message:
+          type: string
+          example: The given resource was not found
+          description: HTTP Error Message in a human readable way
+      required:
+        - code
+        - message
     HTTP500Error:
       type: object
       properties:
@@ -1075,6 +1093,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTP401Unauthorized'
+    Notfound:
+      description: The given resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTP404Notfound'
     InternalServerError:
       description: Internal Server Error - something happened
       content:
