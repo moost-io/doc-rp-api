@@ -871,7 +871,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/ObjectId'
+          type: string
         name:
           type: string
         description:
