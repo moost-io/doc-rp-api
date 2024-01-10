@@ -502,7 +502,7 @@ paths:
   /pushnotifications/buildings/{customerBuildingId}/v1:
     get:
       tags:
-        - Notifications
+        - push-notification-controller
       operationId: getPushNotificationsByCustomerBuildingId
       parameters:
         - name: customerId
@@ -513,6 +513,11 @@ paths:
         - name: customerBuildingId
           in: path
           required: true
+          schema:
+            type: string
+        - name: deliveryStatus
+          in: query
+          required: false
           schema:
             type: string
       responses:
