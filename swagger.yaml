@@ -499,6 +499,31 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         5XX:
           $ref: '#/components/responses/InternalServerError'
+  /pushnotifications/buildings/{customerBuildingId}/v1:
+    get:
+      tags:
+        - Notifications
+      operationId: getPushNotificationsByCustomerBuildingId
+      parameters:
+        - name: customerId
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: customerBuildingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PushNotification'
   /pushnotifications/{pushNotificationId}/interactions/v1:
     post:
       tags:
