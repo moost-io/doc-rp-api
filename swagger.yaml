@@ -248,7 +248,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/ObjectId'
+            type: string
       responses:
         '200':
           description: OK
@@ -265,7 +265,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/ObjectId'
+            type: string
       responses:
         '200':
           description: OK
@@ -792,7 +792,7 @@ components:
           type: integer
           format: int64
         id:
-          $ref: '#/components/schemas/ObjectId'
+          type: string
         customerBuildingId:
           type: string
         customerId:
@@ -915,7 +915,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/ObjectId'
+          type: string
         createdAt:
           type: integer
           format: int64
@@ -963,7 +963,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/ObjectId'
+          type: string
         customerId:
           type: string
         userId:
