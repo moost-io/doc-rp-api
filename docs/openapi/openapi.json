@@ -14,11 +14,242 @@
     }
   ],
   "paths": {
+    "/buildings/{customerBuildingId}/devices/v1": {
+      "put": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Attach a set of devices to a building",
+        "operationId": "setDevices",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Device"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/buildings/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get all buildings",
+        "operationId": "getBuildings",
+        "parameters": [
+          {
+            "name": "selectedCustomerId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Building"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Update a buildings",
+        "operationId": "updateBuilding",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Building"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Building"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Create a building",
+        "operationId": "createBuilding",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Building"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Building"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events/v1": {
+      "post": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Add an event to a building",
+        "operationId": "addEventV1",
+        "parameters": [
+          {
+            "name": "selectedCustomerId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/buildings/{buildingId}/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get a building",
+        "operationId": "getBuilding",
+        "parameters": [
+          {
+            "name": "buildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ObjectId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Building"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Delete a building",
+        "operationId": "deleteBuilding",
+        "parameters": [
+          {
+            "name": "buildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ObjectId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/pushnotifications/buildings/{customerBuildingId}/v1": {
       "get": {
         "tags": [
           "PublicAPI"
         ],
+        "summary": "Get push notifications of a building",
         "operationId": "getPushNotificationsByCustomerBuildingId",
         "parameters": [
           {
@@ -71,6 +302,97 @@
   },
   "components": {
     "schemas": {
+      "Device": {
+        "required": [
+          "id",
+          "product_name",
+          "vendor_name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "pattern": "^[a-zA-Z0-9]{8,32}$",
+            "type": "string"
+          },
+          "location": {
+            "type": "string",
+            "enum": [
+              "LIVING_ROOM",
+              "KITCHEN",
+              "BEDROOM",
+              "MASTER_BEDROOM",
+              "TOILETTE",
+              "SHOWER",
+              "BATH",
+              "OFFICE",
+              "OTHER"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "APPLIANCE",
+              "BATTERY",
+              "CAR",
+              "CAR_CHARGER",
+              "ENERGY_MEASUREMENT",
+              "GATEWAY",
+              "GENERATOR",
+              "HEAT_PUMP",
+              "INPUT_DEVICE",
+              "INVERTER",
+              "MOOST",
+              "SMART_METER",
+              "SMART_PLUG",
+              "SENSOR",
+              "SWITCH",
+              "THERMOSTAT",
+              "WATER_HEATER",
+              "WALL_TABLET"
+            ]
+          },
+          "vendor_name": {
+            "pattern": "^.{1,100}$",
+            "type": "string"
+          },
+          "product_name": {
+            "pattern": "^.{1,100}$",
+            "type": "string"
+          },
+          "metadata": {
+            "pattern": "^.{0,1000}$",
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "updatedAt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "soc": {
+            "type": "number",
+            "format": "float"
+          },
+          "chargingTargetSoc": {
+            "type": "number",
+            "format": "float"
+          },
+          "chargingTargetSocTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "chargingMode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "heatPumpMode": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "ObjectId": {
         "type": "object",
         "properties": {
@@ -223,97 +545,6 @@
           },
           "isEarlyAdopter": {
             "type": "boolean"
-          }
-        }
-      },
-      "Device": {
-        "required": [
-          "id",
-          "product_name",
-          "vendor_name"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "pattern": "^[a-zA-Z0-9]{8,32}$",
-            "type": "string"
-          },
-          "location": {
-            "type": "string",
-            "enum": [
-              "LIVING_ROOM",
-              "KITCHEN",
-              "BEDROOM",
-              "MASTER_BEDROOM",
-              "TOILETTE",
-              "SHOWER",
-              "BATH",
-              "OFFICE",
-              "OTHER"
-            ]
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "APPLIANCE",
-              "BATTERY",
-              "CAR",
-              "CAR_CHARGER",
-              "ENERGY_MEASUREMENT",
-              "GATEWAY",
-              "GENERATOR",
-              "HEAT_PUMP",
-              "INPUT_DEVICE",
-              "INVERTER",
-              "MOOST",
-              "SMART_METER",
-              "SMART_PLUG",
-              "SENSOR",
-              "SWITCH",
-              "THERMOSTAT",
-              "WATER_HEATER",
-              "WALL_TABLET"
-            ]
-          },
-          "vendor_name": {
-            "pattern": "^.{1,100}$",
-            "type": "string"
-          },
-          "product_name": {
-            "pattern": "^.{1,100}$",
-            "type": "string"
-          },
-          "metadata": {
-            "pattern": "^.{0,1000}$",
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "updatedAt": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "soc": {
-            "type": "number",
-            "format": "float"
-          },
-          "chargingTargetSoc": {
-            "type": "number",
-            "format": "float"
-          },
-          "chargingTargetSocTimestamp": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "chargingMode": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "heatPumpMode": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },

@@ -12,7 +12,7 @@ do
   echo "Import openapi.json of ${ms}..."
   mkdir -p "${ms}"
   openapiFile="${ms}/openapi.json"
-  curl -s -o "${openapiFile}.TODO" "https://moost-io.github.io/${ms}/openapi/openapi.json"
+  curl -s -o "${openapiFile}" "https://moost-io.github.io/${ms}/openapi/openapi.json"
   inputsOfMergeJson+=("{'inputFile': '${openapiFile}','operationSelection': {'includeTags': ['PublicAPI']}}")
 done
 
@@ -27,9 +27,7 @@ echo "Generate openapi.json of Public API..."
 npx openapi-merge-cli --config "${openapiMergeConfigFile}"
 
 cp "${openapiMergeResultFile}" ../../../docs/openapi/ || exit
-cd ..
-#rm -rf build TODO
-cd ../..
+cd ../../..
 
 echo "Push to Git if Public API changed..."
 git add "docs/openapi/${openapiMergeResultFile}"
