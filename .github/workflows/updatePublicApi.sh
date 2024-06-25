@@ -12,27 +12,27 @@ do
   echo "Import openapi.json of ${ms}..."
   mkdir -p "${ms}"
   openapiFile="${ms}/openapi.json"
-  curl -s -o "${openapiFile}" "https://moost-io.github.io/${ms}/openapi/openapi.json"
+  curl -s -o "${openapiFile}.TODO" "https://moost-io.github.io/${ms}/openapi/openapi.json"
   inputsOfMergeJson+=("{'inputFile': '${openapiFile}','operationSelection': {'includeTags': ['PublicAPI']}}")
 done
 
-echo "Generate merge config..."
+echo "Generate merge config for Public API..."
 openapiInputsJson=$(IFS=, ; echo "${inputsOfMergeJson[*]}")
-readonly openapiMergeConfigJson="{'inputs': [${openapiInputsJson}],'output': '${openapiMergeResultFile}'}"
-readonly openapiMergeConfigFile="openapi-merge-config.json"
 readonly openapiMergeResultFile="openapi.json"
+readonly openapiMergeConfigFile="openapi-merge-config.json"
+readonly openapiMergeConfigJson="{'inputs': [${openapiInputsJson}],'output': '${openapiMergeResultFile}'}"
 echo "${openapiMergeConfigJson}" > "${openapiMergeConfigFile}"
 
-echo "Generate Public API..."
+echo "Generate openapi.json of Public API..."
 npx openapi-merge-cli --config "${openapiMergeConfigFile}"
 
 cp "${openapiMergeResultFile}" ../../../docs/openapi/ || exit
 cd ..
-rm -rf build
+#rm -rf build TODO
 cd ../..
 
-echo "Push to Git if PublicAPI changed..."
-git add "${openapiMergeResultFile}"
+echo "Push to Git if Public API changed..."
+git add "docs/openapi/${openapiMergeResultFile}"
 set +e  # Grep succeeds with nonzero exit codes to show results.
 git status | egrep '(modified|new file):' | grep "${openapiMergeResultFile}"
 if [ $? -eq 0 ]
