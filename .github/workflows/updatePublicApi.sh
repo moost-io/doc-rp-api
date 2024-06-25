@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-mkdir -p "build"
+mkdir -p build
 cd build || exit
 pwd
 
@@ -18,12 +18,31 @@ done
 
 echo "Generate merge config..."
 openapiInputsJson=$(IFS=, ; echo "${inputsOfMergeJson[*]}")
-readonly openapiMergeJson="{'inputs': [${openapiInputsJson}],'output': 'openapi.json'}"
+readonly openapiMergeConfigJson="{'inputs': [${openapiInputsJson}],'output': '${openapiMergeResultFile}'}"
 readonly openapiMergeConfigFile="openapi-merge-config.json"
-echo "${openapiMergeJson}" > "${openapiMergeConfigFile}"
+readonly openapiMergeResultFile="openapi.json"
+echo "${openapiMergeConfigJson}" > "${openapiMergeConfigFile}"
 
 echo "Generate Public API..."
 npx openapi-merge-cli --config "${openapiMergeConfigFile}"
 
-echo "Clean up"
-#rm -rf "${buildDir}"
+cp "${openapiMergeResultFile}" ../../../docs/openapi/ || exit
+cd ..
+rm -rf build
+cd ../..
+
+echo "Push to Git if PublicAPI changed..."
+git add "${openapiMergeResultFile}"
+set +e  # Grep succeeds with nonzero exit codes to show results.
+git status | egrep '(modified|new file):' | grep "${openapiMergeResultFile}"
+if [ $? -eq 0 ]
+then
+  set -e
+  git config --global user.name "GitHub-CI-Workflow"
+  git config --global user.email "GitHub.CI.Workflow@moost.io"
+  git commit -m "Update Public API"
+  git push
+else
+  set -e
+  echo "No change"
+fi
