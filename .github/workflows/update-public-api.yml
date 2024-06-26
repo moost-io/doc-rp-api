@@ -8,6 +8,8 @@
 # Remark: initially the fine-graned PAT (https://github.com/settings/tokens?type=beta) was created with resource owner "moost-io" + "Content" repository access "only selected repositories: doc-rp-api"
 name: Update Public API
 on:
+  workflow_dispatch:
+
   repository_dispatch:
     types:
     - update-public-api
