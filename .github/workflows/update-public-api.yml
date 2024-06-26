@@ -1,0 +1,24 @@
+# Caller of this workflow script need secret "PAT_INFRA_RP_EKS_APPLY_VERSION", which contains PAT (Personal Access Token) “apply-app-version-token”.
+# This one is needed to be allowed to call this script.
+#
+# ATTENTION: The PET will expire 2025-06-24, and has to be updated before that. Proceed following steps then:
+# 1. select fine-grained personal access token "update-doc-rp-api-token" in https://github.com/settings/tokens?type=beta and regenerate token
+# 2. update secret PAT_INFRA_RP_EKS_APPLY_VERSION here: https://github.com/organizations/moost-io/settings/secrets/actions/PAT_DOC_RP_API_UPDATE_PUBLIC_API
+# 3. set a reminder in your calendar ca. 3 weeks before token expires.
+# Remark: initially the fine-graned PAT (https://github.com/settings/tokens?type=beta) was created with resource owner "moost-io" + "Content" repository access "only selected repositories: doc-rp-api"
+name: Update Public API
+on:
+  repository_dispatch:
+    types:
+    - update-public-api
+jobs:
+  apply-app-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update Public API
+        run: |
+          cd .github/workflows
+          ./updatePublicApi.sh

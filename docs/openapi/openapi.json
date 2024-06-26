@@ -1,0 +1,1134 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "MOOST RP API ms-gp-events",
+    "description": "Moost Recommender Platform Open-API specification for <i>\"Events\"</i> Microservice",
+    "contact": {
+      "url": "https://www.moost.io/page/smart-home-recommender-system"
+    },
+    "version": "7.14.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.moost.io"
+    }
+  ],
+  "paths": {
+    "/buildings/{customerBuildingId}/devices/v1": {
+      "put": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Attach a set of devices to a building",
+        "operationId": "setDevices",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Device"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/buildings/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get all buildings",
+        "operationId": "getBuildings",
+        "parameters": [
+          {
+            "name": "selectedCustomerId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Building"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Update a buildings",
+        "operationId": "updateBuilding",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Building"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Building"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Create a building",
+        "operationId": "createBuilding",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Building"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Building"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events/v1": {
+      "post": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Add an event to a building",
+        "operationId": "addEventV1",
+        "parameters": [
+          {
+            "name": "selectedCustomerId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/buildings/{buildingId}/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get a building",
+        "operationId": "getBuilding",
+        "parameters": [
+          {
+            "name": "buildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ObjectId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Building"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Delete a building",
+        "operationId": "deleteBuilding",
+        "parameters": [
+          {
+            "name": "buildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ObjectId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/pushnotifications/buildings/{customerBuildingId}/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get push notifications of a building",
+        "operationId": "getPushNotificationsByCustomerBuildingId",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "selectedCustomerId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "deliveryStatus",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "DELIVERED",
+                "DROPPED"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PushNotification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Device": {
+        "required": [
+          "id",
+          "product_name",
+          "vendor_name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "pattern": "^[a-zA-Z0-9]{8,32}$",
+            "type": "string"
+          },
+          "location": {
+            "type": "string",
+            "enum": [
+              "LIVING_ROOM",
+              "KITCHEN",
+              "BEDROOM",
+              "MASTER_BEDROOM",
+              "TOILETTE",
+              "SHOWER",
+              "BATH",
+              "OFFICE",
+              "OTHER"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "APPLIANCE",
+              "BATTERY",
+              "CAR",
+              "CAR_CHARGER",
+              "ENERGY_MEASUREMENT",
+              "GATEWAY",
+              "GENERATOR",
+              "HEAT_PUMP",
+              "INPUT_DEVICE",
+              "INVERTER",
+              "MOOST",
+              "SMART_METER",
+              "SMART_PLUG",
+              "SENSOR",
+              "SWITCH",
+              "THERMOSTAT",
+              "WATER_HEATER",
+              "WALL_TABLET"
+            ]
+          },
+          "vendor_name": {
+            "pattern": "^.{1,100}$",
+            "type": "string"
+          },
+          "product_name": {
+            "pattern": "^.{1,100}$",
+            "type": "string"
+          },
+          "metadata": {
+            "pattern": "^.{0,1000}$",
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "updatedAt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "soc": {
+            "type": "number",
+            "format": "float"
+          },
+          "chargingTargetSoc": {
+            "type": "number",
+            "format": "float"
+          },
+          "chargingTargetSocTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "chargingMode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "heatPumpMode": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ObjectId": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LowTariffHourSetting": {
+        "required": [
+          "fridayEndTime",
+          "fridayStartTime",
+          "mondayEndTime",
+          "mondayStartTime",
+          "saturdayEndTime",
+          "saturdayStartTime",
+          "sundayEndTime",
+          "sundayStartTime",
+          "thursdayEndTime",
+          "thursdayStartTime",
+          "tuesdayEndTime",
+          "tuesdayStartTime",
+          "wednesdayEndTime",
+          "wednesdayStartTime"
+        ],
+        "type": "object",
+        "properties": {
+          "mondayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "mondayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "tuesdayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "tuesdayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "wednesdayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "wednesdayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "thursdayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "thursdayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "fridayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "fridayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "saturdayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "saturdayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "sundayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "sundayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          }
+        }
+      },
+      "Building": {
+        "required": [
+          "customerBuildingId",
+          "customerId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ObjectId"
+          },
+          "customerBuildingId": {
+            "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
+            "type": "string"
+          },
+          "customerId": {
+            "pattern": "^[a-zA-Z0-9]{24}$",
+            "type": "string"
+          },
+          "zip": {
+            "pattern": "^[A-Z0-9 -]{3,10}$",
+            "type": "string"
+          },
+          "city": {
+            "pattern": "^.{1,100}$",
+            "type": "string"
+          },
+          "countryCode": {
+            "pattern": "^[A-Z]{2}$",
+            "type": "string"
+          },
+          "devices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Device"
+            }
+          },
+          "settings": {
+            "$ref": "#/components/schemas/Settings"
+          },
+          "geolocation": {
+            "$ref": "#/components/schemas/Geolocation"
+          },
+          "inactiveRules": {
+            "type": "array",
+            "items": {
+              "pattern": "^[a-zA-Z0-9]{24}$",
+              "type": "string"
+            }
+          },
+          "deactivatedTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "registrationTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customerSubscriptionName": {
+            "type": "string"
+          },
+          "isEarlyAdopter": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Geolocation": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "number",
+            "format": "double"
+          },
+          "lon": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "Settings": {
+        "type": "object",
+        "properties": {
+          "lowTariffHourSetting": {
+            "$ref": "#/components/schemas/LowTariffHourSetting"
+          }
+        }
+      },
+      "Event": {
+        "required": [
+          "customerBuildingId",
+          "customerId",
+          "deviceId",
+          "deviceName",
+          "type",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customerId": {
+            "pattern": "^[a-zA-Z0-9]{24}$",
+            "type": "string"
+          },
+          "customerBuildingId": {
+            "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
+            "type": "string"
+          },
+          "deviceId": {
+            "pattern": "^[a-zA-Z0-9]{8,32}$",
+            "type": "string"
+          },
+          "deviceName": {
+            "pattern": "^.{1,100}$",
+            "type": "string"
+          },
+          "value": {
+            "type": "number",
+            "format": "float"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "CHARGING_MODE",
+              "DEVICE_STATUS",
+              "ENERGY_CONSUMPTION",
+              "ENERGY_CONSUMPTION_LAST_24H",
+              "ENERGY_CONSUMPTION_YESTERDAY",
+              "ENERGY_EXCESS_LAST_24H",
+              "ENERGY_EXCESS_YESTERDAY",
+              "ENERGY_GENERATION_LAST_24H",
+              "ENERGY_GENERATION_YESTERDAY",
+              "ENERGY_IMPORT",
+              "ENERGY_IMPORT_YESTERDAY",
+              "EXPECTED_OUTSIDE_TEMPERATURE",
+              "EXPECTED_OUTSIDE_TEMPERATURE_4DAYS",
+              "GRID_POWER_CONSUMPTION",
+              "GRID_POWER_CONSUMPTION_ANOMALY_SCORE",
+              "HEAT_PUMP_MODE",
+              "IS_LOW_TARIFF_HOURS",
+              "POWER_CONSUMPTION",
+              "POWER_CONSUMPTION_FORECAST_1H",
+              "POWER_CONSUMPTION_FORECAST_24H",
+              "POWER_EXCESS",
+              "POWER_GENERATION",
+              "POWER_GENERATION_FORECAST_1H",
+              "POWER_GENERATION_FORECAST_1H_MIN",
+              "POWER_GENERATION_FORECAST_24H",
+              "POWER_GENERATION_FORECAST_48H",
+              "POWER_GENERATION_FORECAST_DAY_AFTER_TOMORROW",
+              "POWER_GENERATION_FORECAST_TOMORROW",
+              "SELF_CONSUMPTION_RATE",
+              "SELF_CONSUMPTION_RATE_YESTERDAY",
+              "SELF_SUFFICIENCY_RATE",
+              "SELF_SUFFICIENCY_RATE_YESTERDAY",
+              "STATE_OF_CHARGE_FORECAST_RATE",
+              "STATE_OF_CHARGE_RATE",
+              "SWITCH_STATE",
+              "WATER_TEMPERATURE"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "APPLIANCE",
+              "BATTERY",
+              "CAR",
+              "CAR_CHARGER",
+              "ENERGY_MEASUREMENT",
+              "GATEWAY",
+              "GENERATOR",
+              "HEAT_PUMP",
+              "INPUT_DEVICE",
+              "INVERTER",
+              "MOOST",
+              "SMART_METER",
+              "SMART_PLUG",
+              "SENSOR",
+              "SWITCH",
+              "THERMOSTAT",
+              "WATER_HEATER",
+              "WALL_TABLET"
+            ]
+          },
+          "forecastTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ingestionTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "EventResponse": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
+          },
+          "totalEvents": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": {
+          "type": "object"
+        }
+      },
+      "CountByGroup": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Dataset": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "pattern": "^[a-zA-Z0-9_]{1,100}$",
+            "type": "string"
+          },
+          "description": {
+            "pattern": "^.{0,100}$",
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "SINGLEVALUE",
+              "TIMESERIES"
+            ]
+          },
+          "source_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "APPLIANCE",
+                "BATTERY",
+                "CAR",
+                "CAR_CHARGER",
+                "ENERGY_MEASUREMENT",
+                "GATEWAY",
+                "GENERATOR",
+                "HEAT_PUMP",
+                "INPUT_DEVICE",
+                "INVERTER",
+                "MOOST",
+                "SMART_METER",
+                "SMART_PLUG",
+                "SENSOR",
+                "SWITCH",
+                "THERMOSTAT",
+                "WATER_HEATER",
+                "WALL_TABLET"
+              ]
+            }
+          },
+          "event_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "CHARGING_MODE",
+                "DEVICE_STATUS",
+                "ENERGY_CONSUMPTION",
+                "ENERGY_CONSUMPTION_LAST_24H",
+                "ENERGY_CONSUMPTION_YESTERDAY",
+                "ENERGY_EXCESS_LAST_24H",
+                "ENERGY_EXCESS_YESTERDAY",
+                "ENERGY_GENERATION_LAST_24H",
+                "ENERGY_GENERATION_YESTERDAY",
+                "ENERGY_IMPORT",
+                "ENERGY_IMPORT_YESTERDAY",
+                "EXPECTED_OUTSIDE_TEMPERATURE",
+                "EXPECTED_OUTSIDE_TEMPERATURE_4DAYS",
+                "GRID_POWER_CONSUMPTION",
+                "GRID_POWER_CONSUMPTION_ANOMALY_SCORE",
+                "HEAT_PUMP_MODE",
+                "IS_LOW_TARIFF_HOURS",
+                "POWER_CONSUMPTION",
+                "POWER_CONSUMPTION_FORECAST_1H",
+                "POWER_CONSUMPTION_FORECAST_24H",
+                "POWER_EXCESS",
+                "POWER_GENERATION",
+                "POWER_GENERATION_FORECAST_1H",
+                "POWER_GENERATION_FORECAST_1H_MIN",
+                "POWER_GENERATION_FORECAST_24H",
+                "POWER_GENERATION_FORECAST_48H",
+                "POWER_GENERATION_FORECAST_DAY_AFTER_TOMORROW",
+                "POWER_GENERATION_FORECAST_TOMORROW",
+                "SELF_CONSUMPTION_RATE",
+                "SELF_CONSUMPTION_RATE_YESTERDAY",
+                "SELF_SUFFICIENCY_RATE",
+                "SELF_SUFFICIENCY_RATE_YESTERDAY",
+                "STATE_OF_CHARGE_FORECAST_RATE",
+                "STATE_OF_CHARGE_RATE",
+                "SWITCH_STATE",
+                "WATER_TEMPERATURE"
+              ]
+            }
+          },
+          "timeframe": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "MessageQueueSetting": {
+        "type": "object",
+        "properties": {
+          "isOverflowProtectionActive": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "$ref": "#/components/schemas/Translatable"
+          },
+          "title": {
+            "$ref": "#/components/schemas/Translatable"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationAction"
+            }
+          }
+        }
+      },
+      "NotificationAction": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "$ref": "#/components/schemas/Translatable"
+          },
+          "actionQualifier": {
+            "type": "string",
+            "enum": [
+              "DISMISS",
+              "OPENAPP",
+              "STOPDELIVERY",
+              "OPENWEB"
+            ]
+          },
+          "parameter": {
+            "$ref": "#/components/schemas/Translatable"
+          }
+        }
+      },
+      "Rule": {
+        "required": [
+          "condition",
+          "customerId",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ObjectId"
+          },
+          "createdAt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customerId": {
+            "pattern": "^[a-zA-Z0-9]{24}$",
+            "type": "string"
+          },
+          "name": {
+            "pattern": "^.{1,100}$",
+            "type": "string"
+          },
+          "description": {
+            "pattern": "^[\\s\\S]{0,10000}$",
+            "type": "string"
+          },
+          "ruleState": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "PAUSE"
+            ]
+          },
+          "notification": {
+            "$ref": "#/components/schemas/Notification"
+          },
+          "match_threshold": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "time_between_triggers_seconds": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "resetStateWhenMatched": {
+            "type": "boolean"
+          },
+          "condition": {
+            "pattern": "^[\\s\\S]{1,10000}$",
+            "type": "string"
+          },
+          "isRestrictedToEarlyAdopters": {
+            "type": "boolean"
+          },
+          "isTimeBased": {
+            "type": "boolean"
+          },
+          "timeBasedCron": {
+            "type": "string"
+          },
+          "messageQueueSetting": {
+            "$ref": "#/components/schemas/MessageQueueSetting"
+          },
+          "datasets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dataset"
+            }
+          }
+        }
+      },
+      "Translatable": {
+        "type": "object",
+        "properties": {
+          "de": {
+            "pattern": "^[\\s\\S]{1,10000}$",
+            "type": "string"
+          },
+          "en": {
+            "pattern": "^[\\s\\S]{1,10000}$",
+            "type": "string"
+          },
+          "fr": {
+            "pattern": "^[\\s\\S]{1,10000}$",
+            "type": "string"
+          }
+        }
+      },
+      "UnsanitizedPushNotificationInteraction": {
+        "type": "object",
+        "properties": {
+          "actionQualifier": {
+            "type": "string"
+          }
+        }
+      },
+      "PushNotification": {
+        "required": [
+          "customerId",
+          "ruleId",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ObjectId"
+          },
+          "customerId": {
+            "pattern": "^[a-zA-Z0-9]{24}$",
+            "type": "string"
+          },
+          "userId": {
+            "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
+            "type": "string"
+          },
+          "ruleId": {
+            "pattern": "^[a-zA-Z0-9]{24}$",
+            "type": "string"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "high",
+              "normal"
+            ]
+          },
+          "createdAtTimeMillis": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "interaction": {
+            "$ref": "#/components/schemas/PushNotificationInteraction"
+          },
+          "ingestionTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Translatable"
+          },
+          "title": {
+            "$ref": "#/components/schemas/Translatable"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationAction"
+            }
+          },
+          "delivery_status": {
+            "$ref": "#/components/schemas/PushNotificationDeliveryStatus"
+          }
+        }
+      },
+      "PushNotificationDeliveryStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "DELIVERED",
+              "DROPPED"
+            ]
+          },
+          "reason": {
+            "pattern": "^.{0,100}$",
+            "type": "string"
+          }
+        }
+      },
+      "PushNotificationInteraction": {
+        "type": "object",
+        "properties": {
+          "actionQualifier": {
+            "type": "string",
+            "enum": [
+              "DISMISS",
+              "OPENAPP",
+              "STOPDELIVERY",
+              "OPENWEB"
+            ]
+          }
+        }
+      },
+      "PushNotificationsResponse": {
+        "type": "object",
+        "properties": {
+          "pushNotifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PushNotification"
+            }
+          },
+          "totalPushNotifications": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CountByRule": {
+        "type": "object",
+        "properties": {
+          "ruleId": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CountByRulePerTime": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ruleId": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CountByInteraction": {
+        "type": "object",
+        "properties": {
+          "interaction": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CountByInteractionPerTime": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "interaction": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CountByDeliveryStatusReason": {
+        "type": "object",
+        "properties": {
+          "deliveryStatus": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    }
+  }
+}
