@@ -14,7 +14,7 @@ on:
     types:
     - update-public-api
 jobs:
-  apply-app-version:
+  generate-public-api:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
