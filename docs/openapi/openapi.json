@@ -320,6 +320,61 @@
           }
         }
       }
+    },
+    "/pushnotifications/buildings/{customerBuildingId}/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get push notifications of a building",
+        "operationId": "getPushNotificationsByCustomerBuildingId",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "selectedCustomerId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "deliveryStatus",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "DELIVERED",
+                "DROPPED"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PushNotification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
