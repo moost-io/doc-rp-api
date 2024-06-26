@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://www.moost.io/page/smart-home-recommender-system"
     },
-    "version": "7.14.0"
+    "version": "7.15.4"
   },
   "servers": [
     {
@@ -14,6 +14,48 @@
     }
   ],
   "paths": {
+    "/buildings/{customerBuildingId}/rules/{ruleId}/v1": {
+      "put": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Activate or deactivate a rule for a building",
+        "operationId": "setRuleActivityForBuilding",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "ruleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[a-zA-Z0-9]{24}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/buildings/{customerBuildingId}/devices/v1": {
       "put": {
         "tags": [
@@ -89,7 +131,7 @@
         "tags": [
           "PublicAPI"
         ],
-        "summary": "Update a buildings",
+        "summary": "Update a building",
         "operationId": "updateBuilding",
         "requestBody": {
           "content": {
@@ -191,6 +233,41 @@
         }
       }
     },
+    "/buildings/{customerBuildingId}/rules/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get all active rules of a building",
+        "operationId": "getActiveRulesOfBuilding",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Rule"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/buildings/{buildingId}/v1": {
       "get": {
         "tags": [
@@ -240,61 +317,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          }
-        }
-      }
-    },
-    "/pushnotifications/buildings/{customerBuildingId}/v1": {
-      "get": {
-        "tags": [
-          "PublicAPI"
-        ],
-        "summary": "Get push notifications of a building",
-        "operationId": "getPushNotificationsByCustomerBuildingId",
-        "parameters": [
-          {
-            "name": "customerBuildingId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
-              "type": "string"
-            }
-          },
-          {
-            "name": "selectedCustomerId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "deliveryStatus",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "DELIVERED",
-                "DROPPED"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PushNotification"
-                  }
-                }
-              }
-            }
           }
         }
       }
