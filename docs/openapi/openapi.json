@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://www.moost.io/page/smart-home-recommender-system"
     },
-    "version": "7.15.5"
+    "version": "7.16.0"
   },
   "servers": [
     {
@@ -467,20 +467,6 @@
             "pattern": "^[a-zA-Z0-9]{8,32}$",
             "type": "string"
           },
-          "location": {
-            "type": "string",
-            "enum": [
-              "LIVING_ROOM",
-              "KITCHEN",
-              "BEDROOM",
-              "MASTER_BEDROOM",
-              "TOILETTE",
-              "SHOWER",
-              "BATH",
-              "OFFICE",
-              "OTHER"
-            ]
-          },
           "type": {
             "type": "string",
             "enum": [
@@ -681,7 +667,6 @@
           "inactiveRules": {
             "type": "array",
             "items": {
-              "pattern": "^[a-zA-Z0-9]{24}$",
               "type": "string"
             }
           },
@@ -771,6 +756,8 @@
               "ENERGY_GENERATION_YESTERDAY",
               "ENERGY_IMPORT",
               "ENERGY_IMPORT_YESTERDAY",
+              "ENERGY_EXPORT",
+              "ENERGY_EXPORT_YESTERDAY",
               "EXPECTED_OUTSIDE_TEMPERATURE",
               "EXPECTED_OUTSIDE_TEMPERATURE_4DAYS",
               "GRID_POWER_CONSUMPTION",
@@ -932,6 +919,8 @@
                 "ENERGY_GENERATION_YESTERDAY",
                 "ENERGY_IMPORT",
                 "ENERGY_IMPORT_YESTERDAY",
+                "ENERGY_EXPORT",
+                "ENERGY_EXPORT_YESTERDAY",
                 "EXPECTED_OUTSIDE_TEMPERATURE",
                 "EXPECTED_OUTSIDE_TEMPERATURE_4DAYS",
                 "GRID_POWER_CONSUMPTION",
@@ -1063,6 +1052,10 @@
             "pattern": "^[\\s\\S]{1,10000}$",
             "type": "string"
           },
+          "streakCondition": {
+            "pattern": "^[\\s\\S]{0,10000}$",
+            "type": "string"
+          },
           "isRestrictedToEarlyAdopters": {
             "type": "boolean"
           },
@@ -1080,6 +1073,14 @@
             "items": {
               "$ref": "#/components/schemas/Dataset"
             }
+          },
+          "topicIcon": {
+            "pattern": "^[a-zA-Z0-9_]{1,50}$",
+            "type": "string"
+          },
+          "impactIcon": {
+            "pattern": "^[a-zA-Z0-9_]{1,50}$",
+            "type": "string"
           }
         }
       },
