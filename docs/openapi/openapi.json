@@ -321,6 +321,41 @@
         }
       }
     },
+    "/pushnotifications/{pushNotificationId}/interactions/v1": {
+      "post": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Send an interaction on a previously delivered push notification",
+        "operationId": "postPushNotificationInteraction",
+        "parameters": [
+          {
+            "name": "pushNotificationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[a-zA-Z0-9]{24}$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnsanitizedPushNotificationInteraction"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/pushnotifications/buildings/{customerBuildingId}/v1": {
       "get": {
         "tags": [
