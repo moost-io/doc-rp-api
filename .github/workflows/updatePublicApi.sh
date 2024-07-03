@@ -4,7 +4,7 @@ mkdir -p build
 cd build || exit
 pwd
 
-readonly microservices="ms-gp-events ms-gp-pushnotifications"
+readonly microservices="ms-gp-events ms-gp-pushnotifications ms-gp-auth"
 read -a msArray <<< "${microservices}"
 inputsOfMergeJson=()
 for ms in "${msArray[@]}"
