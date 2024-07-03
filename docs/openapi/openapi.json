@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "MOOST RP API ms-gp-events",
-    "description": "# ms-gp-events\n\nMoost Recommender Platform Open-API specification for <i>\"Events\"</i> Microservice\n\n# ms-gp-pushnotifications\n\nMoost Recommender Platform Open-API specification for <i>\"Push Notifications\"</i> Microservice\n\n# ms-gp-auth\n\nMoost Recommender Platform Open-API specification for <i>\"Auth\"</i> Microservice",
+    "description": "Moost Recommender Platform Open-API specification for <i>\"Events\"</i> Microservice",
     "contact": {
       "url": "https://www.moost.io/page/smart-home-recommender-system"
     },
