@@ -163,6 +163,7 @@
           {
             "name": "customerBuildingId",
             "in": "path",
+            "description": "Set rule activity of specified building.",
             "required": true,
             "schema": {
               "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
@@ -172,6 +173,7 @@
           {
             "name": "ruleId",
             "in": "path",
+            "description": "ID of the target rule.",
             "required": true,
             "schema": {
               "pattern": "^[a-zA-Z0-9]{24}$",
@@ -181,6 +183,7 @@
           {
             "name": "status",
             "in": "query",
+            "description": "Set status. Valid values are: \"active\", \"inactive\".",
             "required": true,
             "schema": {
               "type": "string"
@@ -210,6 +213,7 @@
           {
             "name": "customerBuildingId",
             "in": "path",
+            "description": "Set devices of specified building.",
             "required": true,
             "schema": {
               "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
@@ -249,16 +253,6 @@
         ],
         "summary": "Get all buildings",
         "operationId": "getBuildings",
-        "parameters": [
-          {
-            "name": "selectedCustomerId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -356,16 +350,6 @@
         ],
         "summary": "Add an event to a building",
         "operationId": "addEventV1",
-        "parameters": [
-          {
-            "name": "selectedCustomerId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -412,6 +396,7 @@
           {
             "name": "customerBuildingId",
             "in": "path",
+            "description": "Load active rules of specified building.",
             "required": true,
             "schema": {
               "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
@@ -452,6 +437,7 @@
           {
             "name": "buildingId",
             "in": "path",
+            "description": "Load specified building.",
             "required": true,
             "schema": {
               "type": "string"
@@ -486,6 +472,7 @@
           {
             "name": "buildingId",
             "in": "path",
+            "description": "Delete specified building.",
             "required": true,
             "schema": {
               "type": "string"
