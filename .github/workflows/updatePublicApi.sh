@@ -4,9 +4,11 @@ mkdir -p build
 cd build || exit
 pwd
 
+
 readonly microservices="ms-gp-events ms-gp-pushnotifications ms-gp-auth"
 read -a msArray <<< "${microservices}"
-inputsOfMergeJson=()
+# First add 'shared-openapi.json', as the first openapi.json defines title, description, etc. of the merged openapi.json
+inputsOfMergeJson=("{'inputFile': '../shared-openapi.json','operationSelection': {'includeTags': ['PublicAPI']}}")
 for ms in "${msArray[@]}"
 do
   echo "Import openapi.json of ${ms}..."
@@ -44,3 +46,4 @@ else
   set -e
   echo "No change"
 fi
+
