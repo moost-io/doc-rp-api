@@ -1,16 +1,31 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "MOOST RP API ms-gp-events",
-    "description": "Moost Recommender Platform Open-API specification for <i>\"Events\"</i> Microservice",
+    "title": "MOOST Public API",
+    "description": "Moost Recommender Platform Open-API specification for public API's",
     "contact": {
-      "url": "https://www.moost.io/page/smart-home-recommender-system"
+      "url": "https://www.moost.io/contact"
     },
-    "version": "7.17.0"
+    "version": "latest"
   },
   "servers": [
     {
       "url": "https://api.moost.io"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Event",
+      "description": "The Event API. Contains all necessary operations that can be performed on events."
+    },
+    {
+      "name": "Event Filter",
+      "description": "The Event Filter API. Provides operations to load a filtered set of events."
     }
   ],
   "paths": {
@@ -189,6 +204,7 @@
     "/events/v1": {
       "post": {
         "tags": [
+          "Event",
           "PublicAPI"
         ],
         "summary": "Add an event to a building",
@@ -230,7 +246,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/buildings/{customerBuildingId}/rules/v1": {
@@ -281,7 +302,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -310,7 +331,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -526,19 +547,6 @@
           }
         }
       },
-      "ObjectId": {
-        "type": "object",
-        "properties": {
-          "timestamp": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
       "LowTariffHourSetting": {
         "required": [
           "fridayEndTime",
@@ -624,7 +632,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/ObjectId"
+            "type": "string"
           },
           "customerBuildingId": {
             "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
@@ -997,7 +1005,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/ObjectId"
+            "type": "string"
           },
           "createdAt": {
             "type": "integer",
@@ -1094,6 +1102,19 @@
         "properties": {
           "actionQualifier": {
             "type": "string"
+          }
+        }
+      },
+      "ObjectId": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -1330,6 +1351,14 @@
             ]
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "name": "bearerAuth",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
