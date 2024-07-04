@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://www.moost.io/page/smart-home-recommender-system"
     },
-    "version": "7.16.0"
+    "version": "7.17.0"
   },
   "servers": [
     {
@@ -476,14 +476,12 @@
               "CAR_CHARGER",
               "ENERGY_MEASUREMENT",
               "GATEWAY",
-              "GENERATOR",
               "HEAT_PUMP",
               "INPUT_DEVICE",
               "INVERTER",
               "MOOST",
               "SMART_METER",
               "SMART_PLUG",
-              "SENSOR",
               "SWITCH",
               "THERMOSTAT",
               "WATER_HEATER",
@@ -523,10 +521,6 @@
             "format": "int64"
           },
           "chargingMode": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "heatPumpMode": {
             "type": "integer",
             "format": "int32"
           }
@@ -762,7 +756,6 @@
               "EXPECTED_OUTSIDE_TEMPERATURE_4DAYS",
               "GRID_POWER_CONSUMPTION",
               "GRID_POWER_CONSUMPTION_ANOMALY_SCORE",
-              "HEAT_PUMP_MODE",
               "IS_LOW_TARIFF_HOURS",
               "POWER_CONSUMPTION",
               "POWER_CONSUMPTION_FORECAST_1H",
@@ -794,14 +787,12 @@
               "CAR_CHARGER",
               "ENERGY_MEASUREMENT",
               "GATEWAY",
-              "GENERATOR",
               "HEAT_PUMP",
               "INPUT_DEVICE",
               "INVERTER",
               "MOOST",
               "SMART_METER",
               "SMART_PLUG",
-              "SENSOR",
               "SWITCH",
               "THERMOSTAT",
               "WATER_HEATER",
@@ -888,14 +879,12 @@
                 "CAR_CHARGER",
                 "ENERGY_MEASUREMENT",
                 "GATEWAY",
-                "GENERATOR",
                 "HEAT_PUMP",
                 "INPUT_DEVICE",
                 "INVERTER",
                 "MOOST",
                 "SMART_METER",
                 "SMART_PLUG",
-                "SENSOR",
                 "SWITCH",
                 "THERMOSTAT",
                 "WATER_HEATER",
@@ -925,7 +914,6 @@
                 "EXPECTED_OUTSIDE_TEMPERATURE_4DAYS",
                 "GRID_POWER_CONSUMPTION",
                 "GRID_POWER_CONSUMPTION_ANOMALY_SCORE",
-                "HEAT_PUMP_MODE",
                 "IS_LOW_TARIFF_HOURS",
                 "POWER_CONSUMPTION",
                 "POWER_CONSUMPTION_FORECAST_1H",
