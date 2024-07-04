@@ -58,24 +58,10 @@
             }
           },
           "401": {
-            "description": "Unauthorized. Client id or secret is invalid.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessTokenResponse"
-                }
-              }
-            }
+            "description": "Unauthorized. Client id or secret is invalid."
           },
           "500": {
-            "description": "Server error. Failed to obtain a valid access token.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessTokenResponse"
-                }
-              }
-            }
+            "description": "Server error. Failed to obtain a valid access token."
           }
         }
       }
