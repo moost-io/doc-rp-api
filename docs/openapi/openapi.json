@@ -18,16 +18,6 @@
       "bearerAuth": []
     }
   ],
-  "tags": [
-    {
-      "name": "Event",
-      "description": "The Event API. Contains all necessary operations that can be performed on events."
-    },
-    {
-      "name": "Event Filter",
-      "description": "The Event Filter API. Provides operations to load a filtered set of events."
-    }
-  ],
   "paths": {
     "/buildings/{customerBuildingId}/rules/{ruleId}/v1": {
       "put": {
@@ -68,7 +58,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/buildings/{customerBuildingId}/devices/v1": {
@@ -106,7 +101,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/buildings/v1": {
@@ -140,7 +140,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -169,7 +174,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -198,13 +208,17 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/events/v1": {
       "post": {
         "tags": [
-          "Event",
           "PublicAPI"
         ],
         "summary": "Add an event to a building",
@@ -286,7 +300,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/buildings/{buildingId}/v1": {
@@ -317,7 +336,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -339,7 +363,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/pushnotifications/{pushNotificationId}/interactions/v1": {
