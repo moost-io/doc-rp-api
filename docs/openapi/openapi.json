@@ -71,12 +71,13 @@
         "tags": [
           "PublicAPI"
         ],
-        "summary": "Send an interaction on a previously delivered push notification",
+        "summary": "Save an interaction on a delivered push notification",
         "operationId": "postPushNotificationInteraction",
         "parameters": [
           {
             "name": "pushNotificationId",
             "in": "path",
+            "description": "Select specified notification.",
             "required": true,
             "schema": {
               "pattern": "^[a-zA-Z0-9]{24}$",
@@ -85,6 +86,7 @@
           }
         ],
         "requestBody": {
+          "description": "Save specified interaction. The interaction has to be of form: `{\"actionQualifier\": \"DISMISS\"}`.<br/>Valid actionQualifier values are: \"DISMISS\", \"OPENAPP\", \"STOPDELIVERY\", \"OPENWEB\"",
           "content": {
             "application/json": {
               "schema": {
@@ -112,6 +114,7 @@
           {
             "name": "customerBuildingId",
             "in": "path",
+            "description": "Select notifications of specified building.",
             "required": true,
             "schema": {
               "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
@@ -119,16 +122,9 @@
             }
           },
           {
-            "name": "selectedCustomerId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "deliveryStatus",
             "in": "query",
+            "description": "If specified, then filter for notifications with specified status.",
             "required": false,
             "schema": {
               "type": "string",
