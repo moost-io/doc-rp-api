@@ -5,7 +5,7 @@ cd build || exit
 pwd
 
 
-readonly microservices="ms-gp-events ms-gp-pushnotifications ms-gp-auth"
+readonly microservices="ms-gp-auth ms-gp-pushnotifications ms-gp-events"
 read -a msArray <<< "${microservices}"
 # First add 'shared-openapi.json', as the first openapi.json defines title, description, etc. of the merged openapi.json
 inputsOfMergeJson=("{'inputFile': '../shared-openapi.json','operationSelection': {'includeTags': ['PublicAPI']}}")
