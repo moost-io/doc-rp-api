@@ -13,9 +13,14 @@ for ms in "${msArray[@]}"
 do
   echo "Import openapi.json of ${ms}..."
   mkdir -p "${ms}"
-  openapiFile="${ms}/openapi.json"
-  curl -s -o "${openapiFile}" "https://moost-io.github.io/${ms}/openapi/openapi.json"
-  inputsOfMergeJson+=("{'inputFile': '${openapiFile}','operationSelection': {'includeTags': ['PublicAPI']}}")
+  cd "${ms}"
+  git init
+  git remote add -f origin git@github.com:moost-io/${ms}.git
+  git config core.sparseCheckout true
+  echo "docs/openapi/openapi.json" >> .git/info/sparse-checkout
+  git pull --quiet origin master
+  cd -
+  inputsOfMergeJson+=("{'inputFile': '${ms}/docs/openapi/openapi.json','operationSelection': {'includeTags': ['PublicAPI']}}")
 done
 
 echo "Generate merge config for Public API..."
