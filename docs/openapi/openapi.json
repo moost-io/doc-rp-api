@@ -192,7 +192,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Success. Rule activity updated."
+          },
+          "404": {
+            "description": "Building could not be found."
           }
         },
         "security": [
@@ -236,7 +239,10 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Success. Devices updated."
+          },
+          "404": {
+            "description": "Building could not be found."
           }
         },
         "security": [
@@ -292,7 +298,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Success. Building updated.",
             "content": {
               "application/json": {
                 "schema": {
@@ -300,6 +306,9 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Building could not be found."
           }
         },
         "security": [
@@ -326,7 +335,7 @@
         },
         "responses": {
           "201": {
-            "description": "Created",
+            "description": "Success. Building created.",
             "content": {
               "application/json": {
                 "schema": {
@@ -334,6 +343,9 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "Conflict. Building already exists."
           }
         },
         "security": [
@@ -385,48 +397,7 @@
         ]
       }
     },
-    "/buildings/{customerBuildingId}/rules/v1": {
-      "get": {
-        "tags": [
-          "PublicAPI"
-        ],
-        "summary": "Get all active rules of a building",
-        "operationId": "getActiveRulesOfBuilding",
-        "parameters": [
-          {
-            "name": "customerBuildingId",
-            "in": "path",
-            "description": "Load active rules of specified building.",
-            "required": true,
-            "schema": {
-              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Rule"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/buildings/{buildingId}/v1": {
+    "/buildings/{customerBuildingId}/v1": {
       "get": {
         "tags": [
           "PublicAPI"
@@ -435,11 +406,12 @@
         "operationId": "getBuilding",
         "parameters": [
           {
-            "name": "buildingId",
+            "name": "customerBuildingId",
             "in": "path",
-            "description": "Load specified building.",
+            "description": "Select specified building.",
             "required": true,
             "schema": {
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
               "type": "string"
             }
           }
@@ -470,7 +442,7 @@
         "operationId": "deleteBuilding",
         "parameters": [
           {
-            "name": "buildingId",
+            "name": "customerBuildingId",
             "in": "path",
             "description": "Delete specified building.",
             "required": true,
@@ -481,7 +453,54 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Success. Building deleted."
+          },
+          "404": {
+            "description": "Building could not be found."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/buildings/{customerBuildingId}/rules/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get all active rules of a building",
+        "operationId": "getActiveRulesOfBuilding",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "description": "Load active rules of specified building.",
+            "required": true,
+            "schema": {
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Active rules loaded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Rule"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Building could not be found."
           }
         },
         "security": [
@@ -857,83 +876,6 @@
           }
         }
       },
-      "LowTariffHourSetting": {
-        "required": [
-          "fridayEndTime",
-          "fridayStartTime",
-          "mondayEndTime",
-          "mondayStartTime",
-          "saturdayEndTime",
-          "saturdayStartTime",
-          "sundayEndTime",
-          "sundayStartTime",
-          "thursdayEndTime",
-          "thursdayStartTime",
-          "tuesdayEndTime",
-          "tuesdayStartTime",
-          "wednesdayEndTime",
-          "wednesdayStartTime"
-        ],
-        "type": "object",
-        "properties": {
-          "mondayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "mondayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "tuesdayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "tuesdayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "wednesdayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "wednesdayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "thursdayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "thursdayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "fridayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "fridayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "saturdayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "saturdayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "sundayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "sundayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          }
-        }
-      },
       "Building": {
         "required": [
           "customerBuildingId",
@@ -1008,6 +950,83 @@
           "lon": {
             "type": "number",
             "format": "double"
+          }
+        }
+      },
+      "LowTariffHourSetting": {
+        "required": [
+          "fridayEndTime",
+          "fridayStartTime",
+          "mondayEndTime",
+          "mondayStartTime",
+          "saturdayEndTime",
+          "saturdayStartTime",
+          "sundayEndTime",
+          "sundayStartTime",
+          "thursdayEndTime",
+          "thursdayStartTime",
+          "tuesdayEndTime",
+          "tuesdayStartTime",
+          "wednesdayEndTime",
+          "wednesdayStartTime"
+        ],
+        "type": "object",
+        "properties": {
+          "mondayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "mondayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "tuesdayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "tuesdayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "wednesdayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "wednesdayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "thursdayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "thursdayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "fridayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "fridayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "saturdayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "saturdayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "sundayStartTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
+          },
+          "sundayEndTime": {
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+            "type": "string"
           }
         }
       },
