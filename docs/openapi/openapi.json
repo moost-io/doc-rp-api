@@ -814,7 +814,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^[a-zA-Z0-9]{8,32}$",
+            "pattern": "^[a-zA-Z0-9:._-]{4,64}$",
             "type": "string"
           },
           "type": {
@@ -1062,7 +1062,7 @@
             "type": "string"
           },
           "deviceId": {
-            "pattern": "^[a-zA-Z0-9]{8,32}$",
+            "pattern": "^[a-zA-Z0-9:._-]{4,64}$",
             "type": "string"
           },
           "deviceName": {
