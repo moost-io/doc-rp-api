@@ -834,6 +834,8 @@
               "SMART_PLUG",
               "SWITCH",
               "THERMOSTAT",
+              "THERMAL_ZONE",
+              "THERMAL_STORAGE",
               "WATER_HEATER",
               "WALL_TABLET"
             ]
@@ -1112,6 +1114,7 @@
               "STATE_OF_CHARGE_FORECAST_RATE",
               "STATE_OF_CHARGE_RATE",
               "SWITCH_STATE",
+              "TEMPERATURE",
               "WATER_TEMPERATURE"
             ]
           },
@@ -1132,6 +1135,8 @@
               "SMART_PLUG",
               "SWITCH",
               "THERMOSTAT",
+              "THERMAL_ZONE",
+              "THERMAL_STORAGE",
               "WATER_HEATER",
               "WALL_TABLET"
             ]
@@ -1224,6 +1229,8 @@
                 "SMART_PLUG",
                 "SWITCH",
                 "THERMOSTAT",
+                "THERMAL_ZONE",
+                "THERMAL_STORAGE",
                 "WATER_HEATER",
                 "WALL_TABLET"
               ]
@@ -1270,6 +1277,7 @@
                 "STATE_OF_CHARGE_FORECAST_RATE",
                 "STATE_OF_CHARGE_RATE",
                 "SWITCH_STATE",
+                "TEMPERATURE",
                 "WATER_TEMPERATURE"
               ]
             }
