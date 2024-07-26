@@ -875,6 +875,10 @@
           "chargingMode": {
             "type": "integer",
             "format": "int32"
+          },
+          "capacity": {
+            "type": "number",
+            "format": "float"
           }
         }
       },
