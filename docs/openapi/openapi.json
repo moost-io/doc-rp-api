@@ -943,6 +943,9 @@
           },
           "isEarlyAdopter": {
             "type": "boolean"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/Profile"
           }
         }
       },
@@ -1033,6 +1036,27 @@
           "sundayEndTime": {
             "pattern": "^[0-9][0-9]:[0-9][0-9]$",
             "type": "string"
+          }
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "multiPersonScore": {
+            "type": "number",
+            "format": "float"
+          },
+          "ecologicalScore": {
+            "type": "number",
+            "format": "float"
+          },
+          "economicalScore": {
+            "type": "number",
+            "format": "float"
+          },
+          "selfSufficiencyScore": {
+            "type": "number",
+            "format": "float"
           }
         }
       },
