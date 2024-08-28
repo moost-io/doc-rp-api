@@ -259,6 +259,17 @@
         ],
         "summary": "Get all buildings",
         "operationId": "getBuildings",
+        "parameters": [
+          {
+            "name": "activeOnly",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
