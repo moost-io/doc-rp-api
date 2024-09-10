@@ -1055,19 +1055,19 @@
         "properties": {
           "multiPersonScore": {
             "type": "number",
-            "format": "float"
+            "format": "double"
           },
           "ecologicalScore": {
             "type": "number",
-            "format": "float"
+            "format": "double"
           },
           "economicalScore": {
             "type": "number",
-            "format": "float"
+            "format": "double"
           },
           "selfSufficiencyScore": {
             "type": "number",
-            "format": "float"
+            "format": "double"
           }
         }
       },
@@ -1154,7 +1154,8 @@
               "STATE_OF_CHARGE_RATE",
               "SWITCH_STATE",
               "TEMPERATURE",
-              "WATER_TEMPERATURE"
+              "WATER_TEMPERATURE",
+              "POWER_CONSUMPTION_BASE_LOAD"
             ]
           },
           "source": {
@@ -1317,7 +1318,8 @@
                 "STATE_OF_CHARGE_RATE",
                 "SWITCH_STATE",
                 "TEMPERATURE",
-                "WATER_TEMPERATURE"
+                "WATER_TEMPERATURE",
+                "POWER_CONSUMPTION_BASE_LOAD"
               ]
             }
           },
