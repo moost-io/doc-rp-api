@@ -592,6 +592,23 @@
           }
         }
       },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "$ref": "#/components/schemas/Translatable"
+          },
+          "title": {
+            "$ref": "#/components/schemas/Translatable"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationAction"
+            }
+          }
+        }
+      },
       "NotificationAction": {
         "type": "object",
         "properties": {
@@ -609,6 +626,23 @@
           },
           "parameter": {
             "$ref": "#/components/schemas/Translatable"
+          }
+        }
+      },
+      "Translatable": {
+        "type": "object",
+        "properties": {
+          "de": {
+            "pattern": "^[\\s\\S]{1,10000}$",
+            "type": "string"
+          },
+          "en": {
+            "pattern": "^[\\s\\S]{1,10000}$",
+            "type": "string"
+          },
+          "fr": {
+            "pattern": "^[\\s\\S]{1,10000}$",
+            "type": "string"
           }
         }
       },
@@ -710,23 +744,6 @@
               "STOPDELIVERY",
               "OPENWEB"
             ]
-          }
-        }
-      },
-      "Translatable": {
-        "type": "object",
-        "properties": {
-          "de": {
-            "pattern": "^[\\s\\S]{1,10000}$",
-            "type": "string"
-          },
-          "en": {
-            "pattern": "^[\\s\\S]{1,10000}$",
-            "type": "string"
-          },
-          "fr": {
-            "pattern": "^[\\s\\S]{1,10000}$",
-            "type": "string"
           }
         }
       },
@@ -1334,23 +1351,6 @@
         "properties": {
           "isOverflowProtectionActive": {
             "type": "boolean"
-          }
-        }
-      },
-      "Notification": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "$ref": "#/components/schemas/Translatable"
-          },
-          "title": {
-            "$ref": "#/components/schemas/Translatable"
-          },
-          "actions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/NotificationAction"
-            }
           }
         }
       },
