@@ -977,6 +977,41 @@
           }
         }
       },
+      "DualTariffSetting": {
+        "type": "object",
+        "properties": {
+          "lowTariff": {
+            "$ref": "#/components/schemas/LowTariffSetting"
+          }
+        }
+      },
+      "DynamicTariff": {
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "number"
+          },
+          "from": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "to": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "DynamicTariffSetting": {
+        "type": "object",
+        "properties": {
+          "tariffs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DynamicTariff"
+            }
+          }
+        }
+      },
       "Geolocation": {
         "type": "object",
         "properties": {
@@ -990,7 +1025,7 @@
           }
         }
       },
-      "LowTariffHourSetting": {
+      "LowTariffSetting": {
         "required": [
           "fridayEndTime",
           "fridayStartTime",
@@ -1091,8 +1126,61 @@
       "Settings": {
         "type": "object",
         "properties": {
-          "lowTariffHourSetting": {
-            "$ref": "#/components/schemas/LowTariffHourSetting"
+          "tariff": {
+            "$ref": "#/components/schemas/TariffSettings"
+          }
+        }
+      },
+      "TariffSettings": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "SINGLE",
+              "DUAL",
+              "DYNAMIC"
+            ]
+          },
+          "minPrice": {
+            "type": "number"
+          },
+          "maxPrice": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "object",
+            "properties": {
+              "currencyCode": {
+                "type": "string"
+              },
+              "numericCode": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "numericCodeAsString": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              },
+              "symbol": {
+                "type": "string"
+              },
+              "defaultFractionDigits": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "dual": {
+            "$ref": "#/components/schemas/DualTariffSetting"
+          },
+          "dynamic": {
+            "$ref": "#/components/schemas/DynamicTariffSetting"
           }
         }
       },
@@ -1434,6 +1522,10 @@
           },
           "impactIcon": {
             "pattern": "^[a-zA-Z0-9_]{1,50}$",
+            "type": "string"
+          },
+          "templateRuleId": {
+            "pattern": "^[a-zA-Z0-9]{24}$",
             "type": "string"
           }
         }
