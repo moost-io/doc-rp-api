@@ -1260,7 +1260,8 @@
               "SWITCH_STATE",
               "TEMPERATURE",
               "WATER_TEMPERATURE",
-              "POWER_CONSUMPTION_BASE_LOAD"
+              "POWER_CONSUMPTION_BASE_LOAD",
+              "DYNAMIC_TARIFF_PRICE"
             ]
           },
           "source": {
@@ -1424,7 +1425,8 @@
                 "SWITCH_STATE",
                 "TEMPERATURE",
                 "WATER_TEMPERATURE",
-                "POWER_CONSUMPTION_BASE_LOAD"
+                "POWER_CONSUMPTION_BASE_LOAD",
+                "DYNAMIC_TARIFF_PRICE"
               ]
             }
           },
