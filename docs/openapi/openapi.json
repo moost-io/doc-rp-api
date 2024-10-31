@@ -1152,29 +1152,8 @@
             "type": "number"
           },
           "currency": {
-            "type": "object",
-            "properties": {
-              "currencyCode": {
-                "type": "string"
-              },
-              "numericCode": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "numericCodeAsString": {
-                "type": "string"
-              },
-              "displayName": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "defaultFractionDigits": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
+            "pattern": "^[A-Z]{3}$",
+            "type": "string"
           },
           "dual": {
             "$ref": "#/components/schemas/DualTariffSetting"
