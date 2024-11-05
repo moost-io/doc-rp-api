@@ -477,7 +477,7 @@
         ]
       }
     },
-    "/buildings/{customerBuildingId}/rules/v1": {
+    "/buildings/{customerBuildingId}/rules/v2": {
       "get": {
         "tags": [
           "PublicAPI"
