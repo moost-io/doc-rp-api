@@ -1423,6 +1423,57 @@
           }
         }
       },
+      "Notification1": {
+        "type": "object",
+        "properties": {
+          "actionQualifier": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "enum": [
+                "DISMISS",
+                "OPENAPP",
+                "STOPDELIVERY",
+                "OPENWEB"
+              ]
+            }
+          },
+          "texts": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NotificationTexts"
+            }
+          }
+        }
+      },
+      "NotificationAction1": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "parameter": {
+            "type": "string"
+          }
+        }
+      },
+      "NotificationTexts": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "actions": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NotificationAction1"
+            }
+          }
+        }
+      },
       "Rule": {
         "required": [
           "condition",
@@ -1458,7 +1509,7 @@
             ]
           },
           "notification": {
-            "$ref": "#/components/schemas/Notification"
+            "$ref": "#/components/schemas/Notification1"
           },
           "match_threshold": {
             "type": "integer",
