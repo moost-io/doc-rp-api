@@ -595,16 +595,22 @@
       "Notification": {
         "type": "object",
         "properties": {
-          "message": {
-            "$ref": "#/components/schemas/Translatable"
+          "actionQualifier": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "enum": [
+                "DISMISS",
+                "OPENAPP",
+                "STOPDELIVERY",
+                "OPENWEB"
+              ]
+            }
           },
-          "title": {
-            "$ref": "#/components/schemas/Translatable"
-          },
-          "actions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/NotificationAction"
+          "texts": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NotificationTexts"
             }
           }
         }
@@ -613,36 +619,27 @@
         "type": "object",
         "properties": {
           "text": {
-            "$ref": "#/components/schemas/Translatable"
-          },
-          "actionQualifier": {
-            "type": "string",
-            "enum": [
-              "DISMISS",
-              "OPENAPP",
-              "STOPDELIVERY",
-              "OPENWEB"
-            ]
+            "type": "string"
           },
           "parameter": {
-            "$ref": "#/components/schemas/Translatable"
+            "type": "string"
           }
         }
       },
-      "Translatable": {
+      "NotificationTexts": {
         "type": "object",
         "properties": {
-          "de": {
-            "pattern": "^[\\s\\S]{1,10000}$",
+          "title": {
             "type": "string"
           },
-          "en": {
-            "pattern": "^[\\s\\S]{1,10000}$",
+          "message": {
             "type": "string"
           },
-          "fr": {
-            "pattern": "^[\\s\\S]{1,10000}$",
-            "type": "string"
+          "actions": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NotificationAction"
+            }
           }
         }
       },
@@ -661,9 +658,9 @@
       },
       "PushNotification": {
         "required": [
+          "customerBuildingId",
           "customerId",
-          "ruleId",
-          "userId"
+          "ruleId"
         ],
         "type": "object",
         "properties": {
@@ -674,7 +671,7 @@
             "pattern": "^[a-zA-Z0-9]{24}$",
             "type": "string"
           },
-          "userId": {
+          "customerBuildingId": {
             "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
             "type": "string"
           },
@@ -700,17 +697,8 @@
             "type": "integer",
             "format": "int64"
           },
-          "message": {
-            "$ref": "#/components/schemas/Translatable"
-          },
-          "title": {
-            "$ref": "#/components/schemas/Translatable"
-          },
-          "actions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/NotificationAction"
-            }
+          "notification": {
+            "$ref": "#/components/schemas/Notification"
           },
           "delivery_status": {
             "$ref": "#/components/schemas/PushNotificationDeliveryStatus"
@@ -759,6 +747,17 @@
           "totalPushNotifications": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "LanguageInfo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
           }
         }
       },
@@ -1423,57 +1422,6 @@
           }
         }
       },
-      "Notification1": {
-        "type": "object",
-        "properties": {
-          "actionQualifier": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "enum": [
-                "DISMISS",
-                "OPENAPP",
-                "STOPDELIVERY",
-                "OPENWEB"
-              ]
-            }
-          },
-          "texts": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/NotificationTexts"
-            }
-          }
-        }
-      },
-      "NotificationAction1": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string"
-          },
-          "parameter": {
-            "type": "string"
-          }
-        }
-      },
-      "NotificationTexts": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          },
-          "actions": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/NotificationAction1"
-            }
-          }
-        }
-      },
       "Rule": {
         "required": [
           "condition",
@@ -1509,7 +1457,7 @@
             ]
           },
           "notification": {
-            "$ref": "#/components/schemas/Notification1"
+            "$ref": "#/components/schemas/Notification"
           },
           "match_threshold": {
             "type": "integer",
