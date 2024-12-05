@@ -1119,6 +1119,10 @@
           "selfSufficiencyScore": {
             "type": "number",
             "format": "double"
+          },
+          "commercialBuildingScore": {
+            "type": "number",
+            "format": "double"
           }
         }
       },
