@@ -1123,6 +1123,10 @@
           "commercialBuildingScore": {
             "type": "number",
             "format": "double"
+          },
+          "gridPowerConsumptionClusterId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -1243,7 +1247,10 @@
               "TEMPERATURE",
               "WATER_TEMPERATURE",
               "POWER_CONSUMPTION_BASE_LOAD",
-              "DYNAMIC_TARIFF_PRICE"
+              "DYNAMIC_TARIFF_PRICE",
+              "DYNAMIC_TARIFF_PRICE_FORECAST_1H",
+              "DYNAMIC_TARIFF_LOWEST_PRICE_FORECAST_TOMORROW",
+              "IS_HIGH_TARIFF_HOURS"
             ]
           },
           "source": {
@@ -1408,7 +1415,10 @@
                 "TEMPERATURE",
                 "WATER_TEMPERATURE",
                 "POWER_CONSUMPTION_BASE_LOAD",
-                "DYNAMIC_TARIFF_PRICE"
+                "DYNAMIC_TARIFF_PRICE",
+                "DYNAMIC_TARIFF_PRICE_FORECAST_1H",
+                "DYNAMIC_TARIFF_LOWEST_PRICE_FORECAST_TOMORROW",
+                "IS_HIGH_TARIFF_HOURS"
               ]
             }
           },
