@@ -166,8 +166,8 @@
             "description": "Set rule activity of specified building.",
             "required": true,
             "schema": {
-              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
-              "type": "string"
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
             }
           },
           {
@@ -176,8 +176,8 @@
             "description": "ID of the target rule.",
             "required": true,
             "schema": {
-              "pattern": "^[a-zA-Z0-9]{24}$",
-              "type": "string"
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]{24}$"
             }
           },
           {
@@ -219,8 +219,8 @@
             "description": "Set devices of specified building.",
             "required": true,
             "schema": {
-              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
-              "type": "string"
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
             }
           }
         ],
@@ -422,8 +422,8 @@
             "description": "Select specified building.",
             "required": true,
             "schema": {
-              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
-              "type": "string"
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
             }
           }
         ],
@@ -491,8 +491,8 @@
             "description": "Load active rules of specified building.",
             "required": true,
             "schema": {
-              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
-              "type": "string"
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
             }
           }
         ],
@@ -833,16 +833,11 @@
         }
       },
       "Device": {
-        "required": [
-          "id",
-          "product_name",
-          "vendor_name"
-        ],
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^[a-zA-Z0-9:._-]{3,64}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._-]{3,64}$"
           },
           "type": {
             "type": "string",
@@ -868,16 +863,16 @@
             ]
           },
           "vendor_name": {
-            "pattern": "^.{1,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^.{1,100}$"
           },
           "product_name": {
-            "pattern": "^.{1,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^.{1,100}$"
           },
           "metadata": {
-            "pattern": "^.{0,1000}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^.{0,1000}$"
           },
           "createdAt": {
             "type": "integer",
@@ -907,37 +902,38 @@
             "type": "number",
             "format": "float"
           }
-        }
+        },
+        "required": [
+          "id",
+          "product_name",
+          "vendor_name"
+        ]
       },
       "Building": {
-        "required": [
-          "customerBuildingId",
-          "customerId"
-        ],
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
           "customerBuildingId": {
-            "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
           },
           "customerId": {
-            "pattern": "^[a-zA-Z0-9]{24}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
           },
           "zip": {
-            "pattern": "^[A-Z0-9 -]{3,10}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Z0-9 -]{3,10}$"
           },
           "city": {
-            "pattern": "^.{1,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^.{1,100}$"
           },
           "countryCode": {
-            "pattern": "^[A-Z]{2}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
           },
           "devices": {
             "type": "array",
@@ -952,8 +948,8 @@
             "$ref": "#/components/schemas/Geolocation"
           },
           "timeZoneId": {
-            "pattern": "^[a-zA-Z0-9/_+-]{1,32}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9/_+-]{1,32}$"
           },
           "inactiveRules": {
             "type": "array",
@@ -978,7 +974,11 @@
           "profile": {
             "$ref": "#/components/schemas/Profile"
           }
-        }
+        },
+        "required": [
+          "customerBuildingId",
+          "customerId"
+        ]
       },
       "DualTariffSetting": {
         "type": "object",
@@ -1029,6 +1029,65 @@
         }
       },
       "LowTariffSetting": {
+        "type": "object",
+        "properties": {
+          "mondayStartTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "mondayEndTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "tuesdayStartTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "tuesdayEndTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "wednesdayStartTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "wednesdayEndTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "thursdayStartTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "thursdayEndTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "fridayStartTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "fridayEndTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "saturdayStartTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "saturdayEndTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "sundayStartTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          },
+          "sundayEndTime": {
+            "type": "string",
+            "pattern": "^[0-9][0-9]:[0-9][0-9]$"
+          }
+        },
         "required": [
           "fridayEndTime",
           "fridayStartTime",
@@ -1044,66 +1103,7 @@
           "tuesdayStartTime",
           "wednesdayEndTime",
           "wednesdayStartTime"
-        ],
-        "type": "object",
-        "properties": {
-          "mondayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "mondayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "tuesdayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "tuesdayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "wednesdayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "wednesdayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "thursdayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "thursdayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "fridayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "fridayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "saturdayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "saturdayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "sundayStartTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          },
-          "sundayEndTime": {
-            "pattern": "^[0-9][0-9]:[0-9][0-9]$",
-            "type": "string"
-          }
-        }
+        ]
       },
       "Profile": {
         "type": "object",
@@ -1143,9 +1143,6 @@
         }
       },
       "TariffSettings": {
-        "required": [
-          "type"
-        ],
         "type": "object",
         "properties": {
           "type": {
@@ -1163,8 +1160,8 @@
             "type": "number"
           },
           "currency": {
-            "pattern": "^[A-Z]{3}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
           },
           "dual": {
             "$ref": "#/components/schemas/DualTariffSetting"
@@ -1172,17 +1169,12 @@
           "dynamic": {
             "$ref": "#/components/schemas/DynamicTariffSetting"
           }
-        }
+        },
+        "required": [
+          "type"
+        ]
       },
       "Event": {
-        "required": [
-          "customerBuildingId",
-          "customerId",
-          "deviceId",
-          "deviceName",
-          "type",
-          "value"
-        ],
         "type": "object",
         "properties": {
           "timestamp": {
@@ -1190,20 +1182,20 @@
             "format": "int64"
           },
           "customerId": {
-            "pattern": "^[a-zA-Z0-9]{24}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
           },
           "customerBuildingId": {
-            "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
           },
           "deviceId": {
-            "pattern": "^[a-zA-Z0-9:._-]{3,64}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._-]{3,64}$"
           },
           "deviceName": {
-            "pattern": "^.{1,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^.{1,100}$"
           },
           "value": {
             "type": "number",
@@ -1288,7 +1280,15 @@
             "type": "integer",
             "format": "int64"
           }
-        }
+        },
+        "required": [
+          "customerBuildingId",
+          "customerId",
+          "deviceId",
+          "deviceName",
+          "type",
+          "value"
+        ]
       },
       "EventResponse": {
         "type": "object",
@@ -1307,13 +1307,11 @@
       },
       "Document": {
         "type": "object",
+        "additionalProperties": {},
         "properties": {
           "empty": {
             "type": "boolean"
           }
-        },
-        "additionalProperties": {
-          "type": "object"
         }
       },
       "CountByGroup": {
@@ -1329,18 +1327,15 @@
         }
       },
       "Dataset": {
-        "required": [
-          "name"
-        ],
         "type": "object",
         "properties": {
           "name": {
-            "pattern": "^[a-zA-Z0-9_]{1,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_]{1,100}$"
           },
           "description": {
-            "pattern": "^.{0,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^.{0,100}$"
           },
           "type": {
             "type": "string",
@@ -1430,7 +1425,10 @@
             "type": "integer",
             "format": "int64"
           }
-        }
+        },
+        "required": [
+          "name"
+        ]
       },
       "MessageQueueSetting": {
         "type": "object",
@@ -1440,12 +1438,66 @@
           }
         }
       },
+      "Notification1": {
+        "type": "object",
+        "properties": {
+          "actionQualifier": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "enum": [
+                "DISMISS",
+                "OPENAPP",
+                "STOPDELIVERY",
+                "OPENWEB"
+              ]
+            }
+          },
+          "texts": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NotificationTexts1"
+            }
+          },
+          "command": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{0,10000}$"
+          }
+        }
+      },
+      "NotificationAction1": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{1,10000}$"
+          },
+          "parameter": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{0,10000}$"
+          }
+        }
+      },
+      "NotificationTexts1": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{1,10000}$"
+          },
+          "message": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{1,10000}$"
+          },
+          "actions": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NotificationAction1"
+            }
+          }
+        }
+      },
       "Rule": {
-        "required": [
-          "condition",
-          "customerId",
-          "name"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1456,16 +1508,16 @@
             "format": "int64"
           },
           "customerId": {
-            "pattern": "^[a-zA-Z0-9]{24}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
           },
           "name": {
-            "pattern": "^.{1,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^.{1,100}$"
           },
           "description": {
-            "pattern": "^[\\s\\S]{0,10000}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[\\s\\S]{0,10000}$"
           },
           "ruleState": {
             "type": "string",
@@ -1475,7 +1527,7 @@
             ]
           },
           "notification": {
-            "$ref": "#/components/schemas/Notification"
+            "$ref": "#/components/schemas/Notification1"
           },
           "match_threshold": {
             "type": "integer",
@@ -1489,12 +1541,12 @@
             "type": "boolean"
           },
           "condition": {
-            "pattern": "^[\\s\\S]{1,10000}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[\\s\\S]{1,10000}$"
           },
           "streakCondition": {
-            "pattern": "^[\\s\\S]{0,10000}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[\\s\\S]{0,10000}$"
           },
           "isRestrictedToEarlyAdopters": {
             "type": "boolean"
@@ -1515,18 +1567,23 @@
             }
           },
           "topicIcon": {
-            "pattern": "^[a-zA-Z0-9_]{1,50}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_]{1,50}$"
           },
           "impactIcon": {
-            "pattern": "^[a-zA-Z0-9_]{1,50}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_]{1,50}$"
           },
           "templateRuleId": {
-            "pattern": "^[a-zA-Z0-9]{24}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
           }
-        }
+        },
+        "required": [
+          "condition",
+          "customerId",
+          "name"
+        ]
       }
     },
     "securitySchemes": {
