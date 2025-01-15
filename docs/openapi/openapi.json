@@ -961,6 +961,10 @@
             "type": "integer",
             "format": "int64"
           },
+          "activationTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
           "registrationTimestamp": {
             "type": "integer",
             "format": "int64"
@@ -1307,7 +1311,9 @@
       },
       "Document": {
         "type": "object",
-        "additionalProperties": {},
+        "additionalProperties": {
+          "type": "object"
+        },
         "properties": {
           "empty": {
             "type": "boolean"
