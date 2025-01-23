@@ -980,8 +980,11 @@
           }
         },
         "required": [
+          "city",
+          "countryCode",
           "customerBuildingId",
-          "customerId"
+          "customerId",
+          "zip"
         ]
       },
       "DualTariffSetting": {
