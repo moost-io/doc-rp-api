@@ -80,8 +80,8 @@
             "description": "Select specified notification.",
             "required": true,
             "schema": {
-              "pattern": "^[a-zA-Z0-9]{24}$",
-              "type": "string"
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]{24}$"
             }
           }
         ],
@@ -117,8 +117,8 @@
             "description": "Select notifications of specified building.",
             "required": true,
             "schema": {
-              "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
-              "type": "string"
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
             }
           },
           {
@@ -612,6 +612,10 @@
             "additionalProperties": {
               "$ref": "#/components/schemas/NotificationTexts"
             }
+          },
+          "command": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{0,10000}$"
           }
         }
       },
@@ -619,10 +623,12 @@
         "type": "object",
         "properties": {
           "text": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^[\\s\\S]{1,10000}$"
           },
           "parameter": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^[\\s\\S]{0,10000}$"
           }
         }
       },
@@ -630,10 +636,12 @@
         "type": "object",
         "properties": {
           "title": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^[\\s\\S]{1,10000}$"
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^[\\s\\S]{1,10000}$"
           },
           "actions": {
             "type": "object",
@@ -657,27 +665,22 @@
         }
       },
       "PushNotification": {
-        "required": [
-          "customerBuildingId",
-          "customerId",
-          "ruleId"
-        ],
         "type": "object",
         "properties": {
           "id": {
             "$ref": "#/components/schemas/ObjectId"
           },
           "customerId": {
-            "pattern": "^[a-zA-Z0-9]{24}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
           },
           "customerBuildingId": {
-            "pattern": "^[a-zA-Z0-9:._-]{1,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
           },
           "ruleId": {
-            "pattern": "^[a-zA-Z0-9]{24}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
           },
           "priority": {
             "type": "string",
@@ -703,7 +706,12 @@
           "delivery_status": {
             "$ref": "#/components/schemas/PushNotificationDeliveryStatus"
           }
-        }
+        },
+        "required": [
+          "customerBuildingId",
+          "customerId",
+          "ruleId"
+        ]
       },
       "PushNotificationDeliveryStatus": {
         "type": "object",
@@ -716,8 +724,8 @@
             ]
           },
           "reason": {
-            "pattern": "^.{0,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^.{0,100}$"
           }
         }
       },
@@ -1447,65 +1455,6 @@
           }
         }
       },
-      "Notification1": {
-        "type": "object",
-        "properties": {
-          "actionQualifier": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "enum": [
-                "DISMISS",
-                "OPENAPP",
-                "STOPDELIVERY",
-                "OPENWEB"
-              ]
-            }
-          },
-          "texts": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/NotificationTexts1"
-            }
-          },
-          "command": {
-            "type": "string",
-            "pattern": "^[\\s\\S]{0,10000}$"
-          }
-        }
-      },
-      "NotificationAction1": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "pattern": "^[\\s\\S]{1,10000}$"
-          },
-          "parameter": {
-            "type": "string",
-            "pattern": "^[\\s\\S]{0,10000}$"
-          }
-        }
-      },
-      "NotificationTexts1": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "pattern": "^[\\s\\S]{1,10000}$"
-          },
-          "message": {
-            "type": "string",
-            "pattern": "^[\\s\\S]{1,10000}$"
-          },
-          "actions": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/NotificationAction1"
-            }
-          }
-        }
-      },
       "Rule": {
         "type": "object",
         "properties": {
@@ -1536,7 +1485,7 @@
             ]
           },
           "notification": {
-            "$ref": "#/components/schemas/Notification1"
+            "$ref": "#/components/schemas/Notification"
           },
           "match_threshold": {
             "type": "integer",
