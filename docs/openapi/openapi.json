@@ -1272,7 +1272,8 @@
               "ENERGY_GENERATION_FORECAST_1H",
               "ENERGY_GENERATION_FORECAST_24H",
               "ENERGY_GENERATION_FORECAST_48H",
-              "GRID_ENERGY_CONSUMPTION"
+              "GRID_ENERGY_CONSUMPTION",
+              "GRID_ENERGY_CONSUMPTION_YESTERDAY"
             ]
           },
           "source": {
@@ -1456,7 +1457,8 @@
                 "ENERGY_GENERATION_FORECAST_1H",
                 "ENERGY_GENERATION_FORECAST_24H",
                 "ENERGY_GENERATION_FORECAST_48H",
-                "GRID_ENERGY_CONSUMPTION"
+                "GRID_ENERGY_CONSUMPTION",
+                "GRID_ENERGY_CONSUMPTION_YESTERDAY"
               ]
             }
           },
