@@ -1262,8 +1262,6 @@
               "DYNAMIC_TARIFF_PRICE_FORECAST_1H",
               "DYNAMIC_TARIFF_LOWEST_PRICE_FORECAST_TOMORROW",
               "IS_HIGH_TARIFF_HOURS",
-              "ENERGY_POWER_CONSUMPTION",
-              "ENERGY_POWER_CONSUMPTION_ANOMALY_SCORE",
               "ENERGY_EXCESS",
               "ENERGY_BASE_CONSUMPTION",
               "ENERGY_CONSUMPTION_FORECAST_1H",
@@ -1271,9 +1269,9 @@
               "ENERGY_GENERATION",
               "ENERGY_GENERATION_FORECAST_1H",
               "ENERGY_GENERATION_FORECAST_24H",
-              "ENERGY_GENERATION_FORECAST_48H",
               "GRID_ENERGY_CONSUMPTION",
-              "GRID_ENERGY_CONSUMPTION_YESTERDAY"
+              "GRID_ENERGY_CONSUMPTION_YESTERDAY",
+              "GRID_ENERGY_CONSUMPTION_ANOMALY_SCORE"
             ]
           },
           "source": {
@@ -1447,8 +1445,6 @@
                 "DYNAMIC_TARIFF_PRICE_FORECAST_1H",
                 "DYNAMIC_TARIFF_LOWEST_PRICE_FORECAST_TOMORROW",
                 "IS_HIGH_TARIFF_HOURS",
-                "ENERGY_POWER_CONSUMPTION",
-                "ENERGY_POWER_CONSUMPTION_ANOMALY_SCORE",
                 "ENERGY_EXCESS",
                 "ENERGY_BASE_CONSUMPTION",
                 "ENERGY_CONSUMPTION_FORECAST_1H",
@@ -1456,9 +1452,9 @@
                 "ENERGY_GENERATION",
                 "ENERGY_GENERATION_FORECAST_1H",
                 "ENERGY_GENERATION_FORECAST_24H",
-                "ENERGY_GENERATION_FORECAST_48H",
                 "GRID_ENERGY_CONSUMPTION",
-                "GRID_ENERGY_CONSUMPTION_YESTERDAY"
+                "GRID_ENERGY_CONSUMPTION_YESTERDAY",
+                "GRID_ENERGY_CONSUMPTION_ANOMALY_SCORE"
               ]
             }
           },
