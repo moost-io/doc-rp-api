@@ -867,7 +867,8 @@
               "THERMAL_ZONE",
               "THERMAL_STORAGE",
               "WATER_HEATER",
-              "WALL_TABLET"
+              "WALL_TABLET",
+              "SOLAR_PANEL"
             ]
           },
           "vendor_name": {
@@ -1294,7 +1295,8 @@
               "THERMAL_ZONE",
               "THERMAL_STORAGE",
               "WATER_HEATER",
-              "WALL_TABLET"
+              "WALL_TABLET",
+              "SOLAR_PANEL"
             ]
           },
           "forecastTimestamp": {
@@ -1393,7 +1395,8 @@
                 "THERMAL_ZONE",
                 "THERMAL_STORAGE",
                 "WATER_HEATER",
-                "WALL_TABLET"
+                "WALL_TABLET",
+                "SOLAR_PANEL"
               ]
             }
           },
