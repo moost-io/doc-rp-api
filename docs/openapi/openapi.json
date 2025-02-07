@@ -1154,6 +1154,14 @@
           "gridPowerConsumptionClusterId": {
             "type": "integer",
             "format": "int32"
+          },
+          "consumptionCategory": {
+            "type": "string",
+            "enum": [
+              "HIGH",
+              "MEDIUM",
+              "LOW"
+            ]
           }
         }
       },
