@@ -66,92 +66,6 @@
         }
       }
     },
-    "/pushnotifications/{pushNotificationId}/interactions/v1": {
-      "post": {
-        "tags": [
-          "PublicAPI"
-        ],
-        "summary": "Save an interaction on a delivered push notification",
-        "operationId": "postPushNotificationInteraction",
-        "parameters": [
-          {
-            "name": "pushNotificationId",
-            "in": "path",
-            "description": "Select specified notification.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "pattern": "^[a-zA-Z0-9]{24}$"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Save specified interaction. The interaction has to be of form: `{\"actionQualifier\": \"DISMISS\"}`.<br/>Valid actionQualifier values are: \"DISMISS\", \"OPENAPP\", \"STOPDELIVERY\", \"OPENWEB\"",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UnsanitizedPushNotificationInteraction"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/pushnotifications/buildings/{customerBuildingId}/v1": {
-      "get": {
-        "tags": [
-          "PublicAPI"
-        ],
-        "summary": "Get push notifications of a building",
-        "operationId": "getPushNotificationsByCustomerBuildingId",
-        "parameters": [
-          {
-            "name": "customerBuildingId",
-            "in": "path",
-            "description": "Select notifications of specified building.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
-            }
-          },
-          {
-            "name": "deliveryStatus",
-            "in": "query",
-            "description": "If specified, then filter for notifications with specified status.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "DELIVERED",
-                "DROPPED"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PushNotification"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/buildings/{customerBuildingId}/rules/{ruleId}/v1": {
       "put": {
         "tags": [
@@ -366,46 +280,90 @@
         ]
       }
     },
-    "/events/v1": {
+    "/pushnotifications/{pushNotificationId}/interactions/v1": {
       "post": {
         "tags": [
           "PublicAPI"
         ],
-        "summary": "Add an event to a building",
-        "operationId": "addEventV1",
+        "summary": "Save an interaction on a delivered push notification",
+        "operationId": "postPushNotificationInteraction",
+        "parameters": [
+          {
+            "name": "pushNotificationId",
+            "in": "path",
+            "description": "Select specified notification.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]{24}$"
+            }
+          }
+        ],
         "requestBody": {
+          "description": "Save specified interaction. The interaction has to be of form: `{\"actionQualifier\": \"DISMISS\"}`.<br/>Valid actionQualifier values are: \"DISMISS\", \"OPENAPP\", \"STOPDELIVERY\", \"OPENWEB\"",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Event"
+                "$ref": "#/components/schemas/UnsanitizedPushNotificationInteraction"
               }
             }
           },
           "required": true
         },
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/pushnotifications/buildings/{customerBuildingId}/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get push notifications of a building",
+        "operationId": "getPushNotificationsByCustomerBuildingId",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "description": "Select notifications of specified building.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+            }
           },
-          "400": {
-            "description": "Bad Request",
+          {
+            "name": "deliveryStatus",
+            "in": "query",
+            "description": "If specified, then filter for notifications with specified status.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "DELIVERED",
+                "DROPPED"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PushNotification"
                   }
                 }
               }
             }
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       }
     },
     "/buildings/{customerBuildingId}/v1": {
@@ -520,6 +478,35 @@
           }
         ]
       }
+    },
+    "/events/v1": {
+      "post": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Add an event to a building",
+        "operationId": "addEventV1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -584,11 +571,134 @@
           }
         }
       },
-      "UnsanitizedPushNotificationInteraction": {
+      "Dataset": {
         "type": "object",
         "properties": {
-          "actionQualifier": {
-            "type": "string"
+          "name": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_]{1,100}$"
+          },
+          "description": {
+            "type": "string",
+            "pattern": "^.{0,100}$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "SINGLEVALUE",
+              "TIMESERIES"
+            ]
+          },
+          "source_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "APPLIANCE",
+                "BATTERY",
+                "CAR",
+                "CAR_CHARGER",
+                "ENERGY_MEASUREMENT",
+                "GATEWAY",
+                "HEAT_PUMP",
+                "INPUT_DEVICE",
+                "INVERTER",
+                "MOOST",
+                "SMART_METER",
+                "SMART_PLUG",
+                "SWITCH",
+                "THERMOSTAT",
+                "THERMAL_ZONE",
+                "THERMAL_STORAGE",
+                "WATER_HEATER",
+                "WALL_TABLET",
+                "SOLAR_PANEL",
+                "DISHWASHER",
+                "DRYER",
+                "ENTERTAINMENT",
+                "LIGHTING",
+                "OVEN",
+                "REFRIGERATION",
+                "WASHING_MACHINE"
+              ]
+            }
+          },
+          "event_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "CHARGING_MODE",
+                "DEVICE_STATUS",
+                "ENERGY_CONSUMPTION",
+                "ENERGY_CONSUMPTION_LAST_24H",
+                "ENERGY_CONSUMPTION_YESTERDAY",
+                "ENERGY_EXCESS_LAST_24H",
+                "ENERGY_EXCESS_YESTERDAY",
+                "ENERGY_GENERATION_LAST_24H",
+                "ENERGY_GENERATION_YESTERDAY",
+                "ENERGY_IMPORT",
+                "ENERGY_IMPORT_YESTERDAY",
+                "ENERGY_EXPORT",
+                "ENERGY_EXPORT_YESTERDAY",
+                "EXPECTED_OUTSIDE_TEMPERATURE",
+                "EXPECTED_OUTSIDE_TEMPERATURE_4DAYS",
+                "GRID_POWER_CONSUMPTION",
+                "GRID_POWER_CONSUMPTION_ANOMALY_SCORE",
+                "IS_LOW_TARIFF_HOURS",
+                "POWER_CONSUMPTION",
+                "POWER_CONSUMPTION_FORECAST_1H",
+                "POWER_CONSUMPTION_FORECAST_24H",
+                "POWER_EXCESS",
+                "POWER_GENERATION",
+                "POWER_GENERATION_FORECAST_1H",
+                "POWER_GENERATION_FORECAST_1H_MIN",
+                "POWER_GENERATION_FORECAST_24H",
+                "POWER_GENERATION_FORECAST_48H",
+                "POWER_GENERATION_FORECAST_DAY_AFTER_TOMORROW",
+                "POWER_GENERATION_FORECAST_TOMORROW",
+                "SELF_CONSUMPTION_RATE",
+                "SELF_CONSUMPTION_RATE_YESTERDAY",
+                "SELF_SUFFICIENCY_RATE",
+                "SELF_SUFFICIENCY_RATE_YESTERDAY",
+                "STATE_OF_CHARGE_FORECAST_RATE",
+                "STATE_OF_CHARGE_RATE",
+                "SWITCH_STATE",
+                "TEMPERATURE",
+                "WATER_TEMPERATURE",
+                "POWER_CONSUMPTION_BASE_LOAD",
+                "DYNAMIC_TARIFF_PRICE",
+                "DYNAMIC_TARIFF_PRICE_FORECAST_1H",
+                "DYNAMIC_TARIFF_LOWEST_PRICE_FORECAST_TOMORROW",
+                "IS_HIGH_TARIFF_HOURS",
+                "ENERGY_EXCESS",
+                "ENERGY_BASE_CONSUMPTION",
+                "ENERGY_CONSUMPTION_FORECAST_1H",
+                "ENERGY_CONSUMPTION_FORECAST_24H",
+                "ENERGY_GENERATION",
+                "ENERGY_GENERATION_FORECAST_1H",
+                "ENERGY_GENERATION_FORECAST_24H",
+                "GRID_ENERGY_CONSUMPTION",
+                "GRID_ENERGY_CONSUMPTION_YESTERDAY",
+                "GRID_ENERGY_CONSUMPTION_ANOMALY_SCORE",
+                "GRID_ENERGY_BASE_CONSUMPTION"
+              ]
+            }
+          },
+          "timeframe": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "MessageQueueSetting": {
+        "type": "object",
+        "properties": {
+          "isOverflowProtectionActive": {
+            "type": "boolean"
           }
         }
       },
@@ -651,194 +761,168 @@
           }
         }
       },
-      "ObjectId": {
-        "type": "object",
-        "properties": {
-          "timestamp": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PushNotification": {
+      "Rule": {
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/ObjectId"
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          },
+          "name": {
+            "type": "string",
+            "pattern": "^.{1,100}$"
+          },
+          "description": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{0,10000}$"
+          },
+          "ruleState": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "PAUSE"
+            ]
+          },
+          "notification": {
+            "$ref": "#/components/schemas/Notification"
+          },
+          "match_threshold": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "time_between_triggers_seconds": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "resetStateWhenMatched": {
+            "type": "boolean"
+          },
+          "condition": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{1,10000}$"
+          },
+          "streakCondition": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{0,10000}$"
+          },
+          "isRestrictedToEarlyAdopters": {
+            "type": "boolean"
+          },
+          "isTimeBased": {
+            "type": "boolean"
+          },
+          "timeBasedCron": {
+            "type": "string"
+          },
+          "messageQueueSetting": {
+            "$ref": "#/components/schemas/MessageQueueSetting"
+          },
+          "datasets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dataset"
+            }
+          },
+          "topicIcon": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_]{1,50}$"
+          },
+          "impactIcon": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_]{1,50}$"
+          },
+          "templateRuleId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          }
+        },
+        "required": [
+          "condition",
+          "customerId",
+          "name"
+        ]
+      },
+      "FulfillmentPreferences": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
           },
           "customerId": {
             "type": "string",
             "pattern": "^[a-zA-Z0-9]{24}$"
           },
           "customerBuildingId": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+            "type": "string"
           },
-          "ruleId": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9]{24}$"
+          "createdAt": {
+            "type": "integer",
+            "format": "int64"
           },
-          "priority": {
+          "restApiToken": {
+            "type": "string"
+          },
+          "restBearerToken": {
+            "type": "string"
+          },
+          "restBasicAuthUser": {
+            "type": "string"
+          },
+          "restBasicAuthPassword": {
+            "type": "string"
+          },
+          "restHostname": {
+            "type": "string"
+          },
+          "restPath": {
+            "type": "string"
+          },
+          "restIsSecure": {
+            "type": "boolean"
+          },
+          "restAuthStrategy": {
             "type": "string",
             "enum": [
-              "high",
-              "normal"
+              "APITOKEN",
+              "BEARER",
+              "BASIC"
             ]
           },
-          "createdAtTimeMillis": {
-            "type": "integer",
-            "format": "int64"
+          "recipientEmailAddress": {
+            "type": "string"
           },
-          "interaction": {
-            "$ref": "#/components/schemas/PushNotificationInteraction"
+          "htmlEmailTemplateName": {
+            "type": "string"
           },
-          "ingestionTimestamp": {
-            "type": "integer",
-            "format": "int64"
+          "fcmToken": {
+            "type": "string"
           },
-          "notification": {
-            "$ref": "#/components/schemas/Notification"
+          "type": {
+            "type": "string",
+            "enum": [
+              "REST",
+              "EMAIL",
+              "HTML_EMAIL",
+              "FIREBASE_CLOUD_MESSAGING"
+            ]
           },
-          "delivery_status": {
-            "$ref": "#/components/schemas/PushNotificationDeliveryStatus"
+          "disabledRuleIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         },
         "required": [
-          "customerBuildingId",
-          "customerId",
-          "ruleId"
+          "customerId"
         ]
-      },
-      "PushNotificationDeliveryStatus": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": [
-              "DELIVERED",
-              "DROPPED"
-            ]
-          },
-          "reason": {
-            "type": "string",
-            "pattern": "^.{0,100}$"
-          }
-        }
-      },
-      "PushNotificationInteraction": {
-        "type": "object",
-        "properties": {
-          "actionQualifier": {
-            "type": "string",
-            "enum": [
-              "DISMISS",
-              "OPENAPP",
-              "STOPDELIVERY",
-              "OPENWEB"
-            ]
-          }
-        }
-      },
-      "PushNotificationsResponse": {
-        "type": "object",
-        "properties": {
-          "pushNotifications": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PushNotification"
-            }
-          },
-          "totalPushNotifications": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "LanguageInfo": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        }
-      },
-      "CountByRule": {
-        "type": "object",
-        "properties": {
-          "ruleId": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "CountByRulePerTime": {
-        "type": "object",
-        "properties": {
-          "time": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "ruleId": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "CountByInteraction": {
-        "type": "object",
-        "properties": {
-          "interaction": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "CountByInteractionPerTime": {
-        "type": "object",
-        "properties": {
-          "time": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "interaction": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "CountByDeliveryStatusReason": {
-        "type": "object",
-        "properties": {
-          "deliveryStatus": {
-            "type": "string"
-          },
-          "reason": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
       },
       "Device": {
         "type": "object",
@@ -1205,6 +1289,252 @@
           "type"
         ]
       },
+      "UnsanitizedPushNotificationInteraction": {
+        "type": "object",
+        "properties": {
+          "actionQualifier": {
+            "type": "string"
+          }
+        }
+      },
+      "Streak": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          },
+          "customerBuildingId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+          },
+          "ruleId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          },
+          "streakCounter": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "customerBuildingId",
+          "customerId",
+          "ruleId"
+        ]
+      },
+      "RuleHistory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          },
+          "ruleId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          },
+          "rule": {
+            "$ref": "#/components/schemas/Rule"
+          },
+          "username": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._@_]{1,100}$"
+          }
+        },
+        "required": [
+          "customerId",
+          "rule",
+          "ruleId",
+          "username"
+        ]
+      },
+      "PushNotification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          },
+          "customerBuildingId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+          },
+          "ruleId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "high",
+              "normal"
+            ]
+          },
+          "createdAtTimeMillis": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "interaction": {
+            "$ref": "#/components/schemas/PushNotificationInteraction"
+          },
+          "ingestionTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "notification": {
+            "$ref": "#/components/schemas/Notification"
+          },
+          "delivery_status": {
+            "$ref": "#/components/schemas/PushNotificationDeliveryStatus"
+          }
+        },
+        "required": [
+          "customerBuildingId",
+          "customerId",
+          "ruleId"
+        ]
+      },
+      "PushNotificationDeliveryStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "DELIVERED",
+              "DROPPED"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "pattern": "^.{0,100}$"
+          }
+        }
+      },
+      "PushNotificationInteraction": {
+        "type": "object",
+        "properties": {
+          "actionQualifier": {
+            "type": "string",
+            "enum": [
+              "DISMISS",
+              "OPENAPP",
+              "STOPDELIVERY",
+              "OPENWEB"
+            ]
+          }
+        }
+      },
+      "PushNotificationsResponse": {
+        "type": "object",
+        "properties": {
+          "pushNotifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PushNotification"
+            }
+          },
+          "totalPushNotifications": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "LanguageInfo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CountByRule": {
+        "type": "object",
+        "properties": {
+          "ruleId": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CountByRulePerTime": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ruleId": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CountByInteraction": {
+        "type": "object",
+        "properties": {
+          "interaction": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CountByInteractionPerTime": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "interaction": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CountByDeliveryStatusReason": {
+        "type": "object",
+        "properties": {
+          "deliveryStatus": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "Event": {
         "type": "object",
         "properties": {
@@ -1340,32 +1670,6 @@
           "value"
         ]
       },
-      "EventResponse": {
-        "type": "object",
-        "properties": {
-          "events": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Event"
-            }
-          },
-          "totalEvents": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "Document": {
-        "type": "object",
-        "additionalProperties": {
-          "type": "object"
-        },
-        "properties": {
-          "empty": {
-            "type": "boolean"
-          }
-        }
-      },
       "CountByGroup": {
         "type": "object",
         "properties": {
@@ -1378,59 +1682,71 @@
           }
         }
       },
-      "Dataset": {
+      "Customer": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "name": {
             "type": "string",
-            "pattern": "^[a-zA-Z0-9_]{1,100}$"
+            "pattern": "^.{1,100}$"
           },
-          "description": {
+          "stripeId": {
             "type": "string",
-            "pattern": "^.{0,100}$"
+            "pattern": "^[a-zA-Z0-9_]{1,32}$"
           },
-          "type": {
+          "stripeSubscription": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_]{1,32}$"
+          },
+          "subscription": {
             "type": "string",
             "enum": [
-              "SINGLEVALUE",
-              "TIMESERIES"
+              "BASIC",
+              "PREMIUM",
+              "ENTERPRISE"
             ]
           },
-          "source_types": {
+          "notificationLanguages": {
             "type": "array",
             "items": {
               "type": "string",
               "enum": [
-                "APPLIANCE",
-                "BATTERY",
-                "CAR",
-                "CAR_CHARGER",
-                "ENERGY_MEASUREMENT",
-                "GATEWAY",
-                "HEAT_PUMP",
-                "INPUT_DEVICE",
-                "INVERTER",
-                "MOOST",
-                "SMART_METER",
-                "SMART_PLUG",
-                "SWITCH",
-                "THERMOSTAT",
-                "THERMAL_ZONE",
-                "THERMAL_STORAGE",
-                "WATER_HEATER",
-                "WALL_TABLET",
-                "SOLAR_PANEL",
-                "DISHWASHER",
-                "DRYER",
-                "ENTERTAINMENT",
-                "LIGHTING",
-                "OVEN",
-                "REFRIGERATION",
-                "WASHING_MACHINE"
+                "ar",
+                "bg",
+                "cs",
+                "da",
+                "de",
+                "el",
+                "en",
+                "es",
+                "et",
+                "fi",
+                "fr",
+                "hu",
+                "id",
+                "it",
+                "ja",
+                "ko",
+                "lt",
+                "lv",
+                "no",
+                "nl",
+                "pl",
+                "pt",
+                "ro",
+                "ru",
+                "sk",
+                "sl",
+                "sv",
+                "tr",
+                "uk",
+                "zh"
               ]
             }
           },
-          "event_types": {
+          "computedEventTypes": {
             "type": "array",
             "items": {
               "type": "string",
@@ -1491,109 +1807,9 @@
                 "GRID_ENERGY_BASE_CONSUMPTION"
               ]
             }
-          },
-          "timeframe": {
-            "type": "integer",
-            "format": "int64"
           }
         },
         "required": [
-          "name"
-        ]
-      },
-      "MessageQueueSetting": {
-        "type": "object",
-        "properties": {
-          "isOverflowProtectionActive": {
-            "type": "boolean"
-          }
-        }
-      },
-      "Rule": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "customerId": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9]{24}$"
-          },
-          "name": {
-            "type": "string",
-            "pattern": "^.{1,100}$"
-          },
-          "description": {
-            "type": "string",
-            "pattern": "^[\\s\\S]{0,10000}$"
-          },
-          "ruleState": {
-            "type": "string",
-            "enum": [
-              "ACTIVE",
-              "PAUSE"
-            ]
-          },
-          "notification": {
-            "$ref": "#/components/schemas/Notification"
-          },
-          "match_threshold": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "time_between_triggers_seconds": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "resetStateWhenMatched": {
-            "type": "boolean"
-          },
-          "condition": {
-            "type": "string",
-            "pattern": "^[\\s\\S]{1,10000}$"
-          },
-          "streakCondition": {
-            "type": "string",
-            "pattern": "^[\\s\\S]{0,10000}$"
-          },
-          "isRestrictedToEarlyAdopters": {
-            "type": "boolean"
-          },
-          "isTimeBased": {
-            "type": "boolean"
-          },
-          "timeBasedCron": {
-            "type": "string"
-          },
-          "messageQueueSetting": {
-            "$ref": "#/components/schemas/MessageQueueSetting"
-          },
-          "datasets": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Dataset"
-            }
-          },
-          "topicIcon": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_]{1,50}$"
-          },
-          "impactIcon": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_]{1,50}$"
-          },
-          "templateRuleId": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9]{24}$"
-          }
-        },
-        "required": [
-          "condition",
-          "customerId",
           "name"
         ]
       }
