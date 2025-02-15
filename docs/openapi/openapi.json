@@ -968,6 +968,10 @@
             "type": "string",
             "pattern": "^.{1,100}$"
           },
+          "name": {
+            "type": "string",
+            "pattern": "^.{1,100}$"
+          },
           "product_name": {
             "type": "string",
             "pattern": "^.{1,100}$"
@@ -1007,6 +1011,7 @@
         },
         "required": [
           "id",
+          "name",
           "product_name",
           "vendor_name"
         ]
