@@ -32,8 +32,8 @@
             "in": "query",
             "required": true,
             "schema": {
-              "pattern": "^[a-zA-Z0-9]{1,100}$",
-              "type": "string"
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]{1,100}$"
             }
           },
           {
@@ -41,8 +41,8 @@
             "in": "query",
             "required": true,
             "schema": {
-              "pattern": "^[a-zA-Z0-9_-]{1,100}$",
-              "type": "string"
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9_-]{1,100}$"
             }
           }
         ],
@@ -589,8 +589,8 @@
         "type": "object",
         "properties": {
           "access_token": {
-            "pattern": "^[a-zA-Z0-9_]{1,100}$",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_]{1,100}$"
           },
           "expires_in": {
             "type": "integer",
