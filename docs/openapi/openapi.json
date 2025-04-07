@@ -1126,6 +1126,12 @@
           },
           "profile": {
             "$ref": "#/components/schemas/Profile"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
           }
         },
         "required": [
