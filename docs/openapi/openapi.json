@@ -734,7 +734,11 @@
           }
         },
         "required": [
-          "name"
+          "event_types",
+          "name",
+          "source_types",
+          "timeframe",
+          "type"
         ]
       },
       "MessageQueueSetting": {
@@ -1132,6 +1136,19 @@
             "additionalProperties": {
               "type": "string"
             }
+          },
+          "userIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._@-]{1,100}$"
+            }
+          },
+          "disabledNotifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RuleUserRelation"
+            }
           }
         },
         "required": [
@@ -1304,6 +1321,17 @@
           }
         }
       },
+      "RuleUserRelation": {
+        "type": "object",
+        "properties": {
+          "ruleId": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          }
+        }
+      },
       "Settings": {
         "type": "object",
         "properties": {
@@ -1349,6 +1377,10 @@
         "properties": {
           "actionQualifier": {
             "type": "string"
+          },
+          "userId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._@-]{1,100}$"
           }
         }
       },
@@ -1404,7 +1436,7 @@
           },
           "username": {
             "type": "string",
-            "pattern": "^[a-zA-Z0-9._@_]{1,100}$"
+            "pattern": "^[a-zA-Z0-9._@-]{1,100}$"
           }
         },
         "required": [
@@ -1455,6 +1487,13 @@
           },
           "delivery_status": {
             "$ref": "#/components/schemas/PushNotificationDeliveryStatus"
+          },
+          "userIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._@-]{1,100}$"
+            }
           }
         },
         "required": [
@@ -1490,6 +1529,10 @@
               "STOPDELIVERY",
               "OPENWEB"
             ]
+          },
+          "userId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._@-]{1,100}$"
           }
         }
       },
