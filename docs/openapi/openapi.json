@@ -971,6 +971,17 @@
           "customerId"
         ]
       },
+      "RuleUserRelation": {
+        "type": "object",
+        "properties": {
+          "ruleId": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          }
+        }
+      },
       "Device": {
         "type": "object",
         "properties": {
@@ -1140,8 +1151,7 @@
           "userIds": {
             "type": "array",
             "items": {
-              "type": "string",
-              "pattern": "^[a-zA-Z0-9:._@-]{1,100}$"
+              "type": "string"
             }
           },
           "disabledNotifications": {
@@ -1318,17 +1328,6 @@
               "MEDIUM",
               "LOW"
             ]
-          }
-        }
-      },
-      "RuleUserRelation": {
-        "type": "object",
-        "properties": {
-          "ruleId": {
-            "type": "string"
-          },
-          "userId": {
-            "type": "string"
           }
         }
       },
