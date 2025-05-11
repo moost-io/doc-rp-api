@@ -247,6 +247,7 @@
           "PublicAPI"
         ],
         "summary": "Create a building",
+        "description": "Creates a new building. When in EXCLUDE mode and no activeRules are provided it will add all existing rules of the customer to the activeRules of the building.",
         "operationId": "createBuilding",
         "requestBody": {
           "content": {
@@ -1076,6 +1077,9 @@
       "Building": {
         "type": "object",
         "properties": {
+          "rulesOperatorExclude": {
+            "type": "boolean"
+          },
           "id": {
             "type": "string"
           },
@@ -1115,7 +1119,20 @@
             "type": "string",
             "pattern": "^[a-zA-Z0-9/_+-]{1,32}$"
           },
+          "rulesOperator": {
+            "type": "string",
+            "enum": [
+              "INCLUDE",
+              "EXCLUDE"
+            ]
+          },
           "inactiveRules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "activeRules": {
             "type": "array",
             "items": {
               "type": "string"
