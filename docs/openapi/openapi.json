@@ -517,6 +517,46 @@
         ]
       }
     },
+    "/buildings/core-data/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get core data of all buildings. Similar the other GET /buildings/v1, it returns a full list of buildings, but without anydetailed information (such as devices, settings, profile, etc.), which makes it faster and reduces the payload considerably.",
+        "operationId": "getCoreDataOfBuildings",
+        "parameters": [
+          {
+            "name": "activeOnly",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BuildingInfo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/events/v1": {
       "post": {
         "tags": [
@@ -2059,6 +2099,50 @@
           "source",
           "type"
         ]
+      },
+      "BuildingInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "customerBuildingId": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "geolocation": {
+            "$ref": "#/components/schemas/Geolocation"
+          },
+          "timeZoneId": {
+            "type": "string"
+          },
+          "deactivatedTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "activationTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "registrationTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "isEarlyAdopter": {
+            "type": "boolean"
+          }
+        }
       }
     },
     "securitySchemes": {
