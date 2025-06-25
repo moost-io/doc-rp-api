@@ -878,6 +878,25 @@
           }
         }
       },
+      "NotificationCase": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "pattern": "^.{0,100}$"
+          },
+          "caseCondition": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{1,10000}$"
+          },
+          "notification": {
+            "$ref": "#/components/schemas/Notification"
+          }
+        },
+        "required": [
+          "caseCondition"
+        ]
+      },
       "NotificationTexts": {
         "type": "object",
         "properties": {
@@ -929,6 +948,12 @@
           "notification": {
             "$ref": "#/components/schemas/Notification"
           },
+          "notificationCases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationCase"
+            }
+          },
           "match_threshold": {
             "type": "integer",
             "format": "int32"
@@ -943,6 +968,9 @@
           "condition": {
             "type": "string",
             "pattern": "^[\\s\\S]{1,10000}$"
+          },
+          "isStreak": {
+            "type": "boolean"
           },
           "streakCondition": {
             "type": "string",
