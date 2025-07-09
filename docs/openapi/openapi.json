@@ -1042,10 +1042,13 @@
           "restBasicAuthPassword": {
             "type": "string"
           },
-          "restClientId": {
+          "restOAuthClientId": {
             "type": "string"
           },
-          "restClientSecret": {
+          "restOAuthClientSecret": {
+            "type": "string"
+          },
+          "restOAuthAccessTokenUrl": {
             "type": "string"
           },
           "restHostname": {
