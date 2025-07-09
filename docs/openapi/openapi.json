@@ -1042,6 +1042,12 @@
           "restBasicAuthPassword": {
             "type": "string"
           },
+          "restClientId": {
+            "type": "string"
+          },
+          "restClientSecret": {
+            "type": "string"
+          },
           "restHostname": {
             "type": "string"
           },
@@ -1056,7 +1062,8 @@
             "enum": [
               "APITOKEN",
               "BEARER",
-              "BASIC"
+              "BASIC",
+              "OAUTH"
             ]
           },
           "recipientEmailAddress": {
