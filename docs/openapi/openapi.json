@@ -616,7 +616,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Event"
+                "$ref": "#/components/schemas/Event1"
               }
             }
           },
@@ -813,7 +813,8 @@
                 "GLOBAL_HORIZONTAL_IRRADIATION_FORECAST_TOMORROW_HOURLY",
                 "GLOBAL_HORIZONTAL_IRRADIATION_FORECAST_TOMORROW",
                 "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
-                "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW"
+                "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
+                "GRID_BASE_LOAD_CONSUMPTION"
               ]
             }
           },
@@ -1615,7 +1616,8 @@
               "GLOBAL_HORIZONTAL_IRRADIATION_FORECAST_TOMORROW_HOURLY",
               "GLOBAL_HORIZONTAL_IRRADIATION_FORECAST_TOMORROW",
               "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
-              "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW"
+              "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
+              "GRID_BASE_LOAD_CONSUMPTION"
             ]
           },
           "source": {
@@ -1994,7 +1996,8 @@
                 "GLOBAL_HORIZONTAL_IRRADIATION_FORECAST_TOMORROW_HOURLY",
                 "GLOBAL_HORIZONTAL_IRRADIATION_FORECAST_TOMORROW",
                 "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
-                "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW"
+                "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
+                "GRID_BASE_LOAD_CONSUMPTION"
               ]
             }
           },
@@ -2135,7 +2138,8 @@
               "GLOBAL_HORIZONTAL_IRRADIATION_FORECAST_TOMORROW_HOURLY",
               "GLOBAL_HORIZONTAL_IRRADIATION_FORECAST_TOMORROW",
               "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
-              "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW"
+              "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
+              "GRID_BASE_LOAD_CONSUMPTION"
             ]
           },
           "source": {
@@ -2229,6 +2233,147 @@
             "type": "boolean"
           }
         }
+      },
+      "Event1": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          },
+          "customerBuildingId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+          },
+          "deviceId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._-]{3,64}$"
+          },
+          "deviceName": {
+            "type": "string",
+            "pattern": "^.{1,100}$"
+          },
+          "value": {
+            "type": "number",
+            "format": "float"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "CHARGING_MODE",
+              "DEVICE_STATUS",
+              "ENERGY_CONSUMPTION",
+              "ENERGY_CONSUMPTION_LAST_24H",
+              "ENERGY_CONSUMPTION_YESTERDAY",
+              "ENERGY_EXCESS_LAST_24H",
+              "ENERGY_EXCESS_YESTERDAY",
+              "ENERGY_GENERATION_LAST_24H",
+              "ENERGY_GENERATION_YESTERDAY",
+              "ENERGY_IMPORT",
+              "ENERGY_IMPORT_YESTERDAY",
+              "ENERGY_EXPORT",
+              "ENERGY_EXPORT_YESTERDAY",
+              "EXPECTED_OUTSIDE_TEMPERATURE",
+              "EXPECTED_OUTSIDE_TEMPERATURE_4DAYS",
+              "GRID_POWER_CONSUMPTION",
+              "GRID_POWER_CONSUMPTION_ANOMALY_SCORE",
+              "IS_LOW_TARIFF_HOURS",
+              "POWER_CONSUMPTION",
+              "POWER_CONSUMPTION_FORECAST_1H",
+              "POWER_CONSUMPTION_FORECAST_24H",
+              "POWER_EXCESS",
+              "POWER_GENERATION",
+              "POWER_GENERATION_FORECAST_1H",
+              "POWER_GENERATION_FORECAST_1H_MIN",
+              "POWER_GENERATION_FORECAST_24H",
+              "POWER_GENERATION_FORECAST_48H",
+              "POWER_GENERATION_FORECAST_DAY_AFTER_TOMORROW",
+              "POWER_GENERATION_FORECAST_TOMORROW",
+              "SELF_CONSUMPTION_RATE",
+              "SELF_CONSUMPTION_RATE_YESTERDAY",
+              "SELF_SUFFICIENCY_RATE",
+              "SELF_SUFFICIENCY_RATE_YESTERDAY",
+              "STATE_OF_CHARGE_FORECAST_RATE",
+              "STATE_OF_CHARGE_RATE",
+              "SWITCH_STATE",
+              "TEMPERATURE",
+              "WATER_TEMPERATURE",
+              "POWER_CONSUMPTION_BASE_LOAD",
+              "DYNAMIC_TARIFF_PRICE",
+              "DYNAMIC_TARIFF_PRICE_FORECAST_1H",
+              "DYNAMIC_TARIFF_LOWEST_PRICE_FORECAST_TOMORROW",
+              "IS_HIGH_TARIFF_HOURS",
+              "ENERGY_EXCESS",
+              "ENERGY_BASE_CONSUMPTION",
+              "ENERGY_CONSUMPTION_FORECAST_1H",
+              "ENERGY_CONSUMPTION_FORECAST_24H",
+              "ENERGY_GENERATION",
+              "ENERGY_GENERATION_FORECAST_1H",
+              "ENERGY_GENERATION_FORECAST_24H",
+              "GRID_ENERGY_CONSUMPTION",
+              "GRID_ENERGY_CONSUMPTION_YESTERDAY",
+              "GRID_ENERGY_CONSUMPTION_ANOMALY_SCORE",
+              "GRID_ENERGY_BASE_CONSUMPTION",
+              "ENERGY_GENERATION_FORECAST_DAY_AFTER_TOMORROW",
+              "ENERGY_GENERATION_FORECAST_TOMORROW",
+              "GLOBAL_HORIZONTAL_IRRADIATION_FORECAST_TOMORROW_HOURLY",
+              "GLOBAL_HORIZONTAL_IRRADIATION_FORECAST_TOMORROW",
+              "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
+              "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "APPLIANCE",
+              "BATTERY",
+              "CAR",
+              "CAR_CHARGER",
+              "ENERGY_MEASUREMENT",
+              "GATEWAY",
+              "HEAT_PUMP",
+              "INPUT_DEVICE",
+              "INVERTER",
+              "MOOST",
+              "SMART_METER",
+              "SMART_PLUG",
+              "SWITCH",
+              "THERMOSTAT",
+              "THERMAL_ZONE",
+              "THERMAL_STORAGE",
+              "WATER_HEATER",
+              "WALL_TABLET",
+              "SOLAR_PANEL",
+              "DISHWASHER",
+              "DRYER",
+              "ENTERTAINMENT",
+              "LIGHTING",
+              "OVEN",
+              "REFRIGERATION",
+              "WASHING_MACHINE"
+            ]
+          },
+          "forecastTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ingestionTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "customerBuildingId",
+          "customerId",
+          "deviceId",
+          "deviceName",
+          "type",
+          "value"
+        ]
       }
     },
     "securitySchemes": {
