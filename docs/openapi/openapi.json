@@ -1472,6 +1472,10 @@
               "MEDIUM",
               "LOW"
             ]
+          },
+          "motivationScoreConfidence": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
