@@ -1359,6 +1359,9 @@
             "items": {
               "$ref": "#/components/schemas/RuleUserRelation"
             }
+          },
+          "isEnergyGenerationAvailable": {
+            "type": "boolean"
           }
         },
         "required": [
