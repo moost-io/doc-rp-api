@@ -674,7 +674,10 @@
         },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Success. Event accepted."
+          },
+          "400": {
+            "description": "Invalid event data, e.g. because specified customerBuildingId is unknown."
           }
         },
         "security": [
