@@ -1385,6 +1385,10 @@
           "rulesOperatorExclude": {
             "type": "boolean"
           },
+          "kwp": {
+            "type": "number",
+            "format": "float"
+          },
           "id": {
             "type": "string"
           },
@@ -1484,6 +1488,10 @@
           },
           "isEnergyGenerationAvailable": {
             "type": "boolean"
+          },
+          "kWp": {
+            "type": "number",
+            "format": "float"
           }
         },
         "required": [
