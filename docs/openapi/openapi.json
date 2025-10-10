@@ -748,7 +748,11 @@
               "mac"
             ]
           }
-        }
+        },
+        "required": [
+          "access_token",
+          "token_type"
+        ]
       },
       "Dataset": {
         "type": "object",
