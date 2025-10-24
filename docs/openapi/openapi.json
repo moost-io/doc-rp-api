@@ -2537,6 +2537,17 @@
           }
         }
       },
+      "BillingPaymentMethod": {
+        "type": "object",
+        "properties": {
+          "stripeCustomerId": {
+            "type": "string"
+          },
+          "defaultPaymentMethodId": {
+            "type": "string"
+          }
+        }
+      },
       "BuildingInfo": {
         "type": "object",
         "properties": {
