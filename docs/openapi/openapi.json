@@ -2537,14 +2537,21 @@
           }
         }
       },
-      "BillingPaymentMethod": {
+      "BillingAccount": {
         "type": "object",
         "properties": {
           "stripeCustomerId": {
             "type": "string"
           },
+          "stripeSubscriptionId": {
+            "type": "string"
+          },
           "defaultPaymentMethodId": {
             "type": "string"
+          },
+          "trialEndDate": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       },
