@@ -1819,9 +1819,14 @@
           "consumptionCategory": {
             "type": "string",
             "enum": [
+              "EXTREMELY_HIGH",
+              "VERY_HIGH",
               "HIGH",
               "MEDIUM",
-              "LOW"
+              "LOW",
+              "VERY_LOW",
+              "EXTREMELY_LOW",
+              "ZERO"
             ]
           },
           "motivationScoreConfidence": {
