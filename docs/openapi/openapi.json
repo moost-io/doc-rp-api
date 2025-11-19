@@ -809,6 +809,23 @@
           "token_type"
         ]
       },
+      "AppClient": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "clientSecret": {
+            "type": "string"
+          }
+        }
+      },
       "Dataset": {
         "type": "object",
         "properties": {
