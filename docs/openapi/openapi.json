@@ -2350,6 +2350,57 @@
           }
         }
       },
+      "CustomerLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          },
+          "customerBuildingId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+          },
+          "ruleId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{24}$"
+          },
+          "clientId": {
+            "type": "string",
+            "pattern": "^.{1,128}$"
+          },
+          "clientIdType": {
+            "type": "string",
+            "enum": [
+              "M2M",
+              "EMAIL"
+            ]
+          },
+          "timeMillis": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "INFO",
+              "WARN",
+              "ERROR"
+            ]
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "customerId",
+          "level",
+          "message"
+        ]
+      },
       "CountByGroup": {
         "type": "object",
         "properties": {
