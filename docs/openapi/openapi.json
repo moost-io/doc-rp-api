@@ -690,6 +690,31 @@
   },
   "components": {
     "schemas": {
+      "AppInvitation": {
+        "type": "object",
+        "properties": {
+          "inviter": {
+            "type": "string"
+          },
+          "invitee": {
+            "type": "string"
+          },
+          "invitationUrl": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "expiresAt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
       "GrantedAuthority": {
         "type": "object",
         "properties": {
@@ -751,31 +776,6 @@
           "loginsCount": {
             "type": "integer",
             "format": "int32"
-          },
-          "role": {
-            "type": "string"
-          }
-        }
-      },
-      "AppInvitation": {
-        "type": "object",
-        "properties": {
-          "inviter": {
-            "type": "string"
-          },
-          "invitee": {
-            "type": "string"
-          },
-          "invitationUrl": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "expiresAt": {
-            "type": "integer",
-            "format": "int64"
           },
           "role": {
             "type": "string"
