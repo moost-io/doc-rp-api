@@ -1771,6 +1771,26 @@
           }
         }
       },
+      "EffectiveCapacity": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "number",
+            "format": "float"
+          },
+          "quality": {
+            "type": "number",
+            "format": "float"
+          },
+          "daysFit": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "method": {
+            "type": "string"
+          }
+        }
+      },
       "Geolocation": {
         "type": "object",
         "properties": {
@@ -1904,6 +1924,9 @@
           "motivationScoreConfidence": {
             "type": "number",
             "format": "double"
+          },
+          "effectiveCapacity": {
+            "$ref": "#/components/schemas/EffectiveCapacity"
           }
         }
       },
@@ -2416,6 +2439,9 @@
       "Customer": {
         "type": "object",
         "properties": {
+          "eventDuplicateCacheEnabled": {
+            "type": "boolean"
+          },
           "computedEventTypes": {
             "type": "array",
             "items": {
@@ -2556,6 +2582,9 @@
           "deactivatedTimestamp": {
             "type": "integer",
             "format": "int64"
+          },
+          "isEventDuplicateCacheEnabled": {
+            "type": "boolean"
           }
         },
         "required": [
