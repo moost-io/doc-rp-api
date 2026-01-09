@@ -944,7 +944,8 @@
                 "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
                 "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
                 "GRID_BASE_LOAD_CONSUMPTION",
-                "DYNAMIC_TARIFF_PRICE_FORECAST_24H"
+                "DYNAMIC_TARIFF_PRICE_FORECAST_24H",
+                "GRID_POWER_CONSUMPTION_YESTERDAY"
               ]
             }
           },
@@ -1083,7 +1084,8 @@
               "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
               "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
               "GRID_BASE_LOAD_CONSUMPTION",
-              "DYNAMIC_TARIFF_PRICE_FORECAST_24H"
+              "DYNAMIC_TARIFF_PRICE_FORECAST_24H",
+              "GRID_POWER_CONSUMPTION_YESTERDAY"
             ]
           },
           "expectedActionSourceType": {
@@ -1460,7 +1462,8 @@
               "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
               "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
               "GRID_BASE_LOAD_CONSUMPTION",
-              "DYNAMIC_TARIFF_PRICE_FORECAST_24H"
+              "DYNAMIC_TARIFF_PRICE_FORECAST_24H",
+              "GRID_POWER_CONSUMPTION_YESTERDAY"
             ]
           },
           "source": {
@@ -2073,7 +2076,8 @@
               "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
               "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
               "GRID_BASE_LOAD_CONSUMPTION",
-              "DYNAMIC_TARIFF_PRICE_FORECAST_24H"
+              "DYNAMIC_TARIFF_PRICE_FORECAST_24H",
+              "GRID_POWER_CONSUMPTION_YESTERDAY"
             ]
           },
           "source": {
@@ -2508,7 +2512,8 @@
                 "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
                 "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
                 "GRID_BASE_LOAD_CONSUMPTION",
-                "DYNAMIC_TARIFF_PRICE_FORECAST_24H"
+                "DYNAMIC_TARIFF_PRICE_FORECAST_24H",
+                "GRID_POWER_CONSUMPTION_YESTERDAY"
               ]
             }
           },
@@ -2658,7 +2663,8 @@
               "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
               "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
               "GRID_BASE_LOAD_CONSUMPTION",
-              "DYNAMIC_TARIFF_PRICE_FORECAST_24H"
+              "DYNAMIC_TARIFF_PRICE_FORECAST_24H",
+              "GRID_POWER_CONSUMPTION_YESTERDAY"
             ]
           },
           "source": {
