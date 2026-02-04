@@ -2295,6 +2295,55 @@
           }
         }
       },
+      "PushNotificationGroupCount": {
+        "type": "object",
+        "properties": {
+          "day": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "ruleId": {
+            "type": "string"
+          },
+          "interaction": {
+            "type": "string",
+            "enum": [
+              "DISMISS",
+              "OPENAPP",
+              "STOPDELIVERY",
+              "OPENWEB"
+            ]
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PushNotificationStatistics": {
+        "type": "object",
+        "properties": {
+          "rules": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "days": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "groupCounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PushNotificationGroupCount"
+            }
+          }
+        }
+      },
       "LanguageInfo": {
         "type": "object",
         "properties": {
@@ -2443,9 +2492,6 @@
       "Customer": {
         "type": "object",
         "properties": {
-          "eventDuplicateCacheEnabled": {
-            "type": "boolean"
-          },
           "computedEventTypes": {
             "type": "array",
             "items": {
@@ -2516,6 +2562,9 @@
                 "GRID_POWER_CONSUMPTION_YESTERDAY"
               ]
             }
+          },
+          "eventDuplicateCacheEnabled": {
+            "type": "boolean"
           },
           "id": {
             "type": "string"
@@ -2719,6 +2768,69 @@
           "trialEndDate": {
             "type": "integer",
             "format": "int64"
+          }
+        }
+      },
+      "BuildingGroupCount": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "group": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "BuildingStatistics": {
+        "type": "object",
+        "properties": {
+          "buildingsCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "buildingsActivatedLast30DaysCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "buildingsDeactivatedLast30DaysCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "multiPersonScore": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildingGroupCount"
+            }
+          },
+          "commercialBuildingScore": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildingGroupCount"
+            }
+          },
+          "economicalScore": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildingGroupCount"
+            }
+          },
+          "ecologicalScore": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildingGroupCount"
+            }
+          },
+          "selfSufficiencyScore": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildingGroupCount"
+            }
           }
         }
       },
