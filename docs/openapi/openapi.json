@@ -2492,6 +2492,9 @@
       "Customer": {
         "type": "object",
         "properties": {
+          "eventDuplicateCacheEnabled": {
+            "type": "boolean"
+          },
           "computedEventTypes": {
             "type": "array",
             "items": {
@@ -2562,9 +2565,6 @@
                 "GRID_POWER_CONSUMPTION_YESTERDAY"
               ]
             }
-          },
-          "eventDuplicateCacheEnabled": {
-            "type": "boolean"
           },
           "id": {
             "type": "string"
