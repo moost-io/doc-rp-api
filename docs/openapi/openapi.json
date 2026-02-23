@@ -2771,6 +2771,103 @@
           }
         }
       },
+      "MonthlyEnergyStatistics": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "string"
+          },
+          "energyGeneration": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyConsumption": {
+            "type": "number",
+            "format": "float"
+          },
+          "gridEnergyConsumption": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "HourlyEnergyStatistics": {
+        "type": "object",
+        "properties": {
+          "startTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "energyGeneration": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyConsumption": {
+            "type": "number",
+            "format": "float"
+          },
+          "gridEnergyConsumption": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "DailyEnergyStatistics": {
+        "type": "object",
+        "properties": {
+          "day": {
+            "type": "string"
+          },
+          "energyGeneration": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyConsumption": {
+            "type": "number",
+            "format": "float"
+          },
+          "gridEnergyConsumption": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyBaseConsumption": {
+            "type": "number",
+            "format": "float"
+          },
+          "gridEnergyBaseConsumption": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "DailyComparisonEnergyStatistics": {
+        "type": "object",
+        "properties": {
+          "day": {
+            "type": "string"
+          },
+          "gridEnergyConsumption": {
+            "type": "number",
+            "format": "float"
+          },
+          "gridEnergyConsumptionGroupAvg": {
+            "type": "number",
+            "format": "float"
+          },
+          "gridEnergyConsumptionGroupMin": {
+            "type": "number",
+            "format": "float"
+          },
+          "gridEnergyConsumptionGroupMax": {
+            "type": "number",
+            "format": "float"
+          },
+          "gridEnergyConsumptionGroupCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "BuildingGroupCount": {
         "type": "object",
         "properties": {
