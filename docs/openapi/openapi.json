@@ -2840,31 +2840,41 @@
           }
         }
       },
+      "ComparisonSummary": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "format": "float"
+          },
+          "groupMin": {
+            "type": "number",
+            "format": "float"
+          },
+          "groupMax": {
+            "type": "number",
+            "format": "float"
+          },
+          "groupSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "DailyComparisonEnergyStatistics": {
         "type": "object",
         "properties": {
           "day": {
             "type": "string"
           },
+          "energyGeneration": {
+            "$ref": "#/components/schemas/ComparisonSummary"
+          },
+          "energyConsumption": {
+            "$ref": "#/components/schemas/ComparisonSummary"
+          },
           "gridEnergyConsumption": {
-            "type": "number",
-            "format": "float"
-          },
-          "gridEnergyConsumptionGroupAvg": {
-            "type": "number",
-            "format": "float"
-          },
-          "gridEnergyConsumptionGroupMin": {
-            "type": "number",
-            "format": "float"
-          },
-          "gridEnergyConsumptionGroupMax": {
-            "type": "number",
-            "format": "float"
-          },
-          "gridEnergyConsumptionGroupCount": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/components/schemas/ComparisonSummary"
           }
         }
       },
