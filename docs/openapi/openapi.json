@@ -2840,24 +2840,40 @@
           }
         }
       },
-      "ComparisonSummary": {
+      "ComparisonGroup": {
         "type": "object",
         "properties": {
           "value": {
             "type": "number",
             "format": "float"
           },
-          "groupMin": {
-            "type": "number",
-            "format": "float"
-          },
-          "groupMax": {
-            "type": "number",
-            "format": "float"
-          },
-          "groupSize": {
+          "rank": {
             "type": "integer",
             "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "min": {
+            "type": "number",
+            "format": "float"
+          },
+          "max": {
+            "type": "number",
+            "format": "float"
+          },
+          "p25": {
+            "type": "number",
+            "format": "float"
+          },
+          "median": {
+            "type": "number",
+            "format": "float"
+          },
+          "p75": {
+            "type": "number",
+            "format": "float"
           }
         }
       },
@@ -2868,13 +2884,13 @@
             "type": "string"
           },
           "energyGeneration": {
-            "$ref": "#/components/schemas/ComparisonSummary"
+            "$ref": "#/components/schemas/ComparisonGroup"
           },
           "energyConsumption": {
-            "$ref": "#/components/schemas/ComparisonSummary"
+            "$ref": "#/components/schemas/ComparisonGroup"
           },
           "gridEnergyConsumption": {
-            "$ref": "#/components/schemas/ComparisonSummary"
+            "$ref": "#/components/schemas/ComparisonGroup"
           }
         }
       },
