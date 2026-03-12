@@ -2191,6 +2191,51 @@
           "username"
         ]
       },
+      "RuleStatistics": {
+        "type": "object",
+        "properties": {
+          "rules": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "earlyAdopterRules": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "streakRules": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "automationRules": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "eventBasedRules": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "timeBasedRules": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dailyTriggersOfEventBasedRules": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dailyTriggersOfTimeBasedRules": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dailyComputedEvents": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dailyEvents": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
       "PushNotification": {
         "type": "object",
         "properties": {
@@ -2950,6 +2995,12 @@
             }
           },
           "selfSufficiencyScore": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildingGroupCount"
+            }
+          },
+          "consumptionCategory": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BuildingGroupCount"
