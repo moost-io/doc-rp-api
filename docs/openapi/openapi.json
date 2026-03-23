@@ -1794,6 +1794,45 @@
           }
         }
       },
+      "Elcom": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "H1",
+              "H2",
+              "H3",
+              "H4",
+              "H5",
+              "H6",
+              "H7",
+              "H8",
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6",
+              "C7"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "format": "float"
+          },
+          "probabilities": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          "summary": {
+            "type": "string"
+          }
+        }
+      },
       "Geolocation": {
         "type": "object",
         "properties": {
@@ -1930,6 +1969,9 @@
           },
           "effectiveCapacity": {
             "$ref": "#/components/schemas/EffectiveCapacity"
+          },
+          "elcom": {
+            "$ref": "#/components/schemas/Elcom"
           }
         }
       },
