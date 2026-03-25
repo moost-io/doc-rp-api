@@ -615,6 +615,436 @@
         ]
       }
     },
+    "/buildings/{customerBuildingId}/energy-statistics/monthly/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "A building’s energy data with monthly readings",
+        "description": "Get energy related data of a building, aggregated on a monthly basis.",
+        "operationId": "getMonthlyEnergyStatistics",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+            }
+          },
+          {
+            "name": "eventTypes",
+            "in": "query",
+            "description": "Comma-separated set of event types, which defines what data is to be aggregated.\n<ul>\n<li>For energy generation use <code>ENERGY_GENERATION_YESTERDAY</code> or <code>ENERGY_GENERATION</code>.</li>\n<li>For energy consumption use <code>ENERGY_CONSUMPTION_YESTERDAY</code> or <code>ENERGY_CONSUMPTION</code>.</li>\n<li>For grid energy consumption use <code>GRID_ENERGY_CONSUMPTION_YESTERDAY</code> or <code>GRID_ENERGY_CONSUMPTION</code>.</li>\n</ul>\nRemark: prefer the <code>*_YESTERDAY</code> event types, i.e. daily resolution data over high resolution data, as it is much faster.\nIf both low and high resolution types have been declared, then this API tries with low resolution, and only if nothing found\ntries with high resolution type.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ENERGY_GENERATION_YESTERDAY",
+                  "ENERGY_GENERATION",
+                  "ENERGY_CONSUMPTION_YESTERDAY",
+                  "ENERGY_CONSUMPTION",
+                  "GRID_ENERGY_CONSUMPTION_YESTERDAY",
+                  "GRID_ENERGY_CONSUMPTION"
+                ]
+              }
+            },
+            "example": "ENERGY_GENERATION_YESTERDAY,GRID_ENERGY_CONSUMPTION_YESTERDAY"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "The starting month of the time window for selecting event data.\n<br/>\nRemark: The building's local time zone is taken into account.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "[0-9]{4}-[0-9]{2}"
+            },
+            "example": "2024-01"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "The final month of the time window for selecting event data.\n<br/>\nRemark: the time window can be up to 1 year.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "[0-9]{4}-[0-9]{2}"
+            },
+            "example": "2024-12"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MonthlyEnergyStatistics"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/buildings/{customerBuildingId}/energy-statistics/hourly/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "A building’s energy data with hourly readings",
+        "description": "Get energy related data of a building, aggregated on a hourly basis.",
+        "operationId": "getHourlyEnergyStatistics",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+            }
+          },
+          {
+            "name": "eventTypes",
+            "in": "query",
+            "description": "Comma-separated set of event types, which defines what data is to be aggregated.\n",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ENERGY_GENERATION",
+                  "ENERGY_CONSUMPTION",
+                  "GRID_ENERGY_CONSUMPTION"
+                ]
+              }
+            },
+            "example": "ENERGY_GENERATION,GRID_ENERGY_CONSUMPTION"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "The starting date of the time window for selecting event data.\n<br/>\nRemark: The building's local time zone is taken into account.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+            },
+            "example": "2024-01-01"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "The final date of the time window for selecting event data.\n<br/>\nRemark: the time window can be up to 1 year.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+            },
+            "example": "2024-01-31"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HourlyEnergyStatistics"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/buildings/{customerBuildingId}/energy-statistics/daily/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "A building’s energy data with daily readings",
+        "description": "Get energy related data of a building, aggregated on a daily basis.",
+        "operationId": "getDailyEnergyStatistics",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+            }
+          },
+          {
+            "name": "eventTypes",
+            "in": "query",
+            "description": "Comma-separated set of event types, which defines what data is to be aggregated.\n<ul>\n<li>For energy generation use <code>ENERGY_GENERATION_YESTERDAY</code> or <code>ENERGY_GENERATION</code>.</li>\n<li>For energy consumption use <code>ENERGY_CONSUMPTION_YESTERDAY</code> or <code>ENERGY_CONSUMPTION</code>.</li>\n<li>For grid energy consumption use <code>GRID_ENERGY_CONSUMPTION_YESTERDAY</code> or <code>GRID_ENERGY_CONSUMPTION</code>.</li>\n</ul>\n<br/>\nRemark: prefer the <code>*_YESTERDAY</code> event types, i.e. daily resolution data over high resolution data, as it is much faster.\nIf both low and high resolution types have been declared, then this API tries with low resolution, and only if nothing found\ntries with high resolution type.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ENERGY_GENERATION_YESTERDAY",
+                  "ENERGY_GENERATION",
+                  "ENERGY_CONSUMPTION_YESTERDAY",
+                  "ENERGY_CONSUMPTION",
+                  "GRID_ENERGY_CONSUMPTION_YESTERDAY",
+                  "GRID_ENERGY_CONSUMPTION",
+                  "ENERGY_BASE_CONSUMPTION",
+                  "GRID_ENERGY_BASE_CONSUMPTION"
+                ]
+              }
+            },
+            "example": "ENERGY_GENERATION_YESTERDAY,GRID_ENERGY_CONSUMPTION_YESTERDAY"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "The starting date of the time window for selecting event data.\n<br/>\nRemark: The building's local time zone is taken into account.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+            },
+            "example": "2024-01-01"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "The final date of the time window for selecting event data.\n<br/>\nRemark: the time window can be up to 1 year.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+            },
+            "example": "2024-01-31"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DailyEnergyStatistics"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/buildings/{customerBuildingId}/energy-statistics/comparison/daily/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "A building’s energy data with daily readings, and comparison with comparable buildings",
+        "description": "Get energy related data of a building, aggregated on a daily basis and compare it with comparable buildings.\n<br/>\nThe comparison group has the following values:\n<ul>\n<li>Rank in comparison group. Rank 1 is the one with highest value.</li>\n<li>Size of the comparison group.</li>\n<li>Minimum value in the comparison group.</li>\n<li>Maximum value in the comparison group.</li>\n<li>25th percentile in the comparison group.</li>\n<li>Median (50th percentile) in the comparison group.</li>\n<li>75th percentile in the comparison group.</li>\n</ul>\n",
+        "operationId": "getDailyComparisonEnergyStatistics",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+            }
+          },
+          {
+            "name": "eventTypes",
+            "in": "query",
+            "description": "Comma-separated set of event types, which defines what data is to be aggregated.\n",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ENERGY_GENERATION_YESTERDAY",
+                  "ENERGY_CONSUMPTION_YESTERDAY",
+                  "GRID_ENERGY_CONSUMPTION_YESTERDAY"
+                ]
+              }
+            },
+            "example": "ENERGY_GENERATION_YESTERDAY,GRID_ENERGY_CONSUMPTION_YESTERDAY"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "The starting date of the time window for selecting event data.\n<br/>\nRemark: The building's local time zone is taken into account.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+            },
+            "example": "2024-01-01"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "The final date of the time window for selecting event data.\n<br/>\nRemark: the time window can be up to 1 year.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+            },
+            "example": "2024-01-31"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "The profile comparison category that is to be used for the comparison.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "GRID_POWER_CONSUMPTION_CLUSTER",
+                "CONSUMPTION_CATEGORY",
+                "ELCOM"
+              ]
+            },
+            "example": "ELCOM"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DailyComparisonEnergyStatistics"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/buildings/{customerBuildingId}/energy-forecast/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "A building’s energy forecast data",
+        "description": "Get energy forecast data of a building.",
+        "operationId": "getEnergyForecast",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+            }
+          },
+          {
+            "name": "eventType",
+            "in": "query",
+            "description": "Target energy forecast event type, which defines what data to select.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ENERGY_CONSUMPTION_FORECAST_1H",
+                "ENERGY_CONSUMPTION_FORECAST_24H",
+                "ENERGY_CONSUMPTION_FORECAST_TOMORROW",
+                "ENERGY_CONSUMPTION_FORECAST_DAY_AFTER_TOMORROW",
+                "ENERGY_GENERATION_FORECAST_1H",
+                "ENERGY_GENERATION_FORECAST_24H",
+                "ENERGY_GENERATION_FORECAST_TOMORROW",
+                "ENERGY_GENERATION_FORECAST_DAY_AFTER_TOMORROW"
+              ]
+            },
+            "example": "ENERGY_CONSUMPTION_FORECAST_24H"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "The starting time (inclusive) in epoch seconds of the forecast time window.\n<br/>\nRemark: The time window between `from` and `to` must not exceed one month.\n",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1739408400
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "The final time (exclusive) in epoch seconds of the forecast time window.\n",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1739494800
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnergyForecast"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/buildings/core-data/v1": {
       "get": {
         "tags": [
@@ -2978,6 +3408,23 @@
           },
           "gridEnergyConsumption": {
             "$ref": "#/components/schemas/ComparisonGroup"
+          }
+        }
+      },
+      "EnergyForecast": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "forecastTimestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "value": {
+            "type": "number",
+            "format": "float"
           }
         }
       },
