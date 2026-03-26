@@ -3494,6 +3494,12 @@
             "items": {
               "$ref": "#/components/schemas/BuildingGroupCount"
             }
+          },
+          "elcom": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildingGroupCount"
+            }
           }
         }
       },
