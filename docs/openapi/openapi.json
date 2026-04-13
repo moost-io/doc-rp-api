@@ -1732,6 +1732,10 @@
           },
           "motivationScoreWeighting": {
             "$ref": "#/components/schemas/MotivationScoreWeighting"
+          },
+          "goalAchievedCondition": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{0,10000}$"
           }
         },
         "required": [
@@ -2755,6 +2759,13 @@
             "items": {
               "type": "string"
             }
+          },
+          "goalAchieved": {
+            "type": "boolean"
+          },
+          "goalAchievedEvalTimestamp": {
+            "type": "integer",
+            "format": "int64"
           }
         },
         "required": [
@@ -2794,6 +2805,10 @@
           "userId": {
             "type": "string",
             "pattern": "^[a-zA-Z0-9:._@-]{1,100}$"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       },
@@ -3012,6 +3027,9 @@
           "eventDuplicateCacheEnabled": {
             "type": "boolean"
           },
+          "tenantBasedBillingEnabled": {
+            "type": "boolean"
+          },
           "computedEventTypes": {
             "type": "array",
             "items": {
@@ -3155,6 +3173,9 @@
             "format": "int64"
           },
           "isEventDuplicateCacheEnabled": {
+            "type": "boolean"
+          },
+          "isTenantBasedBillingEnabled": {
             "type": "boolean"
           }
         },
