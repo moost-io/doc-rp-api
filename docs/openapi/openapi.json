@@ -3024,10 +3024,10 @@
       "Customer": {
         "type": "object",
         "properties": {
-          "eventDuplicateCacheEnabled": {
+          "tenantBasedBillingEnabled": {
             "type": "boolean"
           },
-          "tenantBasedBillingEnabled": {
+          "eventDuplicateCacheEnabled": {
             "type": "boolean"
           },
           "computedEventTypes": {
