@@ -2730,6 +2730,20 @@
           }
         }
       },
+      "PushNotificationReasoning": {
+        "type": "object",
+        "properties": {
+          "whatHappened": {
+            "type": "string"
+          },
+          "whatItMeans": {
+            "type": "string"
+          },
+          "whatToDo": {
+            "type": "string"
+          }
+        }
+      },
       "PushNotification": {
         "type": "object",
         "properties": {
