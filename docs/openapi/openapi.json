@@ -1121,28 +1121,27 @@
   },
   "components": {
     "schemas": {
-      "AppInvitation": {
+      "AppInvitationRequest": {
         "type": "object",
         "properties": {
-          "inviter": {
+          "firstName": {
             "type": "string"
           },
-          "invitee": {
+          "lastName": {
             "type": "string"
           },
-          "invitationUrl": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "expiresAt": {
-            "type": "integer",
-            "format": "int64"
+          "email": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
           },
           "role": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "MOOST_ADMIN",
+              "ORG_ADMIN",
+              "ORG_MANAGER",
+              "ORG_AUDITOR"
+            ]
           }
         }
       },
@@ -1186,6 +1185,12 @@
       "AppUser": {
         "type": "object",
         "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
           "email": {
             "type": "string"
           },
@@ -1196,19 +1201,41 @@
             "type": "integer",
             "format": "int64"
           },
-          "updatedAt": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "lastLogin": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "loginsCount": {
-            "type": "integer",
-            "format": "int32"
-          },
           "role": {
+            "type": "string",
+            "enum": [
+              "MOOST_ADMIN",
+              "ORG_ADMIN",
+              "ORG_MANAGER",
+              "ORG_AUDITOR"
+            ]
+          }
+        }
+      },
+      "AppInvitation": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "inviteLink": {
+            "type": "string"
+          },
+          "sentDate": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "expiresAt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
             "type": "string"
           }
         }
@@ -1247,9 +1274,6 @@
             "type": "string"
           },
           "name": {
-            "type": "string"
-          },
-          "description": {
             "type": "string"
           },
           "clientSecret": {
