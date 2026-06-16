@@ -1121,30 +1121,6 @@
   },
   "components": {
     "schemas": {
-      "AppInvitationRequest": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
-          },
-          "role": {
-            "type": "string",
-            "enum": [
-              "MOOST_ADMIN",
-              "ORG_ADMIN",
-              "ORG_MANAGER",
-              "ORG_AUDITOR"
-            ]
-          }
-        }
-      },
       "Credentials": {
         "type": "object",
         "properties": {
@@ -1156,7 +1132,7 @@
           }
         }
       },
-      "AppUser": {
+      "TenantUser": {
         "type": "object",
         "properties": {
           "firstName": {
@@ -1165,10 +1141,52 @@
           "lastName": {
             "type": "string"
           },
-          "email": {
+          "usernameEmail": {
             "type": "string"
           },
           "emailVerified": {
+            "type": "boolean"
+          },
+          "totpConfigured": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "requiredActions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "VERIFY_EMAIL",
+                "UPDATE_PROFILE",
+                "UPDATE_PASSWORD",
+                "CONFIGURE_TOTP",
+                "CONFIGURE_RECOVERY_AUTHN_CODES",
+                "VERIFY_PROFILE",
+                "UPDATE_USER_LOCALE"
+              ]
+            }
+          }
+        }
+      },
+      "OrgMember": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "usernameEmail": {
+            "type": "string"
+          },
+          "emailVerified": {
+            "type": "boolean"
+          },
+          "totpConfigured": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1183,34 +1201,6 @@
               "ORG_MANAGER",
               "ORG_AUDITOR"
             ]
-          }
-        }
-      },
-      "AppInvitation": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "inviteLink": {
-            "type": "string"
-          },
-          "sentDate": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "expiresAt": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "status": {
-            "type": "string"
           }
         }
       },
@@ -1241,7 +1231,7 @@
           "token_type"
         ]
       },
-      "AppClient": {
+      "M2MClient": {
         "type": "object",
         "properties": {
           "clientId": {
