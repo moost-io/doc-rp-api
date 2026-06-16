@@ -1145,15 +1145,7 @@
           }
         }
       },
-      "GrantedAuthority": {
-        "type": "object",
-        "properties": {
-          "authority": {
-            "type": "string"
-          }
-        }
-      },
-      "User": {
+      "Credentials": {
         "type": "object",
         "properties": {
           "username": {
@@ -1161,24 +1153,6 @@
           },
           "password": {
             "type": "string"
-          },
-          "enabled": {
-            "type": "boolean"
-          },
-          "accountNonExpired": {
-            "type": "boolean"
-          },
-          "accountNonLocked": {
-            "type": "boolean"
-          },
-          "credentialsNonExpired": {
-            "type": "boolean"
-          },
-          "authorities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/GrantedAuthority"
-            }
           }
         }
       },
