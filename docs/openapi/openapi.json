@@ -1674,7 +1674,7 @@
           },
           "condition": {
             "type": "string",
-            "pattern": "^[\\s\\S]{1,10000}$"
+            "pattern": "^[\\s\\S]{0,10000}$"
           },
           "isStreak": {
             "type": "boolean"
