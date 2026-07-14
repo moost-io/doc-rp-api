@@ -3214,6 +3214,42 @@
           "name"
         ]
       },
+      "HourCount": {
+        "type": "object",
+        "properties": {
+          "hour": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ServiceRateStatistics": {
+        "type": "object",
+        "properties": {
+          "serviceGroup": {
+            "type": "string",
+            "enum": [
+              "EnergyForecast",
+              "EnergyStatistics",
+              "EnergyStatisticsComparison"
+            ]
+          },
+          "hourlyRateLimit": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hourlyCalls": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HourCount"
+            }
+          }
+        }
+      },
       "EventTypeSourceInterval": {
         "type": "object",
         "properties": {
