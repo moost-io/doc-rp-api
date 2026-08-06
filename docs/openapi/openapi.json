@@ -2037,6 +2037,9 @@
           "capacity": {
             "type": "number",
             "format": "float"
+          },
+          "tag": {
+            "type": "string"
           }
         },
         "required": [
@@ -2420,6 +2423,54 @@
           },
           "bep": {
             "$ref": "#/components/schemas/Bep"
+          },
+          "behindMeter": {
+            "$ref": "#/components/schemas/ProfileBehindMeter"
+          }
+        }
+      },
+      "ProfileBehindMeter": {
+        "type": "object",
+        "properties": {
+          "daily": {
+            "$ref": "#/components/schemas/ProfileBehindMeterDaily"
+          },
+          "hourly": {
+            "$ref": "#/components/schemas/ProfileBehindMeterHourly"
+          }
+        }
+      },
+      "ProfileBehindMeterDaily": {
+        "type": "object",
+        "properties": {
+          "energyExcessSlope": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyGenerationCap": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyGenerationMean": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyConsumptionMean": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "ProfileBehindMeterHourly": {
+        "type": "object",
+        "properties": {
+          "energyExcessSlope": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyGenerationCap": {
+            "type": "number",
+            "format": "float"
           }
         }
       },
@@ -3220,11 +3271,63 @@
           },
           "isTenantBasedBillingEnabled": {
             "type": "boolean"
+          },
+          "features": {
+            "$ref": "#/components/schemas/CustomerFeatures"
           }
         },
         "required": [
           "name"
         ]
+      },
+      "CustomerFeatures": {
+        "type": "object",
+        "properties": {
+          "behindMeter": {
+            "$ref": "#/components/schemas/CustomerFeaturesBehindMeter"
+          }
+        }
+      },
+      "CustomerFeaturesBehindMeter": {
+        "type": "object",
+        "properties": {
+          "daily": {
+            "$ref": "#/components/schemas/CustomerFeaturesBehindMeterDaily"
+          },
+          "hourly": {
+            "$ref": "#/components/schemas/CustomerFeaturesBehindMeterHourly"
+          }
+        }
+      },
+      "CustomerFeaturesBehindMeterDaily": {
+        "type": "object",
+        "properties": {
+          "slopeCorrectionFactor": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyGenerationSensitivity": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyGenerationCurveShape": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "CustomerFeaturesBehindMeterHourly": {
+        "type": "object",
+        "properties": {
+          "energyGenerationSensitivity": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyGenerationCurveShape": {
+            "type": "number",
+            "format": "float"
+          }
+        }
       },
       "HourCount": {
         "type": "object",
