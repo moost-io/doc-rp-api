@@ -2523,6 +2523,10 @@
           "userId": {
             "type": "string",
             "pattern": "^[a-zA-Z0-9:._@-]{1,100}$"
+          },
+          "parameter": {
+            "type": "string",
+            "pattern": "^[\\s\\S]{0,128}$"
           }
         }
       },
@@ -2901,6 +2905,10 @@
           "timestamp": {
             "type": "integer",
             "format": "int64"
+          },
+          "parameter": {
+            "type": "string",
+            "pattern": "^.{0,128}$"
           }
         }
       },
@@ -3013,6 +3021,9 @@
           "interaction": {
             "type": "string"
           },
+          "parameter": {
+            "type": "string"
+          },
           "count": {
             "type": "integer",
             "format": "int32"
@@ -3027,6 +3038,9 @@
             "format": "int64"
           },
           "interaction": {
+            "type": "string"
+          },
+          "parameter": {
             "type": "string"
           },
           "count": {
