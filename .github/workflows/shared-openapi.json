@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
     "title": "MOOST Public API",
     "description": "Moost Recommender Platform Open-API specification for public API's",
