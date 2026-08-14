@@ -1006,7 +1006,6 @@
             "schema": {
               "type": "string",
               "enum": [
-                "GRID_POWER_CONSUMPTION_CLUSTER",
                 "CONSUMPTION_CATEGORY",
                 "ELCOM",
                 "BEP"
@@ -2469,10 +2468,6 @@
           "commercialBuildingScore": {
             "type": "number",
             "format": "double"
-          },
-          "gridPowerConsumptionClusterId": {
-            "type": "integer",
-            "format": "int32"
           },
           "consumptionCategory": {
             "type": "string",
