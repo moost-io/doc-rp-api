@@ -3349,6 +3349,13 @@
           },
           "features": {
             "$ref": "#/components/schemas/CustomerFeatures"
+          },
+          "eventIngestionMode": {
+            "type": "string",
+            "enum": [
+              "DAILY",
+              "CONTINUOUS"
+            ]
           }
         },
         "required": [
