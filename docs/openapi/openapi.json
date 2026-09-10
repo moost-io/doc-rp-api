@@ -1246,6 +1246,104 @@
           }
         }
       },
+      "SftpgoAuthRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,100}$"
+          },
+          "password": {
+            "type": "string",
+            "pattern": "^[^\\p{Cntrl}]{1,100}$"
+          },
+          "ip": {
+            "type": "string"
+          },
+          "protocol": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "protocol",
+          "username"
+        ]
+      },
+      "SftpgoAuthResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string"
+          },
+          "home_dir": {
+            "type": "string"
+          },
+          "permissions": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "external_auth_cache_time": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filesystem": {
+            "$ref": "#/components/schemas/SftpgoFilesystem"
+          }
+        }
+      },
+      "SftpgoFilesystem": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "azblobfsconfig": {
+            "$ref": "#/components/schemas/SftpgoFilesystemAzBlobConfig"
+          }
+        },
+        "required": [
+          "provider"
+        ]
+      },
+      "SftpgoFilesystemAzBlobConfig": {
+        "type": "object",
+        "properties": {
+          "container": {
+            "type": "string"
+          },
+          "account_name": {
+            "type": "string"
+          },
+          "account_key": {
+            "type": "string"
+          },
+          "key_prefix": {
+            "type": "string"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "use_emulator": {
+            "type": "boolean"
+          },
+          "access_tier": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "container"
+        ]
+      },
       "OrgMember": {
         "type": "object",
         "properties": {
