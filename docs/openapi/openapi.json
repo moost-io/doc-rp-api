@@ -2476,26 +2476,6 @@
           }
         }
       },
-      "EffectiveCapacity": {
-        "type": "object",
-        "properties": {
-          "score": {
-            "type": "number",
-            "format": "float"
-          },
-          "quality": {
-            "type": "number",
-            "format": "float"
-          },
-          "daysFit": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "method": {
-            "type": "string"
-          }
-        }
-      },
       "Elcom": {
         "type": "object",
         "properties": {
@@ -2664,9 +2644,6 @@
           "motivationScoreConfidence": {
             "type": "number",
             "format": "double"
-          },
-          "effectiveCapacity": {
-            "$ref": "#/components/schemas/EffectiveCapacity"
           },
           "elcom": {
             "$ref": "#/components/schemas/Elcom"
