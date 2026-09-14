@@ -2309,9 +2309,16 @@
             "type": "string"
           },
           "subGroup": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "groupDescription": {
             "type": "string"
           },
-          "label": {
+          "subGroupDescription": {
+            "type": "string"
+          },
+          "groupDisplayName": {
             "type": "string"
           }
         }
