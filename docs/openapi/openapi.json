@@ -1062,7 +1062,6 @@
             "schema": {
               "type": "string",
               "enum": [
-                "CONSUMPTION_CATEGORY",
                 "ELCOM",
                 "BEP"
               ]
@@ -3941,12 +3940,6 @@
             }
           },
           "selfSufficiencyScore": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BuildingGroupCount"
-            }
-          },
-          "consumptionCategory": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BuildingGroupCount"
