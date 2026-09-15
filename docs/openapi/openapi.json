@@ -2634,19 +2634,6 @@
             "type": "number",
             "format": "double"
           },
-          "consumptionCategory": {
-            "type": "string",
-            "enum": [
-              "EXTREMELY_HIGH",
-              "VERY_HIGH",
-              "HIGH",
-              "MEDIUM",
-              "LOW",
-              "VERY_LOW",
-              "EXTREMELY_LOW",
-              "ZERO"
-            ]
-          },
           "motivationScoreConfidence": {
             "type": "number",
             "format": "double"
