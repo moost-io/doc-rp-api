@@ -3342,10 +3342,10 @@
       "Customer": {
         "type": "object",
         "properties": {
-          "tenantBasedBillingEnabled": {
+          "eventDuplicateCacheEnabled": {
             "type": "boolean"
           },
-          "eventDuplicateCacheEnabled": {
+          "tenantBasedBillingEnabled": {
             "type": "boolean"
           },
           "computedEventTypes": {
