@@ -2699,6 +2699,12 @@
         "properties": {
           "tariff": {
             "$ref": "#/components/schemas/TariffSettings"
+          },
+          "intelligenceEnabled": {
+            "type": "boolean"
+          },
+          "engagementEnabled": {
+            "type": "boolean"
           }
         }
       },
@@ -3342,10 +3348,10 @@
       "Customer": {
         "type": "object",
         "properties": {
-          "eventDuplicateCacheEnabled": {
+          "tenantBasedBillingEnabled": {
             "type": "boolean"
           },
-          "tenantBasedBillingEnabled": {
+          "eventDuplicateCacheEnabled": {
             "type": "boolean"
           },
           "computedEventTypes": {
@@ -3445,6 +3451,9 @@
               "PREMIUM",
               "ENTERPRISE"
             ]
+          },
+          "subscriptions": {
+            "$ref": "#/components/schemas/SubscriptionSet"
           },
           "notificationLanguages": {
             "type": "array",
@@ -3561,6 +3570,38 @@
           "energyGenerationCurveShape": {
             "type": "number",
             "format": "float"
+          }
+        }
+      },
+      "SubscriptionSet": {
+        "type": "object",
+        "properties": {
+          "intelligence": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "BASIC",
+              "PREMIUM",
+              "MANAGED"
+            ]
+          },
+          "engagement": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "BASIC",
+              "PREMIUM",
+              "MANAGED"
+            ]
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "DEEP_INSIGHTS"
+              ]
+            }
           }
         }
       },
