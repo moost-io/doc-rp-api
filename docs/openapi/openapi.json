@@ -72,6 +72,7 @@
           "PublicAPI"
         ],
         "summary": "Activate or deactivate a rule for a building",
+        "description": "**Required authority:** `hasAuthority('write:buildings')`",
         "operationId": "setRuleActivityForBuilding",
         "parameters": [
           {
@@ -116,7 +117,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('write:buildings')"
       }
     },
     "/buildings/{customerBuildingId}/devices/v1": {
@@ -125,6 +127,7 @@
           "PublicAPI"
         ],
         "summary": "Attach a set of devices to a building",
+        "description": "**Required authority:** `hasAuthority('write:buildings')`",
         "operationId": "setDevices",
         "parameters": [
           {
@@ -163,7 +166,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('write:buildings')"
       }
     },
     "/buildings/v1": {
@@ -172,6 +176,7 @@
           "PublicAPI"
         ],
         "summary": "Get all buildings",
+        "description": "**Required authority:** `hasAuthority('read:buildings')`",
         "operationId": "getBuildings",
         "parameters": [
           {
@@ -203,13 +208,15 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
       },
       "put": {
         "tags": [
           "PublicAPI"
         ],
         "summary": "Update a building",
+        "description": "**Required authority:** `hasAuthority('write:buildings')`",
         "operationId": "updateBuilding",
         "requestBody": {
           "content": {
@@ -240,14 +247,15 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('write:buildings')"
       },
       "post": {
         "tags": [
           "PublicAPI"
         ],
         "summary": "Create a building",
-        "description": "Creates a new building. When in EXCLUDE mode and no activeRules are provided it will add all existing rules of the customer to the activeRules of the building.",
+        "description": "Creates a new building. When in EXCLUDE mode and no activeRules are provided it will add all existing rules of the customer to the activeRules of the building.\n\n**Required authority:** `hasAuthority('write:buildings')`",
         "operationId": "createBuilding",
         "requestBody": {
           "content": {
@@ -278,7 +286,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('write:buildings')"
       }
     },
     "/rules/v1": {
@@ -287,6 +296,7 @@
           "PublicAPI"
         ],
         "summary": "Get Rules",
+        "description": "**Required authority:** `hasAuthority('read:rules')`",
         "operationId": "getRulesV1",
         "parameters": [
           {
@@ -328,7 +338,8 @@
               }
             }
           }
-        }
+        },
+        "x-required-authority": "hasAuthority('read:rules')"
       }
     },
     "/pushnotifications/{pushNotificationId}/interactions/v1": {
@@ -337,6 +348,7 @@
           "PublicAPI"
         ],
         "summary": "Save an interaction on a delivered push notification",
+        "description": "**Required authority:** `hasAuthority('write:pushnotifications')`",
         "operationId": "postPushNotificationInteraction",
         "parameters": [
           {
@@ -365,7 +377,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "x-required-authority": "hasAuthority('write:pushnotifications')"
       }
     },
     "/events/metering-data/{customerBuildingId}/ebIX/v1": {
@@ -374,6 +387,7 @@
           "PublicAPI"
         ],
         "summary": "Reads ebIX formatted XML file containing metering data and inserts GRID_ENERGY_CONSUMPTION and ENERGY_EXCESS into the database. We expect metering data for a single building, containing 96 energy consumption values, and if building has PV, 96 energy excess values (except on daylight-saving change dates, where it would be either 92 or 100). Remark: currently only ebIX SDAT-CH format is supported.",
+        "description": "**Required authority:** `hasAuthority('write:events')`",
         "operationId": "insertMeteringData",
         "parameters": [
           {
@@ -421,7 +435,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('write:events')"
       }
     },
     "/events/historical/v1": {
@@ -430,6 +445,7 @@
           "PublicAPI"
         ],
         "summary": "Inserts historical events to the database. I.e. these events are not processed by the rule engine when receiving these events.Event customerId has to be in-line with customerId of the JWT).",
+        "description": "**Required authority:** `hasAuthority('write:events')`",
         "operationId": "insertHistoricalEventsV1",
         "requestBody": {
           "content": {
@@ -469,7 +485,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('write:events')"
       }
     },
     "/rules/tags/v1": {
@@ -478,6 +495,7 @@
           "PublicAPI"
         ],
         "summary": "Get all distinct tags used on any rules",
+        "description": "**Required authority:** `hasAuthority('read:rules')`",
         "operationId": "getTagsV1",
         "responses": {
           "200": {
@@ -506,7 +524,8 @@
               }
             }
           }
-        }
+        },
+        "x-required-authority": "hasAuthority('read:rules')"
       }
     },
     "/pushnotifications/{pushNotificationId}/reasoning/v1": {
@@ -515,6 +534,7 @@
           "PublicAPI"
         ],
         "summary": "Get reasoning for a push notification",
+        "description": "**Required authority:** `hasAuthority('read:pushnotifications')`",
         "operationId": "getPushNotificationReasoning",
         "parameters": [
           {
@@ -580,7 +600,8 @@
               }
             }
           }
-        }
+        },
+        "x-required-authority": "hasAuthority('read:pushnotifications')"
       }
     },
     "/pushnotifications/buildings/{customerBuildingId}/v1": {
@@ -589,6 +610,7 @@
           "PublicAPI"
         ],
         "summary": "Get push notifications of a building",
+        "description": "**Required authority:** `hasAuthority('read:pushnotifications')`",
         "operationId": "getPushNotificationsByCustomerBuildingId",
         "parameters": [
           {
@@ -629,7 +651,8 @@
               }
             }
           }
-        }
+        },
+        "x-required-authority": "hasAuthority('read:pushnotifications')"
       }
     },
     "/buildings/{customerBuildingId}/v1": {
@@ -638,6 +661,7 @@
           "PublicAPI"
         ],
         "summary": "Get a building",
+        "description": "**Required authority:** `hasAuthority('read:buildings')`",
         "operationId": "getBuilding",
         "parameters": [
           {
@@ -667,13 +691,15 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
       },
       "delete": {
         "tags": [
           "PublicAPI"
         ],
         "summary": "Delete a building",
+        "description": "**Required authority:** `hasAuthority('write:buildings')`",
         "operationId": "deleteBuilding",
         "parameters": [
           {
@@ -698,7 +724,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('write:buildings')"
       }
     },
     "/buildings/{customerBuildingId}/rules/v2": {
@@ -707,6 +734,7 @@
           "PublicAPI"
         ],
         "summary": "Get all active rules of a building",
+        "description": "**Required authority:** `hasAuthority('read:buildings')`",
         "operationId": "getActiveRulesOfBuilding",
         "parameters": [
           {
@@ -742,7 +770,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
       }
     },
     "/buildings/{customerBuildingId}/energy-statistics/monthly/v1": {
@@ -751,7 +780,7 @@
           "PublicAPI"
         ],
         "summary": "A building’s energy data with monthly readings",
-        "description": "Get energy related data of a building, aggregated on a monthly basis.",
+        "description": "Get energy related data of a building, aggregated on a monthly basis.\n<br/>\n<b>Required subscription:</b> `Intelligence`\n\n\n**Required authority:** `hasAuthority('read:buildings')`",
         "operationId": "getMonthlyEnergyStatistics",
         "parameters": [
           {
@@ -826,7 +855,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
       }
     },
     "/buildings/{customerBuildingId}/energy-statistics/hourly/v1": {
@@ -835,7 +865,7 @@
           "PublicAPI"
         ],
         "summary": "A building’s energy data with hourly readings",
-        "description": "Get energy related data of a building, aggregated on a hourly basis.",
+        "description": "Get energy related data of a building, aggregated on a hourly basis.\n<br/>\n<b>Required subscription:</b> `Intelligence`\n\n\n**Required authority:** `hasAuthority('read:buildings')`",
         "operationId": "getHourlyEnergyStatistics",
         "parameters": [
           {
@@ -907,7 +937,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
       }
     },
     "/buildings/{customerBuildingId}/energy-statistics/daily/v1": {
@@ -916,7 +947,7 @@
           "PublicAPI"
         ],
         "summary": "A building’s energy data with daily readings",
-        "description": "Get energy related data of a building, aggregated on a daily basis.",
+        "description": "Get energy related data of a building, aggregated on a daily basis.\n<br/>\n<b>Required subscription:</b> `Intelligence`\n\n\n**Required authority:** `hasAuthority('read:buildings')`",
         "operationId": "getDailyEnergyStatistics",
         "parameters": [
           {
@@ -993,7 +1024,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
       }
     },
     "/buildings/{customerBuildingId}/energy-statistics/comparison/daily/v1": {
@@ -1002,7 +1034,7 @@
           "PublicAPI"
         ],
         "summary": "A building’s energy data with daily readings, and comparison with comparable buildings",
-        "description": "Get energy related data of a building, aggregated on a daily basis and compare it with comparable buildings.\n<br/>\nThe comparison group has the following values:\n<ul>\n<li>Rank in comparison group. Rank 1 is the one with highest value.</li>\n<li>Size of the comparison group.</li>\n<li>Minimum value in the comparison group.</li>\n<li>Maximum value in the comparison group.</li>\n<li>25th percentile in the comparison group.</li>\n<li>Median (50th percentile) in the comparison group.</li>\n<li>75th percentile in the comparison group.</li>\n</ul>\n",
+        "description": "Get energy related data of a building, aggregated on a daily basis and compare it with comparable buildings.\n<br/>\n<b>Required subscription:</b> `Intelligence`\n<br/>\nThe comparison group has the following values:\n<ul>\n<li>Rank in comparison group. Rank 1 is the one with highest value.</li>\n<li>Size of the comparison group.</li>\n<li>Minimum value in the comparison group.</li>\n<li>Maximum value in the comparison group.</li>\n<li>25th percentile in the comparison group.</li>\n<li>Median (50th percentile) in the comparison group.</li>\n<li>75th percentile in the comparison group.</li>\n</ul>\n\n\n**Required authority:** `hasAuthority('read:buildings')`",
         "operationId": "getDailyComparisonEnergyStatistics",
         "parameters": [
           {
@@ -1088,7 +1120,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
       }
     },
     "/buildings/{customerBuildingId}/energy-forecast/v1": {
@@ -1097,7 +1130,7 @@
           "PublicAPI"
         ],
         "summary": "A building’s energy forecast data",
-        "description": "Get energy forecast data of a building.",
+        "description": "Get energy forecast data of a building.\n<br/>\n<b>Required subscription:</b> `Intelligence`\n\n\n**Required authority:** `hasAuthority('read:buildings')`",
         "operationId": "getEnergyForecast",
         "parameters": [
           {
@@ -1173,7 +1206,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
       }
     },
     "/buildings/core-data/v1": {
@@ -1182,6 +1216,7 @@
           "PublicAPI"
         ],
         "summary": "Get core data of all buildings. Similar the other GET /buildings/v1, it returns a full list of buildings, but without anydetailed information (such as devices, settings, profile, etc.), which makes it faster and reduces the payload considerably.",
+        "description": "**Required authority:** `hasAuthority('read:buildings')`",
         "operationId": "getCoreDataOfBuildings",
         "parameters": [
           {
@@ -1213,7 +1248,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
       }
     },
     "/events/v1": {
