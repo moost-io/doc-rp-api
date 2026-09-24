@@ -3390,9 +3390,6 @@
       "Customer": {
         "type": "object",
         "properties": {
-          "tenantBasedBillingEnabled": {
-            "type": "boolean"
-          },
           "eventDuplicateCacheEnabled": {
             "type": "boolean"
           },
@@ -3548,9 +3545,6 @@
           "isEventDuplicateCacheEnabled": {
             "type": "boolean"
           },
-          "isTenantBasedBillingEnabled": {
-            "type": "boolean"
-          },
           "features": {
             "$ref": "#/components/schemas/CustomerFeatures"
           },
@@ -3560,11 +3554,41 @@
               "DAILY",
               "CONTINUOUS"
             ]
+          },
+          "billingSettings": {
+            "$ref": "#/components/schemas/CustomerBillingSettings"
           }
         },
         "required": [
           "name"
         ]
+      },
+      "CustomerBillingSettings": {
+        "type": "object",
+        "properties": {
+          "tenantBasedBillingEnabled": {
+            "type": "boolean"
+          },
+          "billingEnabled": {
+            "type": "boolean"
+          },
+          "isBillingEnabled": {
+            "type": "boolean"
+          },
+          "invoiceType": {
+            "type": "string",
+            "enum": [
+              "CREDIT_CARD",
+              "INVOICE"
+            ]
+          },
+          "hasFreemium": {
+            "type": "boolean"
+          },
+          "isTenantBasedBillingEnabled": {
+            "type": "boolean"
+          }
+        }
       },
       "CustomerFeatures": {
         "type": "object",
