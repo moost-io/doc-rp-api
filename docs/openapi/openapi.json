@@ -666,6 +666,86 @@
         "x-required-authority": "hasAuthority('read:buildings')"
       }
     },
+    "/buildings/{customerBuildingId}/profiles/elcom/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get the ELCOM profile of a building",
+        "description": "**Required authority:** `hasAuthority('read:buildings')`",
+        "operationId": "getElcomProfile",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "description": "Select specified building.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Elcom"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
+      }
+    },
+    "/buildings/{customerBuildingId}/profiles/bep/v1": {
+      "get": {
+        "tags": [
+          "PublicAPI"
+        ],
+        "summary": "Get the BEP profile of a building",
+        "description": "**Required authority:** `hasAuthority('read:buildings')`",
+        "operationId": "getBepProfile",
+        "parameters": [
+          {
+            "name": "customerBuildingId",
+            "in": "path",
+            "description": "Select specified building.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9:._-]{1,100}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bep"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-required-authority": "hasAuthority('read:buildings')"
+      }
+    },
     "/buildings/{customerBuildingId}/energy-statistics/monthly/v1": {
       "get": {
         "tags": [
