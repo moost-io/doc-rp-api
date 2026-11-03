@@ -2777,6 +2777,26 @@
           },
           "behindMeter": {
             "$ref": "#/components/schemas/ProfileBehindMeter"
+          },
+          "batterySizeRecommendation": {
+            "$ref": "#/components/schemas/ProfileBatterySizeRecommendation"
+          }
+        }
+      },
+      "ProfileBatterySizeRecommendation": {
+        "type": "object",
+        "properties": {
+          "recommendedCapacityWh": {
+            "type": "number",
+            "format": "double"
+          },
+          "recommendedPowerW": {
+            "type": "number",
+            "format": "double"
+          },
+          "percentBillSavings": {
+            "type": "number",
+            "format": "double"
           }
         }
       },
