@@ -2327,6 +2327,169 @@
           "type"
         ]
       },
+      "Bep": {
+        "type": "object",
+        "properties": {
+          "group": {
+            "type": "string"
+          },
+          "subGroup": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "groupDescription": {
+            "type": "string"
+          },
+          "subGroupDescription": {
+            "type": "string"
+          },
+          "groupDisplayName": {
+            "type": "string"
+          }
+        }
+      },
+      "Elcom": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "H1",
+              "H2",
+              "H3",
+              "H4",
+              "H5",
+              "H6",
+              "H7",
+              "H8",
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6",
+              "C7"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "format": "float"
+          },
+          "probabilities": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          "summary": {
+            "type": "string"
+          }
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "multiPersonScore": {
+            "type": "number",
+            "format": "double"
+          },
+          "ecologicalScore": {
+            "type": "number",
+            "format": "double"
+          },
+          "economicalScore": {
+            "type": "number",
+            "format": "double"
+          },
+          "selfSufficiencyScore": {
+            "type": "number",
+            "format": "double"
+          },
+          "commercialBuildingScore": {
+            "type": "number",
+            "format": "double"
+          },
+          "motivationScoreConfidence": {
+            "type": "number",
+            "format": "double"
+          },
+          "elcom": {
+            "$ref": "#/components/schemas/Elcom"
+          },
+          "bep": {
+            "$ref": "#/components/schemas/Bep"
+          },
+          "behindMeter": {
+            "$ref": "#/components/schemas/ProfileBehindMeter"
+          },
+          "batterySizeRecommendation": {
+            "$ref": "#/components/schemas/ProfileBatterySizeRecommendation"
+          }
+        }
+      },
+      "ProfileBatterySizeRecommendation": {
+        "type": "object",
+        "properties": {
+          "recommendedCapacityWh": {
+            "type": "number",
+            "format": "double"
+          },
+          "recommendedPowerW": {
+            "type": "number",
+            "format": "double"
+          },
+          "percentBillSavings": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "ProfileBehindMeter": {
+        "type": "object",
+        "properties": {
+          "daily": {
+            "$ref": "#/components/schemas/ProfileBehindMeterDaily"
+          },
+          "hourly": {
+            "$ref": "#/components/schemas/ProfileBehindMeterHourly"
+          }
+        }
+      },
+      "ProfileBehindMeterDaily": {
+        "type": "object",
+        "properties": {
+          "energyExcessSlope": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyGenerationCap": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyGenerationMean": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyConsumptionMean": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "ProfileBehindMeterHourly": {
+        "type": "object",
+        "properties": {
+          "energyExcessSlope": {
+            "type": "number",
+            "format": "float"
+          },
+          "energyGenerationCap": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
       "RuleUserRelation": {
         "type": "object",
         "properties": {
@@ -2431,27 +2594,6 @@
           "type",
           "vendor_name"
         ]
-      },
-      "Bep": {
-        "type": "object",
-        "properties": {
-          "group": {
-            "type": "string"
-          },
-          "subGroup": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "groupDescription": {
-            "type": "string"
-          },
-          "subGroupDescription": {
-            "type": "string"
-          },
-          "groupDisplayName": {
-            "type": "string"
-          }
-        }
       },
       "Building": {
         "type": "object",
@@ -2613,45 +2755,6 @@
           }
         }
       },
-      "Elcom": {
-        "type": "object",
-        "properties": {
-          "category": {
-            "type": "string",
-            "enum": [
-              "H1",
-              "H2",
-              "H3",
-              "H4",
-              "H5",
-              "H6",
-              "H7",
-              "H8",
-              "C1",
-              "C2",
-              "C3",
-              "C4",
-              "C5",
-              "C6",
-              "C7"
-            ]
-          },
-          "confidence": {
-            "type": "number",
-            "format": "float"
-          },
-          "probabilities": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "number",
-              "format": "float"
-            }
-          },
-          "summary": {
-            "type": "string"
-          }
-        }
-      },
       "Geolocation": {
         "type": "object",
         "properties": {
@@ -2741,109 +2844,6 @@
           "wednesdayEndTime",
           "wednesdayStartTime"
         ]
-      },
-      "Profile": {
-        "type": "object",
-        "properties": {
-          "multiPersonScore": {
-            "type": "number",
-            "format": "double"
-          },
-          "ecologicalScore": {
-            "type": "number",
-            "format": "double"
-          },
-          "economicalScore": {
-            "type": "number",
-            "format": "double"
-          },
-          "selfSufficiencyScore": {
-            "type": "number",
-            "format": "double"
-          },
-          "commercialBuildingScore": {
-            "type": "number",
-            "format": "double"
-          },
-          "motivationScoreConfidence": {
-            "type": "number",
-            "format": "double"
-          },
-          "elcom": {
-            "$ref": "#/components/schemas/Elcom"
-          },
-          "bep": {
-            "$ref": "#/components/schemas/Bep"
-          },
-          "behindMeter": {
-            "$ref": "#/components/schemas/ProfileBehindMeter"
-          },
-          "batterySizeRecommendation": {
-            "$ref": "#/components/schemas/ProfileBatterySizeRecommendation"
-          }
-        }
-      },
-      "ProfileBatterySizeRecommendation": {
-        "type": "object",
-        "properties": {
-          "recommendedCapacityWh": {
-            "type": "number",
-            "format": "double"
-          },
-          "recommendedPowerW": {
-            "type": "number",
-            "format": "double"
-          },
-          "percentBillSavings": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      },
-      "ProfileBehindMeter": {
-        "type": "object",
-        "properties": {
-          "daily": {
-            "$ref": "#/components/schemas/ProfileBehindMeterDaily"
-          },
-          "hourly": {
-            "$ref": "#/components/schemas/ProfileBehindMeterHourly"
-          }
-        }
-      },
-      "ProfileBehindMeterDaily": {
-        "type": "object",
-        "properties": {
-          "energyExcessSlope": {
-            "type": "number",
-            "format": "float"
-          },
-          "energyGenerationCap": {
-            "type": "number",
-            "format": "float"
-          },
-          "energyGenerationMean": {
-            "type": "number",
-            "format": "float"
-          },
-          "energyConsumptionMean": {
-            "type": "number",
-            "format": "float"
-          }
-        }
-      },
-      "ProfileBehindMeterHourly": {
-        "type": "object",
-        "properties": {
-          "energyExcessSlope": {
-            "type": "number",
-            "format": "float"
-          },
-          "energyGenerationCap": {
-            "type": "number",
-            "format": "float"
-          }
-        }
       },
       "Settings": {
         "type": "object",
