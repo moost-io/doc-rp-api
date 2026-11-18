@@ -128,7 +128,7 @@
         ],
         "summary": "Attach a set of devices to a building",
         "description": "**Required authority:** `hasAuthority('write:buildings')`",
-        "operationId": "setDevices",
+        "operationId": "updateBuildingDevices",
         "parameters": [
           {
             "name": "customerBuildingId",
